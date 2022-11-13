@@ -20,5 +20,6 @@
     background-color: #ffffff;
     color: #000000;
     min-width: 450px;
-    padding: 24px;
+    padding: 40px;
+    border-radius: 10px;
 }
