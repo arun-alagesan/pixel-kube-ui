@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 
-const Layout = ({ children }) => {
+const Layout = ({ children }: any) => {
   return (
     <div className="h-screen flex flex-row justify-start">
       <Sidebar />

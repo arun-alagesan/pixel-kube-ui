@@ -1,6 +1,6 @@
-export default function Button({ children}: any, {onClick}: any) {
+export default function Button({ children , onClick, style}: any) {
    return( 
-    <button onClick={onClick} className="btn btn-primary w-full">
+    <button onClick={onClick} className={"btn btn-primary " + style}>
         {children}
     </button>
    )

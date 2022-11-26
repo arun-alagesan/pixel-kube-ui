@@ -3,7 +3,7 @@ import ModalBody from "../../lib/modalPopup/components/ModalBody";
 import ModalHeader from "../../lib/modalPopup/components/ModalHeader";
 import ModalFooter from "../../lib/modalPopup/components/ModalFooter";
 
-export default function TestModal(props) {
+export default function TestModal(props: any) {
   return (
     <Modal>
       <ModalHeader>

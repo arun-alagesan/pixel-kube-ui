@@ -1,4 +1,5 @@
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import Button from "../../common/Button";
 
 const clientId =
   "531686912380-bt5qnls2h1vi4omu0c4ti2fmhdi0f1ib.apps.googleusercontent.com";
@@ -19,7 +20,7 @@ export default function GoogleLoginButton() {
 
   return (
     <>
-      <button className="btn btn-primary w-full" onClick={() => login()}>Sign in with Google </button>;
+      <Button style="w-full" onClick={() => login()}>Sign in with Google </Button>
     </>
   );
 }

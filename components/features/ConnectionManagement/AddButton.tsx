@@ -19,7 +19,7 @@ export default function AddButton({onClose, calenderValue}: any , props:any) {
     const SelectedButton: any = ButtonSelector[calenderValue ? calenderValue : '70']
     return (
         <GoogleOAuthProvider clientId={clientId}>
-            <SelectedButton {...props}> 
+            <SelectedButton {...props} style="w-full"> 
                 Add
             </SelectedButton>
         </GoogleOAuthProvider>
