@@ -134,4 +134,144 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+=======
+
+/* Custom Styes */
+.pk-uploadFile {
+  background-color: #e4f7ff;
+  font-size: 13px;
+  border-radius: 25px;
+  padding: 7px 25px;
+  width: fit-content;
+}
+
+.pk_pointer {
+  cursor: pointer;
+}
+
+.pk_text_primary {
+  color: #1a8ef1;
+}
+
+.pk_block_menu {
+  background-color: white;
+  border: 1px solid #eee;
+  box-shadow: 2px 2px 5px #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.pk-input input {
+  padding: 0.5rem 0.8rem;
+}
+
+.pk-input label,
+.pk-dropdown label {
+  font-size: 14px;
+  top: -6px;
+}
+
+.pk-input label.MuiInputLabel-shrink {
+  top: 3px;
+}
+
+.pk-input legend span {
+  padding: 0;
+}
+
+.pk-dropdown .MuiSelect-select {
+  padding: 0.5rem 0.8rem;
+}
+
+.pk-dropdown label.MuiInputLabel-shrink {
+  font-size: 14px;
+  top: 2px;
+}
+
+.pk_file_upload_block {
+  padding: 15px 0px;
+  border: 1px dashed #aba9a9;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+/* Step Progress Style */
+
+#steps {
+  width: 100%;
+  text-align: center;
+}
+
+.step {
+  width: 40px;
+  height: 40px;
+  background-color: #cecece;
+  display: inline-block;
+  
+  border-radius: 50%;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  line-height: 35px;
+}
+
+.step:first-child {
+  line-height: 40px;
+}
+
+.step:nth-child(n + 2) {
+  margin: 0 0 0 72px;
+  transform: translate(0, -4px);
+}
+
+.step:nth-child(n + 2):before {
+  width: 60px;
+  height: 3px;
+  display: block;
+  background-color: #cecece;
+  transform: translate(-66px, 20px);
+  content: "";
+}
+
+.step:after {
+  width: 150px;
+  display: block;
+  transform: translate(-55px, 3px);
+  color: #818698;
+  content: attr(data-desc);
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.step:first-child:after {
+  transform: translate(-55px, -1px);
+}
+
+.step.active {
+  background-color: #37bdf2;
+}
+
+.step.active:before {
+  background: #37bdf2;
+}
+
+.step.active:after {
+  color: #313131;
+}
+
+.step.done {
+  background-color: #58bb58;
+  border-color: #58bb58;
+  color: white;
+}
+
+.step.done:before {
+  background-color: #58bb58;
+}
+
+.MuiButton-containedPrimary{
+  background-color: #1976d2;
+
 }

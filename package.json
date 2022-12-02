@@ -29,6 +29,13 @@
     "react-dom": "18.2.0",
     "react-google-login": "^5.2.2",
     "typescript": "4.8.4"
+    "react-hook-form": "^7.39.3",
+    "react-router-dom": "^6.4.3",
+    "@mui/x-data-grid": "^5.17.12",
+    "primeicons": "^6.0.1",
+    "primereact": "^8.7.2",
+    "yup": "^0.32.11",
+    "@hookform/resolvers": "^2.9.10"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

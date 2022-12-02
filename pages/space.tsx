@@ -1,22 +1,43 @@
 import React from 'react';
+import BlockMenu from '../components/BlockMenu';
 import TestModal from '../components/features/SpaceManagement/addSpace';
+import CreateOrganization from '../components/features/SpaceManagement/Organization/CreateOrganization';
+import CreateSpace from '../components/features/SpaceManagement/Space/CreateSpace';
 import Layout from '../components/Layout';
 import ModalRoot from '../components/lib/modalPopup/components/ModalRoot';
 import ModalService from '../components/lib/modalPopup/services/ModalService';
 
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import HandymanIcon from '@mui/icons-material/Handyman';
+
 const Space = () => {
 
-    const addModal = () => {
-        ModalService.open(TestModal);
-      };
-      
+    const openModel = (component: any) => {
+        ModalService.open(component);
+    };
+
     return (
         <Layout>
             <h2 className='header2'>Space Management</h2>
-            <div>
-                <ModalRoot />
-                <button onClick={ addModal } className="btn btn-primary m-4">Open modal</button>
+
+            <div className="row justify-content-center mt-5">
+                <div className="col-12 col-md-3">
+                    <BlockMenu heading="Organization" subHeading="Manage Organization(s)" icon={AccountTreeIcon} onClick={() => openModel(CreateOrganization)} />
+                </div>
+                <div className="col-12 col-md-3">
+                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={ApartmentIcon} />
+                </div>
+                <div className="col-12 col-md-3">
+                    <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={MeetingRoomIcon} onClick={() => openModel(CreateSpace)} />
+                </div>
+                <div className="col-12 col-md-3">
+                    <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={HandymanIcon} />
+                </div>
             </div>
+
+            <ModalRoot />
         </Layout>
     )
 }
