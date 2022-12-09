@@ -1,20 +1,29 @@
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import ArrowIcon from "./icons/ArrowIcon";
-import IconOne from "./icons/IconOne";
+//import IconOne from "./icons/IconOne";
 import TrashIcon from "./icons/AdminAppIcon";
-import AdminAppIcon from "./icons/AdminAppIcon";
-import DashBoardIcon from "./icons/DashBoardIcon";
+
+
 import ConnectorIcon from "./icons/ConnectorIcon";
 import SpaceMngtIcon from "./icons/SpaceMngtIcon";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
+import PixleKubeLogo from "../assets/icons/pixelkube-logo.svg"
+import AdminApps from "../assets/icons/admin.svg";
+import DashBoard from "../assets/icons/dashboard.svg";
+import ConnectionManagement from "../assets/icons/connectormanagement.svg"
+import SystemManagement from "../assets/icons/systemmanagement.svg"
+import UserManagement from "../assets/icons/usermanagement.svg"
+import SpaceManagement from "../assets/icons/spacemanagement.svg"
 const menuItems = [
-    {id: 1, label: "Admin Apps", icon: AdminAppIcon, link: "/"},
-    {id: 2, label: "Dashboard", icon: DashBoardIcon, link: "/dashboard"},
-    {id: 3, label: "Connector Management", icon: ConnectorIcon, link: "/connector"},
-    {id: 4, label: "Space management", icon: SpaceMngtIcon, link: "/space"},
+    {id: 1, label: "Admin Apps", icon: AdminApps, link: "/"},
+    {id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard"},
+    {id: 3, label: "Connector Management", icon: ConnectionManagement, link: "/connector"},
+    {id: 4, label: "Space Management", icon: SpaceManagement, link: "/space"},
+    {id: 5, label: "User Management", icon: UserManagement, link: "/"},
+    {id: 6, label: "System Management", icon: SystemManagement, link: "/"}
 ]
 
 const Sidebar = () => {
@@ -64,14 +73,7 @@ const Sidebar = () => {
       <div className="flex flex-col">
         <div className="flex items-center justify-between relative">
           <div className="flex items-center pl-1 gap-4">
-            <IconOne />
-            {/* <span
-              className={classNames("mt-1 text-lg font-medium text-text", {
-                hidden: toggleCollapse,
-              })}
-            >
-              Admin Apps
-            </span> */}
+            <PixleKubeLogo />
           </div>
         </div>
         <div className="flex flex-col items-start mt-24">
