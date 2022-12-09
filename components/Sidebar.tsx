@@ -1,12 +1,7 @@
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
 import ArrowIcon from "./icons/ArrowIcon";
-//import IconOne from "./icons/IconOne";
-import TrashIcon from "./icons/AdminAppIcon";
 
-
-import ConnectorIcon from "./icons/ConnectorIcon";
-import SpaceMngtIcon from "./icons/SpaceMngtIcon";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -35,7 +30,7 @@ const Sidebar = () => {
   const activeMenu = useMemo(() => menuItems.find(menu => menu.link === router.pathname), [router.pathname])
 
   const wrapperclasses = classNames(
-    "h-screen px-4 pt-8 pb-4 flex justify-between flex-col border w-80 relative",
+    "h-screen flex justify-between flex-col border w-80 relative",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
@@ -72,19 +67,19 @@ const Sidebar = () => {
     >
       <div className="flex flex-col">
         <div className="flex items-center justify-between relative">
-          <div className="flex items-center pl-1 gap-4">
+          <div className="mainlogo flex items-center pl-2 pt-4 gap-4" style={{margin:"auto"}} >
             <PixleKubeLogo />
           </div>
         </div>
-        <div className="flex flex-col items-start mt-24">
+        <div className="flex flex-col items-start mt-4">
             {menuItems.map(({ icon: Icon, ...menu }, i:number) => {
                 const classes = getNavItemClasses(menu);
                 return (
                     <div className={classes} key={i}>
                         <Link href={menu.link}>
-                            <button className="flex py-4 px-3 items-center w-full h-full">
-                                <div style={{ width: '2.5rem' }}>
-                                    <Icon />
+                            <button className="flex p-3 items-center w-full h-full">
+                                <div style={{ width: '2 rem' }}>
+                                    <Icon style={{ border:"1px red soid" }} />
                                 </div>
                                 {!toggleCollapse && (
                                     <span className={classNames('text-md font-medium text-text-light', {hidden: toggleCollapse})}>
