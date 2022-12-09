@@ -7,7 +7,7 @@ const Dashboard = () => {
         <div className='text'>
             <Layout>
                 <h2 className='header2'>Dashboard</h2>
-                <div className='container' style={{width:"650px",height:"450px", border:"1px solid red", margin:"auto", textAlign:"center"}}>
+                <div className='container' style={{width:"650px",height:"450px", margin:"auto", textAlign:"center"}}>
                     <RobotLogo style={{margin:"auto"}}/>
                     No records found
                 </div>
