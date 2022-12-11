@@ -12,6 +12,7 @@ import ConnectionManagement from "../assets/icons/connectormanagement.svg"
 import SystemManagement from "../assets/icons/systemmanagement.svg"
 import UserManagement from "../assets/icons/usermanagement.svg"
 import SpaceManagement from "../assets/icons/spacemanagement.svg"
+import ToggleIcon from "../assets/icons/toggle.svg"
 const menuItems = [
     {id: 1, label: "Admin Apps", icon: AdminApps, link: "/"},
     {id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard"},
@@ -30,14 +31,14 @@ const Sidebar = () => {
   const activeMenu = useMemo(() => menuItems.find(menu => menu.link === router.pathname), [router.pathname])
 
   const wrapperclasses = classNames(
-    "h-screen flex justify-between flex-col border w-80 relative",
+    "h-screen flex justify-between flex-col border w-80 relative bg-white",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
     }
   );
   const collapseIconClasses = classNames(
-    "p-2 bg-light-lighter absolute toggle-arrow",
+    "p-2 bg-light-lighter absolute toggle-arrow bg-white w-10",
     {
       "rotate-180": toggleCollapse,
     }
@@ -77,9 +78,9 @@ const Sidebar = () => {
                 return (
                     <div className={classes} key={i}>
                         <Link href={menu.link}>
-                            <button className="flex p-3 items-center w-full h-full">
-                                <div style={{ width: '2 rem' }}>
-                                    <Icon style={{ border:"1px red soid" }} />
+                            <button className="flex py-4 px-3 items-center w-full h-full">
+                                <div style={{ width: '2.5rem' }}>
+                                    <Icon  />
                                 </div>
                                 {!toggleCollapse && (
                                     <span className={classNames('text-md font-medium text-text-light', {hidden: toggleCollapse})}>
@@ -96,7 +97,7 @@ const Sidebar = () => {
       </div>
       <div></div>
       <button className={collapseIconClasses} onClick={handleSidebarToggle}>
-        <ArrowIcon />
+        <ToggleIcon />
       </button>
     </div>
   );
