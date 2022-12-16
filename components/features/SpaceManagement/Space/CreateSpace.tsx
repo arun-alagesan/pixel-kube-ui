@@ -9,7 +9,7 @@ import SpaceDetails from "./SpaceDetails";
 
 const CreateSpace = (props: any) => {
     const steps = ['Select Space', 'Add Details', 'Add Room'];
-    const [currentStep, setCurrentStep] = useState(2);
+    const [currentStep, setCurrentStep] = useState(0);
 
     const changeStep = () => {
         setCurrentStep(currentStep + 1);
