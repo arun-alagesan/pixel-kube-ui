@@ -16,7 +16,7 @@ import Breadcrumbs from "../components/common/Breadcrumbs";
 import Router from 'next/router'
 
 const Space = () => {
-    
+
 
     const openModel = (component: any) => {
         ModalService.open(component);
@@ -38,7 +38,7 @@ const Space = () => {
                     <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={MeetingRoomIcon} onClick={() => openModel(CreateSpace)} />
                 </div>
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={HandymanIcon} onClick={() =>  Router.push('/space/facilitiesManagement')}  />
+                    <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={HandymanIcon} onClick={() => Router.push('/space/facilitiesManagement')} />
                 </div>
             </div>
 
