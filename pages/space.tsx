@@ -11,8 +11,12 @@ import ApartmentIcon from '@mui/icons-material/Apartment';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import HandymanIcon from '@mui/icons-material/Handyman';
+import Breadcrumbs from "../components/common/Breadcrumbs";
+
+import Router from 'next/router'
 
 const Space = () => {
+    
 
     const openModel = (component: any) => {
         ModalService.open(component);
@@ -20,7 +24,8 @@ const Space = () => {
 
     return (
         <Layout>
-            <h2 className='header2'>Space Management</h2>
+            <h2 className="text-xl font-bold">Space Management</h2>
+            <Breadcrumbs currentPage={"Space Management"} />
 
             <div className="row justify-content-center mt-5">
                 <div className="col-12 col-md-3">
@@ -33,7 +38,7 @@ const Space = () => {
                     <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={MeetingRoomIcon} onClick={() => openModel(CreateSpace)} />
                 </div>
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={HandymanIcon} />
+                    <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={HandymanIcon} onClick={() =>  Router.push('/space/facilitiesManagement')}  />
                 </div>
             </div>
 
