@@ -35,18 +35,18 @@ const schema = yup.object().shape({
 });
 
 
-type props = { changeStep: (step:number) => void };
+type props = { changeStep: (step: number) => void };
 
 let renderCount = 0;
 const AddOrgGeneral = ({ changeStep }: props) => {
-  
+
   console.log("renderCount", ++renderCount);
 
   type initializeDataType = { industries: Industry[], countries: Country[] };
-  
+
   const [open, setOpen] = useState(false);
   const [, setLogo] = useState<any>();
-  const [initializeData, setInitializeData] = useState<initializeDataType>({ industries: [], countries: [] });  
+  const [initializeData, setInitializeData] = useState<initializeDataType>({ industries: [], countries: [] });
   const [states, setStates] = useState<State[]>([]);
   const [cities, setCities] = useState<City[]>([]);
 
@@ -76,11 +76,11 @@ const AddOrgGeneral = ({ changeStep }: props) => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
- 
+
 
   let selectedCountry: number;
   let selectedState: number;
-  
+
   const industries = initializeData!.industries;
   const countries = initializeData!.countries;
 
@@ -108,8 +108,8 @@ const AddOrgGeneral = ({ changeStep }: props) => {
     })
   };
 
-  
-  
+
+
 
   const handleFileChange = (e: any) => {
     setLogo(fileInput.current?.files[0]);

@@ -9,14 +9,28 @@ function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
   console.info('You clicked a breadcrumb.');
 }
 
-export default function BasicBreadcrumbs({currentPage}: any) {
-  return (
-    <div role="presentation" className='py-2' onClick={handleClick}>
-      <Breadcrumbs aria-label="breadcrumb" sx={{fontSize : "12px", color : "#009AEE"}}>
+type props = { currentPage: string, routes?: any[] };
+export default function BasicBreadcrumbs({ currentPage, routes }: props) {
+
+
+  function getRoute() {
+    console.log(routes);
+    if (routes == null || routes.length == 0)
+      return (
         <Link color="blue" href="/">
           Home
         </Link>
-        <Typography sx={{fontSize : "12px", color: "gray"}}>{currentPage}</Typography>
+      );
+
+    return (
+          routes.map((x,i) => <Link color="blue" href={x.path} key={i}>{x.name}</Link>)
+        )
+  }
+  return (
+    <div role="presentation" className='py-2' onClick={handleClick}>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ fontSize: "12px", color: "#009AEE" }}>
+        {getRoute()}
+        <Typography sx={{ fontSize: "12px", color: "gray" }}>{currentPage}</Typography>
       </Breadcrumbs>
     </div>
   );

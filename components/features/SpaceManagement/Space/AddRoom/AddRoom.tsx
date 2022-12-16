@@ -8,8 +8,8 @@ const AddRoom = (props: props) => {
         <div className="col-10 col-md-12 col-lg-10 col-xl-8">
             <div className="row justify-content-center align-items-center">
                 <div className="col-lg-10 card">
-                    <div className="card-body p-0">
-                        <div className="row">
+                    <div className="card-body p-0" >
+                        <div className="row" style={{ height: "80vh" }}>
                             <RoomLeftPanel></RoomLeftPanel>
                             <RoomRightPanel close={props.close}></RoomRightPanel>
                         </div>
