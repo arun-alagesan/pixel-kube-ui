@@ -8,10 +8,14 @@ import ModalRoot from '../components/lib/modalPopup/components/ModalRoot';
 import ModalService from '../components/lib/modalPopup/services/ModalService';
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import Router from 'next/router'
+
+import CreateBuilding from '../components/features/SpaceManagement/Building/CreateBuilding';
+
 import SpacesIcon from "../assets/icons/Spaces.svg";
 import FacilitiesIcon from "../assets/icons/Facilities.svg";
 import BuildingsIcon from "../assets/icons/Buildings.svg";
 import OrganizationIcon from "../assets/icons/Organization.svg";
+
 
 const Space = () => {
 
@@ -30,7 +34,9 @@ const Space = () => {
                     <BlockMenu heading="Organization" subHeading="Manage Organization(s)" icon={OrganizationIcon} onClick={() => openModel(CreateOrganization)} />
                 </div>
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={BuildingsIcon} />
+
+                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={ApartmentIcon} onClick={() => openModel(CreateBuilding)} />
+
                 </div>
                 <div className="col-12 col-md-3">
                     <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={SpacesIcon} onClick={() => openModel(CreateSpace)} />
