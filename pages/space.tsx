@@ -14,6 +14,7 @@ import HandymanIcon from '@mui/icons-material/Handyman';
 import Breadcrumbs from "../components/common/Breadcrumbs";
 
 import Router from 'next/router'
+import CreateBuilding from '../components/features/SpaceManagement/Building/CreateBuilding';
 
 const Space = () => {
 
@@ -32,7 +33,7 @@ const Space = () => {
                     <BlockMenu heading="Organization" subHeading="Manage Organization(s)" icon={AccountTreeIcon} onClick={() => openModel(CreateOrganization)} />
                 </div>
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={ApartmentIcon} />
+                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={ApartmentIcon} onClick={() => openModel(CreateBuilding)} />
                 </div>
                 <div className="col-12 col-md-3">
                     <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={MeetingRoomIcon} onClick={() => openModel(CreateSpace)} />
