@@ -15,6 +15,7 @@ import SpacesIcon from "../assets/icons/Spaces.svg";
 import FacilitiesIcon from "../assets/icons/Facilities.svg";
 import BuildingsIcon from "../assets/icons/Buildings.svg";
 import OrganizationIcon from "../assets/icons/Organization.svg";
+//import Buildings from "../assets/icons/Buildings.svg";
 
 
 const Space = () => {
@@ -35,7 +36,7 @@ const Space = () => {
                 </div>
                 <div className="col-12 col-md-3">
 
-                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={ApartmentIcon} onClick={() => openModel(CreateBuilding)} />
+                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={BuildingsIcon} onClick={() => openModel(CreateBuilding)} />
 
                 </div>
                 <div className="col-12 col-md-3">
