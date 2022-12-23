@@ -9,7 +9,7 @@ const BlockMenu: React.FC<props> = (props) => {
 
     return (
         <div className='pk_block_menu text-center p-4' onClick={(e) => handleClickEvent(e)}>
-            <div>
+            <div className="flex justify-center" >
                 <props.icon sx={{ fontSize: 40, color: "#1a8ef1" }}></props.icon>
             </div>
             <div className="fw-bold pk_text_primary" >
