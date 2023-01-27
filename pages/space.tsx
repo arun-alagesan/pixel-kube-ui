@@ -32,7 +32,7 @@ const Space = () => {
 
             <div className="row justify-content-center mt-5">
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Organization" subHeading="Manage Organization(s)" icon={OrganizationIcon} onClick={() => openModel(CreateOrganization)} />
+                    <BlockMenu heading="Organization" subHeading="Manage Organization(s)" icon={OrganizationIcon} onClick={() => Router.push('/space/OrganizationManagement')} />
                 </div>
                 <div className="col-12 col-md-3">
 

@@ -6,10 +6,9 @@ import { Column, ColumnEditorOptions } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
 
 const Facilities: React.FC = () => {
-  
 
     //Material UI Data Grid
-    var data:GridRowsProp = [
+    var data: GridRowsProp = [
         {
             "id": 1,
             "facility": "IT Infrastructure",
@@ -40,7 +39,7 @@ const Facilities: React.FC = () => {
     ];
 
     //PrimeReact Data Grid
-   var data2 = [
+    var data2 = [
         {
             "id": 1,
             "facility": "IT Infrastructure",
@@ -77,12 +76,12 @@ const Facilities: React.FC = () => {
     // ];
 
     const columns: GridColDef[] = [
-        { field: 'facility', headerName: 'facility', editable: true,flex: 1, },
-        { field: 'email', headerName: 'email', editable: true ,flex: 1,},
-        { field: 'escalationPeriod', headerName: 'escalationPeriod', editable: true,flex: 1, },
-        { field: 'escalationEmail', headerName: 'escalationEmail', editable: true,flex: 1, },
-        { field: 'notifyFacility', headerName: 'notifyFacility', editable: true,flex: 1, },
-        { field: 'notifyOrganizer', headerName: 'notifyOrganizer', editable: true ,flex: 1,},
+        { field: 'facility', headerName: 'facility', editable: true, flex: 1, },
+        { field: 'email', headerName: 'email', editable: true, flex: 1, },
+        { field: 'escalationPeriod', headerName: 'escalationPeriod', editable: true, flex: 1, },
+        { field: 'escalationEmail', headerName: 'escalationEmail', editable: true, flex: 1, },
+        { field: 'notifyFacility', headerName: 'notifyFacility', editable: true, flex: 1, },
+        { field: 'notifyOrganizer', headerName: 'notifyOrganizer', editable: true, flex: 1, },
     ];
 
 
@@ -105,7 +104,7 @@ const Facilities: React.FC = () => {
                     <Column rowEditor bodyStyle={{ textAlign: 'center' }}></Column>
                 </DataTable>
             </div>}
-            
+
             <div className='col-12 mt-3 text-center'>
                 <Button label="Submit" className="p-button-info custom_btn" onClick={() => console.log('submitted')} />
             </div>

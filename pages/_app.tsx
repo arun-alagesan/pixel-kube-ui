@@ -9,6 +9,7 @@ import "primeicons/primeicons.css"; //icons
 
 import '../styles/prime-react-overwrite.css'
 
+
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
