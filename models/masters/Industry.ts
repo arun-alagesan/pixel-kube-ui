@@ -1,6 +1,8 @@
+
+
 export default interface Industry {
-    industryId: number,
-    name: string
+    industry_id: number
+    industry_name: string
 }
 
 

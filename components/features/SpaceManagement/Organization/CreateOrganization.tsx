@@ -1,3 +1,4 @@
+import { gridColumnsTotalWidthSelector } from "@mui/x-data-grid";
 import { useState } from "react";
 import PopupHeader from "../../../common/PopupHeader";
 import StepProgress from "../../../common/StepProgress";
@@ -8,11 +9,13 @@ import AddOrgGeneral from "./General";
 
 let renderCount = 0;
 const CreateOrganization = (props: any) => {
-    console.log("renderCount of AddOrg ", ++renderCount);
+    console.log(props.organization);
     const [currentStep, setCurrentStep] = useState(1);
     var stepList = ["General", "Facilities"];
 
     const changeStepHandler = (step: number) => { setCurrentStep(step); };
+
+
 
     return (
         <div className="container">
@@ -28,7 +31,7 @@ const CreateOrganization = (props: any) => {
                                 </div>
                             </div>
                             {
-                                currentStep === 1 ? <AddOrgGeneral changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities ></Facilities>
+                                currentStep === 1 ? <AddOrgGeneral organization={props.organization} key={1} submittedCallback={props.submittedCallback} changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities key={2} ></Facilities>
                             }
                         </div>
                     </div>

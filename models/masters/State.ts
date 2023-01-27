@@ -1,5 +1,5 @@
 
 export default interface State {
-    stateId: number;
+    id: number;
     name: string;
 }

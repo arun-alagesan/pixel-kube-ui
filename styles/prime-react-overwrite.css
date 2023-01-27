@@ -50,3 +50,16 @@
   padding: 0.5rem 0.8rem;
   font-size: 13px;
 }
+
+.p-datatable.pk-master-table .p-datatable-thead>tr>th {
+  background: #fff;
+}
+
+.p-datatable.pk-master-table .p-datatable-thead>tr>th {
+  font-weight: 600;
+
+}
+
+.p-datatable.pk-master-table .p-datatable-tbody>tr>td {
+  font-size: 13.5px;
+}
