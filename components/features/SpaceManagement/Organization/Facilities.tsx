@@ -4,85 +4,28 @@ import { Button } from "primereact/button"
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { Column, ColumnEditorOptions } from 'primereact/column';
 import { InputText } from 'primereact/inputtext';
+import { useEffect, useState } from 'react';
+import FacilityService from '../../../../services/facility.service';
+import { Facility } from '../../../../models/spacemgmt/facility/FacilityModel';
 
-const Facilities: React.FC = () => {
 
-    //Material UI Data Grid
-    var data: GridRowsProp = [
-        {
-            "id": 1,
-            "facility": "IT Infrastructure",
-            "email": "it@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "it@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true
-        },
-        {
-            "id": 2,
-            "facility": "Front Desk",
-            "email": "fd@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "fd@esc.com",
-            "notifyFacility": false,
-            "notifyOrganizer": true
-        },
-        {
-            "id": 3,
-            "facility": "Catering",
-            "email": "icat@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "cat@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true
+type props = { orgId: number };
+const Facilities = ({ orgId }: props) => {
+
+    const [facilities, setFacilities] = useState<Facility[]>([]);
+
+    useEffect(() => {
+        async function fetchMyApi() {
+            var response = await FacilityService.getByOrgId(orgId);
+            if (response.status === true) {
+                setFacilities(response.data);
+            }
         }
-    ];
+        fetchMyApi();
 
-    //PrimeReact Data Grid
-    var data2 = [
-        {
-            "id": 1,
-            "facility": "IT Infrastructure",
-            "email": "it@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "it@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true
-        },
-        {
-            "id": 2,
-            "facility": "Front Desk",
-            "email": "fd@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "fd@esc.com",
-            "notifyFacility": false,
-            "notifyOrganizer": true
-        },
-        {
-            "id": 3,
-            "facility": "Catering",
-            "email": "icat@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "cat@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true
-        }
-    ];
+    }, [])
 
-    // const rows: GridRowsProp = [
-    //     { id: 1, col1: 'Hello', col2: 'World' },
-    //     { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-    //     { id: 3, col1: 'MUI', col2: 'is Amazing' },
-    // ];
 
-    const columns: GridColDef[] = [
-        { field: 'facility', headerName: 'facility', editable: true, flex: 1, },
-        { field: 'email', headerName: 'email', editable: true, flex: 1, },
-        { field: 'escalationPeriod', headerName: 'escalationPeriod', editable: true, flex: 1, },
-        { field: 'escalationEmail', headerName: 'escalationEmail', editable: true, flex: 1, },
-        { field: 'notifyFacility', headerName: 'notifyFacility', editable: true, flex: 1, },
-        { field: 'notifyOrganizer', headerName: 'notifyOrganizer', editable: true, flex: 1, },
-    ];
 
 
     return (
@@ -94,12 +37,12 @@ const Facilities: React.FC = () => {
 
             {/* PrimeReact Data Grid */}
             {<div className='col-12'>
-                <DataTable value={data2} editMode="row" dataKey="id" responsiveLayout="scroll" size="small" footer={footer} >
-                    <Column field="facility" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
+                <DataTable value={facilities} editMode="row" dataKey="facilityId" responsiveLayout="scroll" size="small" footer={footer} >
+                    <Column field="facilityName" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
                     <Column field="email" header="Email" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationPeriod" header="Escalation Period" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationEmail" header="Escalation Email" editor={(options) => textEditor(options)}></Column>
-                    <Column field="notifyFacility" header="Notify Facilities" body={(data) => switchBox(data.notifyFacility)} editor={(options) => switchEditor(options)} ></Column>
+                    <Column field="notifyFacilities" header="Notify Facilities" body={(data) => switchBox(data.notifyFacility)} editor={(options) => switchEditor(options)} ></Column>
                     <Column field="notifyOrganizer" header="Notify Organizer" body={(data) => switchBox(data.notifyOrganizer)} editor={(options) => switchEditor(options)} ></Column>
                     <Column rowEditor bodyStyle={{ textAlign: 'center' }}></Column>
                 </DataTable>
