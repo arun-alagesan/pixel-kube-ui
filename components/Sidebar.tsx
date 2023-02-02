@@ -54,6 +54,12 @@ const Sidebar = () => {
           label: "Manage Visitor",
           icon: SystemManagement,
           link: "/ManageVisitor",
+        },
+        {
+          id: 5,
+          label: "Book Parking",
+          icon: SystemManagement,
+          link: "/BookParking",
         }
       ],
     },
