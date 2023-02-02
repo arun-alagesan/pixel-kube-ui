@@ -23,22 +23,6 @@ const Sidebar = () => {
 
   const menuItems = [
     { id: 1, label: "Admin Apps", icon: AdminApps, link: "/" },
-    { id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard" },
-    {
-      id: 3,
-      label: "Connector Management",
-      icon: ConnectionManagement,
-      link: "/connector",
-    },
-    { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
-    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
-    { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
-    {
-      id: 6,
-      label: "Find Colleague",
-      icon: SystemManagement,
-      link: "/FindColleague",
-    },
     {
       id: 7,
       label: "Book Spaces",
@@ -59,8 +43,32 @@ const Sidebar = () => {
           icon: SystemManagement,
           link: "/BookDesk",
         },
+        {
+          id: 6,
+          label: "Find Colleague",
+          icon: SystemManagement,
+          link: "/FindColleague",
+        },
+        {
+          id: 5,
+          label: "Manage Visitor",
+          icon: SystemManagement,
+          link: "/ManageVisitor",
+        }
       ],
     },
+    { id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard" },
+    {
+      id: 3,
+      label: "Connector Management",
+      icon: ConnectionManagement,
+      link: "/connector",
+    },
+    { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
+    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
+    { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
+    
+    
   ];
 
   const router = useRouter();
@@ -71,7 +79,7 @@ const Sidebar = () => {
   );
 
   const wrapperclasses = classNames(
-    "h-screen flex justify-between flex-col border w-80 relative bg-white",
+    "flex justify-between flex-col border w-80 relative bg-white",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
@@ -93,6 +101,7 @@ const Sidebar = () => {
                 <Icon />
               </div>
               {!toggleCollapse && (
+                <div style={{fontSize:"14px"}}>
                 <span
                   className={classNames("text-md font-medium text-text-light", {
                     hidden: toggleCollapse,
@@ -100,6 +109,7 @@ const Sidebar = () => {
                 >
                   {submenu.label}
                 </span>
+                </div>
               )}
             </button>
           </Link>
@@ -149,7 +159,7 @@ const Sidebar = () => {
             const subMenuItems = getSubMenuItems(menu, classes, Icon);
 
             return (
-              <div style={{ width: "100%" }}>
+              <div style={{ width: "100%", borderBottom: "1px solid #f7f3f3"}}>
                 <div className={classes} key={i}>
                   <Link
                     href={menu.link}
@@ -159,10 +169,11 @@ const Sidebar = () => {
                     }}
                   >
                     <button className="flex py-4 px-3 items-center w-full h-full">
-                      <div style={{ width: "2.5rem" }}>
+                      <div style={{width:"2.5rem"}}>
                         <Icon />
                       </div>
                       {!toggleCollapse && (
+                        <div style={{width:"70%", textAlign:"left",fontSize:"14px"}}>
                         <span
                           className={classNames(
                             "text-md font-medium text-text-light",
@@ -171,6 +182,7 @@ const Sidebar = () => {
                         >
                           {menu.label}
                         </span>
+                        </div>
                       )}
                       {menu.isGroupMenu && (
                         <div>

@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import InputBox from "../components/features/InputBox/InputBox";
 import FormControl from "@mui/material/FormControl";
+
+import FormGroup from '@mui/material/FormGroup';
 import InputLabel from "@mui/material/InputLabel";
 // import FormInput from '../components/FormInput';
 import TextField from "@mui/material/TextField";
@@ -21,20 +23,25 @@ const BookRoom = () => {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
   return (
     <Layout>
-      <div className="mt-4 p-4">
+        <div>
+        <h2 className="text-xl font-bold">Book Room</h2>
+        <span style={{fontSize: "12px", color:"#a5a0a0"}}> Check availabilty </span>
+        </div>
+        <FormGroup>
+      <div className="text-sm mt-4 px-60 md:px-2">
         <div className="flex">
           <FormControlLabel
             control={<Checkbox defaultChecked />}
-            label="All Day"
+            label="All Day" style={{width:"51%"}}
           />
           <FormControl
             fullWidth
-            sx={{ margin: "20px 20px 0px 0px" }}
-            size="small"
+            sx={{ margin: "20px 0px 0px 0px" }}
+            size="small" className="grow w-48"
           >
-            <InputLabel id="locationLabel">Location</InputLabel>
-            <Select labelId="locationLabel" label="Location">
-              {roomData.locations.map((x) => {
+            <InputLabel id="reminderLabel">Reminder</InputLabel>
+            <Select labelId="reminderLabel" label="Reminders">
+              {roomData.reminder.map((x) => {
                 return <MenuItem value={x}>{x}</MenuItem>;
               })}
             </Select>
@@ -49,7 +56,7 @@ const BookRoom = () => {
           >
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
-              label="DateTimePicker"
+              label="Start Date & Start Time"
               value={value}
               onChange={(newValue) => {
                 setValue(newValue);
@@ -58,12 +65,12 @@ const BookRoom = () => {
             </FormControl>
             <FormControl
             fullWidth
-            sx={{ margin: "20px 20px 0px 0px" }}
+            sx={{ margin: "20px 0px 0px 0px" }}
             size="small"
           >
              <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
-              label="DateTimePicker"
+              label="End Date & End Time"
               value={value}
               onChange={(newValue) => {
                 setValue(newValue);
@@ -122,17 +129,18 @@ const BookRoom = () => {
             </Select>
           </FormControl>
           <br></br>
-          <div>
+          <div className="">
             <Stack direction="row" spacing={2}>
-              <Button variant="outlined">Clear</Button>
+              <Button variant="outlined" className="flex-1 w-64">Clear</Button>
 
-              <Button variant="text" href="#outlined-buttons">
+              <Button variant="contained" className="flex-1 w-64" href="#outlined-buttons">
                 Search
               </Button>
             </Stack>
           </div>
         </div>
       </div>
+      </FormGroup>
     </Layout>
   );
 };
