@@ -13,10 +13,12 @@ import { useEffect, useRef, useState } from "react";
 // import Menu from "@mui/material/Menu";
 // import MenuItem from "@mui/material/MenuItem";
 import { Menu } from 'primereact/menu';
-import Facility, { Resource } from "../../models/facility";
+
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import Button from "@mui/material/Button";
 import { Dropdown } from 'primereact/dropdown';
+import { Facility } from "../../models/spacemgmt/facility/FacilityModel";
+import FacilityService from "../../services/facility.service";
 // import TextField from "@mui/material/TextField";
 
 
@@ -25,58 +27,19 @@ let renderCount = 0;
 const FacilitiesManagement = () => {
     console.log("renderCount", renderCount++);
 
-    const [data, setData] = useState<Facility[]>([
-        {
-            "id": 1,
-            "facility": "IT Infrastructure",
-            "email": "it@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "it@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true,
-            "resources": [
-                {
-                    id: 1,
-                    resource: "Projector",
-                    isActive: true,
-                    type: "Toggle",
-                    icon: "test"
-                },
-                {
-                    id: 2,
-                    resource: "Wifi",
-                    isActive: true,
-                    type: "Toggle",
-                    icon: "test"
-                },
-                {
-                    id: 3,
-                    resource: "Computer",
-                    isActive: true,
-                    type: "Toggle",
-                    icon: "test"
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "facility": "Front Desk",
-            "email": "fd@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "fd@esc.com",
-            "notifyFacility": false,
-            "notifyOrganizer": true
-        },
-        {
-            "id": 3,
-            "facility": "Catering",
-            "email": "icat@abc.com",
-            "escalationPeriod": "1 Day",
-            "escalationEmail": "cat@esc.com",
-            "notifyFacility": true,
-            "notifyOrganizer": true
+    const [facilities, setFacilities] = useState<Facility[]>([]);
+
+    useEffect(() => {
+        async function fetchMyApi() {
+            var orgId = 8;
+            var response = await FacilityService.getByOrgId(orgId);
+            if (response.status === true) {
+                setFacilities(response.data);
+            }
         }
-    ] as Facility[]);
+        fetchMyApi();
+
+    }, [])
 
     const citySelectItems = [
         { label: 'Toggle', value: 'Toggle' },
@@ -96,7 +59,7 @@ const FacilitiesManagement = () => {
 
     const setActiveRowIndex = (index: number) => {
         console.log("edit Index ", index);
-        let _editingRows = { ...editingRows, ...{ [`${data[index].id}`]: true } };
+        let _editingRows = { ...editingRows, ...{ [`${facilities[index].facilityId}`]: true } };
         console.log("_editingRows", _editingRows);
         setEditingRows(_editingRows);
     }
@@ -106,12 +69,12 @@ const FacilitiesManagement = () => {
     }
 
     const onRowEditComplete2 = (e: any) => {
-        let _data = [...data];
+        let _data = [...facilities];
         let { newData, index } = e;
 
         _data[index] = newData;
 
-        setData(_data);
+        setFacilities(_data);
     }
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -157,11 +120,11 @@ const FacilitiesManagement = () => {
                                 {data.resources?.map(x => {
                                     return (
                                         <tr>
-                                            <td>{x.resource}</td>
+                                            <td>{x.name}</td>
                                             <td>{x.type}</td>
                                             <td>
                                                 <div className="form-check form-switch">
-                                                    <input className="form-check-input" type="checkbox" role="switch" checked={x.isActive} />
+                                                    <input className="form-check-input" type="checkbox" role="switch" checked={x.isEnabled} />
                                                 </div>
                                             </td>
                                         </tr>
@@ -252,7 +215,7 @@ const FacilitiesManagement = () => {
 
 
             <div className='col-12'>
-                <DataTable value={data} editMode="row" dataKey="id" responsiveLayout="scroll" size="small" editingRows={editingRows}
+                <DataTable value={facilities} editMode="row" dataKey="id" responsiveLayout="scroll" size="small" editingRows={editingRows}
                     onRowEditChange={onRowEditChange} onRowEditComplete={onRowEditComplete2}
                     rowExpansionTemplate={rowExpansionTemplate}
                     expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}

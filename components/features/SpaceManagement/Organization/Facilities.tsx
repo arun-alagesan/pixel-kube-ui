@@ -1,5 +1,5 @@
 import { DataTable } from 'primereact/datatable';
-import { Button } from "primereact/button"
+
 
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { Column, ColumnEditorOptions } from 'primereact/column';
@@ -7,7 +7,10 @@ import { InputText } from 'primereact/inputtext';
 import { useEffect, useState } from 'react';
 import FacilityService from '../../../../services/facility.service';
 import { Facility } from '../../../../models/spacemgmt/facility/FacilityModel';
-
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from "@mui/material/Button";
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 type props = { orgId: number };
 const Facilities = ({ orgId }: props) => {
@@ -25,8 +28,28 @@ const Facilities = ({ orgId }: props) => {
 
     }, [])
 
+    function cloneFacility(facility: Facility) {
 
+    }
+    function deleteFacility(facilityId: number) {
 
+    }
+    const actionBodyTemplate = (rowData: Facility) => {
+        return (
+            <div>
+                <Button onClick={() => cloneFacility(rowData)} >
+                    <FileCopyIcon></FileCopyIcon>
+                </Button>
+                <Button onClick={() => deleteFacility(rowData.facilityId)} color="error" >
+                    <DeleteIcon></DeleteIcon>
+                </Button>
+            </div>
+        );
+    }
+
+    const footer = (
+        <button className='btn text-primary small p-0 border-0 ' style={{ 'fontSize': '15px' }} onClick={addRow}><i className='pi pi-plus-circle' style={{ 'fontSize': '14px' }}></i> Add More</button>
+    );
 
     return (
         <div className='row mt-3'>
@@ -42,22 +65,27 @@ const Facilities = ({ orgId }: props) => {
                     <Column field="email" header="Email" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationPeriod" header="Escalation Period" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationEmail" header="Escalation Email" editor={(options) => textEditor(options)}></Column>
-                    <Column field="notifyFacilities" header="Notify Facilities" body={(data) => switchBox(data.notifyFacility)} editor={(options) => switchEditor(options)} ></Column>
+                    <Column field="notifyFacilities" header="Notify Facilities" body={(data) => switchBox(data.notifyFacilities)} editor={(options) => switchEditor(options)} ></Column>
                     <Column field="notifyOrganizer" header="Notify Organizer" body={(data) => switchBox(data.notifyOrganizer)} editor={(options) => switchEditor(options)} ></Column>
                     <Column rowEditor bodyStyle={{ textAlign: 'center' }}></Column>
+                    <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>
                 </DataTable>
             </div>}
 
             <div className='col-12 mt-3 text-center'>
-                <Button label="Submit" className="p-button-info custom_btn" onClick={() => console.log('submitted')} />
+                <Button variant="contained" type="submit">Submit</Button>
             </div>
         </div>
     );
+
+    function addRow() {
+        let facility: Facility = {} as Facility;
+        facilities.push(facility);
+        setFacilities(facilities);
+    }
 }
 
-const footer = (
-    <button className='btn text-primary small p-0 border-0 ' style={{ 'fontSize': '15px' }} ><i className='pi pi-plus-circle' style={{ 'fontSize': '14px' }}></i> Add More</button>
-);
+
 function textEditor(options: ColumnEditorOptions) {
     console.log("option", options);
     return (
