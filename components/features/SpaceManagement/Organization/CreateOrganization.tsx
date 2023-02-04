@@ -31,7 +31,7 @@ const CreateOrganization = (props: any) => {
                                 </div>
                             </div>
                             {
-                                currentStep === 1 ? <AddOrgGeneral organization={props.organization} key={1} submittedCallback={props.submittedCallback} changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities key={2} orgId={props.organization.orgId} ></Facilities>
+                                currentStep === 1 ? <AddOrgGeneral organization={props.organization} key={1} submittedCallback={props.submittedCallback} changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities key={2} orgId={props?.organization?.orgId} ></Facilities>
                             }
                         </div>
                     </div>
