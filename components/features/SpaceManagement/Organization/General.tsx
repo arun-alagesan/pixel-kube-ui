@@ -170,7 +170,7 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
     } else {
       response = await OrganizationService.updateOrgGeneralDetails(formData);
     }
-
+    console.log(response);
     if (response.status) {
       submittedCallback();
       setOpen(true);

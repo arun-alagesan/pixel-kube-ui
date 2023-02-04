@@ -221,7 +221,7 @@ const FacilitiesManagement = () => {
                     expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
                 >
 
-                    <Column field="facility" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
+                    <Column field="facilityName" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
                     <Column field="email" header="Email" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationPeriod" header="Escalation Period" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationEmail" header="Escalation Email" editor={(options) => textEditor(options)}></Column>

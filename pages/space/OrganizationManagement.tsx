@@ -86,7 +86,7 @@ const OrganizationManagement = () => {
                                     <div className="">Looks like you haven't setup any Organization yet</div>
 
                                     <div className="mt-5">
-                                        <Button variant="contained" type="submit" onClick={() => openModel(CreateOrganization)}>Add Organization</Button>
+                                        <Button variant="contained" type="submit" onClick={() => openModel(CreateOrganization, { "submittedCallback": fetchMyApi })}>Add Organization</Button>
                                     </div>
                                 </div>
                                 :
@@ -94,7 +94,7 @@ const OrganizationManagement = () => {
                                     <div className="row mb-3">
                                         <div className="col-12 text-right">
                                             <div className="mt-5">
-                                                <Button variant="contained" type="submit" onClick={() => openModel(CreateOrganization)}>Add Organization</Button>
+                                                <Button variant="contained" type="submit" onClick={() => openModel(CreateOrganization, { "submittedCallback": fetchMyApi })}>Add Organization</Button>
                                             </div>
                                         </div>
                                     </div>
