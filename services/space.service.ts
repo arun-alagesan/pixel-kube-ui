@@ -11,6 +11,11 @@ const getAll = () => {
     return http.get<ApiResponse>("api/Spaces")
         .then(res => res.data);
 }
+
+const getOrgList = () => {
+    return http.get<ApiResponse>("api/Spaces")
+        .then(res => res.data);
+}
 const getLocationList = () => {
     return http.post<ApiResponse>("api/temp/location/list")
         .then(res => res.data);
@@ -26,6 +31,7 @@ const getFloorList = () => {
 
 const SpaceService = {
     getSpaceList,
+    getOrgList,
     getAll,
     getLocationList,
     getBuildingList,
