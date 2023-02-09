@@ -36,11 +36,12 @@ const Space = () => {
                 </div>
                 <div className="col-12 col-md-3">
 
-                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={BuildingsIcon} onClick={() => openModel(CreateBuilding)} />
+                    <BlockMenu heading="Buildings" subHeading="Manage Building(s)" icon={BuildingsIcon} onClick={() => Router.push('/space/BuildingManagement')} />
 
                 </div>
                 <div className="col-12 col-md-3">
-                    <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={SpacesIcon} onClick={() => openModel(CreateSpace)} />
+                    <BlockMenu heading="Spaces" subHeading="Manage Space(s)" icon={SpacesIcon} onClick={() => Router.push('/space/RoomManagement')} />
+
                 </div>
                 <div className="col-12 col-md-3">
                     <BlockMenu heading="Facilities" subHeading="Manage Facilities" icon={FacilitiesIcon} onClick={() => Router.push('/space/facilitiesManagement')} />

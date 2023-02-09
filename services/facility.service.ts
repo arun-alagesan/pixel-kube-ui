@@ -23,11 +23,17 @@ const getByOrgId = (orgId: number) => {
         .then(res => res.data);
 }
 
+const getAll = () => {
+    return http.get<ApiResponse>("api/facilities/getall")
+        .then(res => res.data);
+}
+
 const FacilityService = {
     create,
     update,
     get,
-    getByOrgId
+    getByOrgId,
+    getAll
 }
 
 export default FacilityService

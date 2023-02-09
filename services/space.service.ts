@@ -7,8 +7,8 @@ const getSpaceList = () => {
         .then(res => res.data);
 }
 
-const getOrgList = () => {
-    return http.post<ApiResponse>("api/temp/org/list")
+const getAll = () => {
+    return http.get<ApiResponse>("api/Spaces")
         .then(res => res.data);
 }
 const getLocationList = () => {
@@ -26,7 +26,7 @@ const getFloorList = () => {
 
 const SpaceService = {
     getSpaceList,
-    getOrgList,
+    getAll,
     getLocationList,
     getBuildingList,
     getFloorList
