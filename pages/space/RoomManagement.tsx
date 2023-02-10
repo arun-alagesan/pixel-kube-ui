@@ -16,6 +16,7 @@ import BuildingService from "../../services/building.service";
 import Space from "../../models/spacemgmt/space";
 import SpaceService from "../../services/space.service";
 import CreateSpace from "../../components/features/SpaceManagement/Space/CreateSpace";
+import DeleteAlert from "../../components/common/deleteAlert";
 
 const RoomManagement = () => {
 
@@ -46,26 +47,39 @@ const RoomManagement = () => {
     let breadcrumbPaths = [{ 'name': 'Home', 'path': '/' }, { 'name': 'Space Management', 'path': '/space' }];
 
     async function deleteOrganization(id: number) {
-        setLoader(true);
-        var result = await BuildingService.deleteOrg(id);
-        console.log("delete result" + result);
-        if (result.status == true) {
-            await fetchMyApi();
+
+    }
+
+    async function invokeDelete(id: number) {
+        try {
+            setLoader(true);
+            var result = await SpaceService.deleteSpace(id);
+            console.log("delete result" + result);
+            if (result.status == true) {
+                await fetchMyApi();
+            }
+        } catch (error) {
+            console.log(error);
         }
         setLoader(false);
     }
 
-    async function editOrganization(org: Building) {
+    async function deleteSpace(id: number) {
+        openModel(DeleteAlert, { "onDelete": () => invokeDelete(id) });
+    }
+
+
+    async function editOrganization(org: Space) {
         openModel(CreateSpace, { "organization": org, "submittedCallback": fetchMyApi });
     }
 
-    const actionBodyTemplate = (rowData: Building) => {
+    const actionBodyTemplate = (rowData: Space) => {
         return (
             <div>
                 <Button onClick={() => editOrganization(rowData)} >
                     <EditIcon></EditIcon>
                 </Button>
-                <Button onClick={() => deleteOrganization(rowData.orgId)} color="error" >
+                <Button onClick={() => deleteSpace(rowData.spaceId)} color="error" >
                     <DeleteIcon></DeleteIcon>
                 </Button>
             </div>

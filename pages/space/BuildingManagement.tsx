@@ -14,6 +14,7 @@ import ModalRoot from "../../components/lib/modalPopup/components/ModalRoot";
 import Building from "../../models/spacemgmt/building";
 import BuildingService from "../../services/building.service";
 import CreateBuilding from "../../components/features/SpaceManagement/Building/CreateBuilding";
+import DeleteAlert from "../../components/common/deleteAlert";
 
 const BuildingManagement = () => {
 
@@ -43,27 +44,36 @@ const BuildingManagement = () => {
 
     let breadcrumbPaths = [{ 'name': 'Home', 'path': '/' }, { 'name': 'Space Management', 'path': '/space' }];
 
-    async function deleteOrganization(id: number) {
-        setLoader(true);
-        var result = await BuildingService.deleteOrg(id);
-        console.log("delete result" + result);
-        if (result.status == true) {
-            await fetchMyApi();
+    async function invokeDelete(id: number) {
+        try {
+            setLoader(true);
+            var result = await BuildingService.deleteBuilding(id);
+            console.log("delete result" + result);
+            if (result.status == true) {
+                await fetchMyApi();
+            }
+
+        } catch (error) {
+            console.log(error);
         }
         setLoader(false);
     }
 
-    async function editOrganization(org: Building) {
-        openModel(CreateBuilding, { "organization": org, "submittedCallback": fetchMyApi });
+    async function deleteBuilding(id: number) {
+        openModel(DeleteAlert, { "onDelete": () => invokeDelete(id) });
+    }
+
+    async function editBuilding(org: Building) {
+        //openModel(CreateBuilding, { "organization": org, "submittedCallback": fetchMyApi });
     }
 
     const actionBodyTemplate = (rowData: Building) => {
         return (
             <div>
-                <Button onClick={() => editOrganization(rowData)} >
+                <Button onClick={() => editBuilding(rowData)} >
                     <EditIcon></EditIcon>
                 </Button>
-                <Button onClick={() => deleteOrganization(rowData.orgId)} color="error" >
+                <Button onClick={() => deleteBuilding(rowData.buildingId)} color="error" >
                     <DeleteIcon></DeleteIcon>
                 </Button>
             </div>

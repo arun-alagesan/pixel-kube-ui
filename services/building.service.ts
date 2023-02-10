@@ -25,8 +25,8 @@ const getAll = () => {
         .then(res => res.data);
 }
 
-const deleteOrg = (id: number) => {
-    return http.delete<ApiResponse>("api/Organizations/" + id)
+const deleteBuilding = (id: number) => {
+    return http.delete<ApiResponse>("api/Buildings/" + id)
         .then(res => res.data);
 }
 
@@ -38,7 +38,7 @@ const BuildingService = {
     createOrgGeneralDetails,
     updateOrgGeneralDetails,
     getAll,
-    deleteOrg
+    deleteBuilding
 }
 
 export default BuildingService
