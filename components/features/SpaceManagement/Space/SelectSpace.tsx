@@ -20,26 +20,27 @@ const schema = yup.object().shape({
 type props = { afterSubmit: any };
 const SelectSpace = (props: props) => {
 
-    type initializeDataType = { spaces: KVP[] };
+    type initializeDataType = { spaces: string[] };
 
-    const [initializeData, setInitializeData] = useState<initializeDataType>({ spaces: [] });
+
+    const [initializeData, setInitializeData] = useState<initializeDataType>({ spaces: ['Room', 'Hot Desk', 'Parking'] });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
     useEffect(() => {
-        async function fetchMyApi() {
-            let spaceResponse = await SpaceService.getSpaceList();
+        // async function fetchMyApi() {
+        //     let spaceResponse = ['Room', 'Hot Desk', 'Parking'];//await SpaceService.getSpaceList();
 
-            let initializationData: initializeDataType = {} as initializeDataType;
+        //     let initializationData: initializeDataType = {} as initializeDataType;
 
-            if (spaceResponse.status === true) {
-                initializationData.spaces = spaceResponse.data;
-            }
-            setInitializeData(initializationData);
-        }
-        fetchMyApi();
+        //     if (spaceResponse.status === true) {
+        //         initializationData.spaces = spaceResponse.data;
+        //     }
+        //     setInitializeData(initializationData);
+        // }
+        // fetchMyApi();
     }, []);
 
     const onSubmit = (data: any) => {
@@ -54,7 +55,7 @@ const SelectSpace = (props: props) => {
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.space}>
                         <InputLabel id="demo-simple-select-label">Select Space</InputLabel>
                         <Select {...register('space')} defaultValue="" labelId="ddlSelectSpace" id="ddlSelectSpace" label="Select Space">
-                            {initializeData.spaces.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                            {initializeData.spaces.map(x => (<MenuItem key={x} value={x}>{x}</MenuItem>))}
                             {/* <MenuItem value="Room">Room</MenuItem>
                             <MenuItem value="Hot Desk">Hot Desk</MenuItem>
                             <MenuItem value="Parking">Parking</MenuItem> */}

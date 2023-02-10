@@ -7,8 +7,13 @@ const getSpaceList = () => {
         .then(res => res.data);
 }
 
+const getAll = () => {
+    return http.get<ApiResponse>("api/Spaces")
+        .then(res => res.data);
+}
+
 const getOrgList = () => {
-    return http.post<ApiResponse>("api/temp/org/list")
+    return http.get<ApiResponse>("api/Spaces")
         .then(res => res.data);
 }
 const getLocationList = () => {
@@ -18,18 +23,25 @@ const getLocationList = () => {
 const getBuildingList = () => {
     return http.post<ApiResponse>("api/temp/building/list")
         .then(res => res.data);
+
 }
 const getFloorList = () => {
     return http.post<ApiResponse>("api/temp/floor/list")
+        .then(res => res.data);
+}
+const deleteSpace = (id: number) => {
+    return http.delete<ApiResponse>("api/Spaces/" + id)
         .then(res => res.data);
 }
 
 const SpaceService = {
     getSpaceList,
     getOrgList,
+    getAll,
     getLocationList,
     getBuildingList,
-    getFloorList
+    getFloorList,
+    deleteSpace
 }
 
 export default SpaceService;

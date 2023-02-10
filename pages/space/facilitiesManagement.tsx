@@ -32,7 +32,7 @@ const FacilitiesManagement = () => {
     useEffect(() => {
         async function fetchMyApi() {
             var orgId = 8;
-            var response = await FacilityService.getByOrgId(orgId);
+            var response = await FacilityService.getAll();
             if (response.status === true) {
                 setFacilities(response.data);
             }
