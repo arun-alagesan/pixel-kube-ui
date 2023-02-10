@@ -1,5 +1,6 @@
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
+import roomData from "../pages/data/bookRoomData.json"
 
 
 const getSpaceList = () => {
@@ -23,13 +24,30 @@ const getFloorList = () => {
     return http.post<ApiResponse>("api/temp/floor/list")
         .then(res => res.data);
 }
+const getRemainderList =()=>{
+    return http.post<ApiResponse>("api/temp/floor/list")
+    .then(res => res.data);
+}
+const getBasicFormDetails =()=>{
+    // return http.post<ApiResponse>("api/temp/floor/list")
+    // .then(res => res.data);
+    let res ={
+        ...roomData
+
+    }
+    return res;
+}
+
 
 const SpaceService = {
     getSpaceList,
     getOrgList,
     getLocationList,
     getBuildingList,
-    getFloorList
+    getFloorList,
+    getRemainderList,
+    getBasicFormDetails
+
 }
 
 export default SpaceService;

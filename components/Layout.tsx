@@ -2,8 +2,12 @@ import React from "react";
 import Sidebar from "./Sidebar";
 import NotificationIcon from "../assets/icons/notification.svg"
 import SearchIcon from "../assets/icons/loupe.svg"
+import UserContext,{initialvalue} from "../pages/context/BookSpaceContext"
+
 const Layout = ({ children }: any) => {
+
   return (
+<UserContext.Provider value={initialvalue}>
     <div className="flex flex-row justify-start " style={{ filter: "drop-shadow(0px 3px 6px rgba(0, 0, 0, 0.161))" }}>
       <Sidebar />
       <div className="flex flex-column w-full border ">
@@ -21,6 +25,7 @@ const Layout = ({ children }: any) => {
         </div>
       </div>
     </div>
+    </UserContext.Provider>
   );
 };
 

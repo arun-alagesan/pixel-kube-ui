@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import roomData from "./data/bookRoomData";
+import roomData from "./data/bookRoomData.json";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Radio from '@mui/material/Radio';
@@ -34,7 +34,7 @@ const ManageVisitor = () => {
             <InputLabel id="locationLabel">Location</InputLabel>
             <Select labelId="locationLabel" label="Location" className="text-sm">
               {roomData.locations.map((x) => {
-                return <MenuItem value={x}>{x}</MenuItem>;
+                return <MenuItem value={x.id}>{x.name}</MenuItem>;
               })}
             </Select>
           </FormControl>
@@ -64,14 +64,14 @@ const ManageVisitor = () => {
             </FormControl>
           </LocalizationProvider>
           
-        </div>
+        </div>  
         <div className="flex flex-col py-2">
           
           <FormControl fullWidth sx={{ margin: "20px 20px 0px 0px" }} size="small">
             <InputLabel id="meetLabel">Whom to meet</InputLabel>
             <Select labelId="meetLabel" label=" Whom to meet   " className="text-sm">
-              {roomData.meetPerson.map((x) => {
-                return <MenuItem value={x}>{x}</MenuItem>;
+              {roomData.meetPersons.map((x) => {
+                return <MenuItem value={x.name}>{x.name}</MenuItem>;
               })}
             </Select>
           </FormControl>

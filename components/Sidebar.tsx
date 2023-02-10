@@ -1,7 +1,5 @@
 import classNames from "classnames";
 import React, { useMemo, useState } from "react";
-// import ArrowIcon from "./icons/ArrowIcon";
-
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -15,11 +13,14 @@ import SpaceManagement from "../assets/icons/spacemanagement.svg";
 import ExpandArrow from "../assets/icons/expandArrow.svg";
 import ToggleIcon from "../assets/icons/toggle.svg";
 import { display } from "@mui/system";
+import { string } from "yup/lib/locale";
+import SpaceContext from "../pages/context/BookSpaceContext"
 
 const Sidebar = () => {
+  const spaceContextValue = React.useContext(SpaceContext);
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(false);
-  const [isCollapseBookSpace, setCollapseBookSpace] = useState(false);
+  const [isCollapseBookSpace, setCollapseBookSpace] = useState(spaceContextValue.isBookSpaceMenu);
 
   const menuItems = [
     { id: 1, label: "Admin Apps", icon: AdminApps, link: "/" },
@@ -27,54 +28,64 @@ const Sidebar = () => {
       id: 7,
       label: "Book Spaces",
       icon: SystemManagement,
-      link: "/",
+      link: "",
       isGroupMenu: true,
       collapsefn: setCollapseBookSpace,
       subMenu: [
         {
-          id: 8,
+          id: 71,
           label: "Book Room",
           icon: SystemManagement,
           link: "/BookRoom",
         },
         {
-          id: 9,
+          id: 72,
           label: "Book Desk",
           icon: SystemManagement,
           link: "/BookDesk",
         },
         {
-          id: 6,
+          id: 73,
           label: "Find Colleague",
           icon: SystemManagement,
           link: "/FindColleague",
         },
         {
-          id: 5,
+          id: 74,
           label: "Manage Visitor",
           icon: SystemManagement,
           link: "/ManageVisitor",
         },
         {
-          id: 5,
+          id: 75,
           label: "Book Parking",
           icon: SystemManagement,
           link: "/BookParking",
-        }
+        },
+        {
+          id: 76,
+          label: "Book Services",
+          icon: SystemManagement,
+          link: "/BookService",
+        },
+        {
+          id: 77,
+          label: "My Bookings",
+          icon: SystemManagement,
+          link: "/MyBookings",
+        },
       ],
     },
-    { id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard" },
+    { id: 1, label: "Dashboard", icon: DashBoard, link: "/dashboard" },
     {
-      id: 3,
+      id: 2,
       label: "Connector Management",
       icon: ConnectionManagement,
       link: "/connector",
     },
-    { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
-    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
-    { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
-    
-    
+    { id: 3, label: "Space Management", icon: SpaceManagement, link: "/space" },
+    { id: 4, label: "User Management", icon: UserManagement, link: "/" },
+    { id: 5, label: "System Management", icon: SystemManagement, link: "/" },
   ];
 
   const router = useRouter();
@@ -94,7 +105,7 @@ const Sidebar = () => {
   const collapseIconClasses = classNames(
     "p-2 bg-light-lighter absolute toggle-arrow bg-white w-10",
     {
-      "rotate-180": toggleCollapse,
+      ["rotate-180"]: toggleCollapse,
     }
   );
   const getSubMenuItems = (menu: any, classes: any, Icon: any) => {
@@ -107,14 +118,17 @@ const Sidebar = () => {
                 <Icon />
               </div>
               {!toggleCollapse && (
-                <div style={{fontSize:"14px"}}>
-                <span
-                  className={classNames("text-md font-medium text-text-light", {
-                    hidden: toggleCollapse,
-                  })}
-                >
-                  {submenu.label}
-                </span>
+                <div style={{ fontSize: "14px" }}>
+                  <span
+                    className={classNames(
+                      "text-md font-medium text-text-light",
+                      {
+                        hidden: toggleCollapse,
+                      }
+                    )}
+                  >
+                    {submenu.label}
+                  </span>
                 </div>
               )}
             </button>
@@ -165,36 +179,44 @@ const Sidebar = () => {
             const subMenuItems = getSubMenuItems(menu, classes, Icon);
 
             return (
-              <div style={{ width: "100%", borderBottom: "1px solid #f7f3f3"}}>
+              <div
+                style={{ width: "100%", borderBottom: "1px solid #f7f3f3" }}
+                key={i}
+              >
                 <div className={classes} key={i}>
                   <Link
                     href={menu.link}
                     onClick={() => {
                       if (menu.collapsefn)
                         menu.collapsefn(!isCollapseBookSpace);
+                        spaceContextValue.isBookSpaceMenu = !spaceContextValue.isBookSpaceMenu;
                     }}
                   >
                     <button className="flex py-4 px-3 items-center w-full h-full">
-                      <div style={{width:"2.5rem"}}>
+                      <div style={{ width: "2.5rem" }}>
                         <Icon />
                       </div>
                       {!toggleCollapse && (
-                        <div style={{width:"70%", textAlign:"left",fontSize:"14px"}}>
-                        <span
-                          className={classNames(
-                            "text-md font-medium text-text-light",
-                            { hidden: toggleCollapse }
-                          )}
+                        <div
+                          style={{
+                            width: "70%",
+                            textAlign: "left",
+                            fontSize: "14px",
+                          }}
                         >
-                          {menu.label}
-                        </span>
+                          <span
+                            className={classNames(
+                              "text-md font-medium text-text-light",
+                              { hidden: toggleCollapse }
+                            )}
+                          >
+                            {menu.label}
+                          </span>
                         </div>
                       )}
                       {menu.isGroupMenu && (
-                        <div>
-                          <ExpandArrow
-                            className={isCollapseBookSpace ? "rotate-180" : ""}
-                          />
+                        <div className={isCollapseBookSpace ? "rotate-180" : ""}>
+                          <ExpandArrow/>
                         </div>
                       )}
                     </button>
