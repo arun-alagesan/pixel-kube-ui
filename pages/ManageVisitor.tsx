@@ -29,7 +29,7 @@ const ManageVisitor = () => {
         <span style={{fontSize: "12px", color:"#a5a0a0"}}> Let's manage your visitor </span>
         </div>
         <FormGroup>
-      <div className="text-sm mt-4 px-60 md:px-2">
+      <div className="text-sm mt-4 px-80 md:px-2">
       <FormControl fullWidth sx={{ margin: "20px 20px 0px 0px" }} size="small">
             <InputLabel id="locationLabel">Location</InputLabel>
             <Select labelId="locationLabel" label="Location" className="text-sm">

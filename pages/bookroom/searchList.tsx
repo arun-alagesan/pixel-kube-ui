@@ -1,4 +1,5 @@
 import Layout from "../../components/Layout";
+import Router from "next/router";
 import CardComponent from "../CardComponent";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -58,6 +59,14 @@ const BookRoom = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValueTab(newValue);
   };
+
+  const onBookMeetClick=()=>{
+    //const searchInfo = {startDate,endDate, location,building,attendies,floor}
+    //spaceContextValue.bookRoomInfo = searchInfo;
+    Router.push("/bookroom/bookMeetingForm");
+
+  }
+
   const spaceContextValue = React.useContext(SpaceContext); 
   const [value, setValue] = React.useState<Dayjs | null>(spaceContextValue.bookRoomInfo.startDate);
   return (
@@ -147,6 +156,12 @@ const BookRoom = () => {
                 </TabPanel>
               </Box>
             </div>
+
+            <div className="relative h-32">
+              <Button variant="contained" className="flex-1 w-64 absolute bottom-0 right-0" onClick={() => onBookMeetClick()}>
+                  Book Meeting
+                </Button>
+              </div>
     </div>
     </Layout>   
   );

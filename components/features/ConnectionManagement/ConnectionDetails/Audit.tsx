@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../../common/Button'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,50 +7,51 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import ConnectorManagementService from '../../../../services/connectorManagement.service';
+import LogDetails from '../../../../models/connector/logDetails';
+import moment from 'moment';
 const marginVal = '40px'
 
-function createData(
-  activity: string,
-  editedBy: string,
-  dateAndTime: string,
-) {
-  return { activity, editedBy, dateAndTime};
-}
-
-const rows = [
-  createData('Password Reset', "Techwiz", "01/10/2022 10:10 AM"),
-  createData('Ownership Details removed', "System Admin", "01/10/2022 10:10 AM"),
-  createData('Password Reset', "Tech", "01/10/2022 10:10 AM"),
-  createData('Ownership Details removed', "Display Admin", "01/10/2022 10:10 AM"),
-  createData('Ownership Details removed', "Techwiz", "01/10/2022 10:10 AM" ),
-];
 function Audit() {
+
+  const [audits, setAudits] = useState<LogDetails[]>([])
+
+  useEffect(() => {
+    FetchAuditAndLog();
+  }, []);
+  async function FetchAuditAndLog() {
+
+    var auditLog = await ConnectorManagementService.getAuditAndLogs("Pixel ser acc 2");
+    setAudits(auditLog.audits)
+  }
+
+
   return (
-    <TableContainer sx={{ margin: '20px', width : `calc(100% - ${marginVal})` }}  component={Paper}>
-    <Table size="small"  aria-label="simple table">
-      <TableHead>
-        <TableRow sx={{backgroundColor : '#dee2e6'}}>
-          <TableCell >Activity</TableCell>
-          <TableCell >Edited By</TableCell>
-          <TableCell >Date & Time</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow
-            key={row.activity}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {row.activity}
-            </TableCell>
-            <TableCell >{row.editedBy}</TableCell>
-            <TableCell >{row.dateAndTime}</TableCell>
+    <TableContainer sx={{ margin: '20px', width: `calc(100% - ${marginVal})` }} component={Paper}>
+      <Table size="small" aria-label="simple table">
+        <TableHead>
+          <TableRow sx={{ backgroundColor: '#dee2e6' }}>
+            <TableCell >Activity</TableCell>
+            <TableCell >Edited By</TableCell>
+            <TableCell >Date & Time</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
+        </TableHead>
+        <TableBody>
+          {audits.map((row, index) => (
+            <TableRow
+              key={index}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.message}
+              </TableCell>
+              <TableCell >{row.userId}</TableCell>
+              <TableCell >{moment(row.auditTime).format("MM/DD/YYYY HH:MM A")}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 

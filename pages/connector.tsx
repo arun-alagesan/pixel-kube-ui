@@ -11,9 +11,9 @@ import SearchBar from "../components/common/SearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import ConnectorDetails from "../components/features/ConnectionManagement/ConnectionDetails/ConnectorDetails";
 export const ConnectorContext: any = createContext({
-  setopenConnectorDetailTab: () => {},
+  setopenConnectorDetailTab: () => { },
   connectorDetailId: {},
-  setConnectorDetailId: ()=>{}  
+  setConnectorDetailId: () => { }
 });
 
 const Connector = () => {
@@ -33,7 +33,7 @@ const Connector = () => {
   return (
     <Layout>
       <ConnectorContext.Provider
-        value={{ setopenConnectorDetailTab, connectorDetailId : connectorDetailId, setConnectorDetailId }}
+        value={{ setopenConnectorDetailTab, connectorDetailId: connectorDetailId, setConnectorDetailId }}
       >
         <h2 className="text-xl font-bold">Connector Management</h2>
         <Breadcrumbs currentPage={"Connector Management"} />
@@ -61,9 +61,9 @@ const Connector = () => {
                   Add a Connector
                 </button>
               </div>
-              <div className="py-4 overflow-auto"  style={{maxHeight : '68vh'}}>
-                {connectorList.map((data) => (
-                  <ConnectorList data={data} />
+              <div className="py-4 overflow-auto" style={{ maxHeight: '68vh' }}>
+                {connectorList.map((data, index) => (
+                  <ConnectorList key={index} data={data} />
                 ))}
               </div>
             </div>

@@ -10,7 +10,7 @@ const tabsData: any = [
     component: RoomsandCalendersTab
   },
   {
-    label:  'Settings',
+    label: 'Settings',
     component: Settings,
   },
   {
@@ -18,7 +18,7 @@ const tabsData: any = [
     component: Audit,
   },
   {
-    label:  'Logs',
+    label: 'Logs',
     component: Logs,
 
   },
@@ -47,7 +47,7 @@ export default function Tabs() {
   return (
     <div className='mt-4'>
       <div className="relative">
-        <div className="flex justify-between border-b" style={{borderColor: "#dee2e6"}}>
+        <div className="flex justify-between border-b" style={{ borderColor: "#dee2e6" }}>
           {tabsData.map((tab: any, idx: number) => {
             return (
               <button
@@ -56,20 +56,20 @@ export default function Tabs() {
                 className={`pt-2 pb-3 px-4 " ${activeTabIndex !== idx && "opacity-30"}`}
                 onClick={() => setActiveTabIndex(idx)}
               >
-                 {tab.label} 
+                {tab.label}
               </button>
             );
           })}
         </div>
         <span
           className="absolute bottom-0 block h-1 bg-primary transition-all duration-300"
-          style={{ left: tabUnderlineLeft, width: tabUnderlineWidth}}
+          style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         />
       </div>
       <div className="py-4">
-        <p>{tabsData.map((data : any, idx: number) => {
-          if(idx === activeTabIndex) return <data.component />
-        })}</p>
+        {tabsData.map((data: any, idx: number) => {
+          if (idx === activeTabIndex) return <data.component key={idx} />
+        })}
       </div>
     </div>
   );

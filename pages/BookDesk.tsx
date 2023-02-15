@@ -34,7 +34,7 @@ const BookDesk = () => {
         </span>
       </div>
       <FormGroup>
-        <div className="text-sm mt-4 px-60 md:px-2">
+        <div className="text-sm mt-4 px-80 md:px-2">
           <div className="py-4">
             <RadioGroup
               className="flex justify-between"

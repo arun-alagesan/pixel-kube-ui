@@ -77,7 +77,7 @@ const BookRoom = () => {
         </span>
       </div>
       <FormGroup>
-        <div className="text-sm mt-4 px-60 md:px-2">
+        <div className="text-sm mt-4 px-80 md:px-2">
           <div className="flex">
             <FormControlLabel
               control={<Checkbox defaultChecked />}

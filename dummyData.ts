@@ -4,7 +4,7 @@ export { connectorList }
 const connectorList = [
     {
         id: 1,
-        name: "SMS Connector 1",
+        name: "get Details",
         lastSyncedTime: "2 mins",
     },
     {
