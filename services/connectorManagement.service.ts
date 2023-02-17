@@ -1,7 +1,7 @@
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
 import Meeting from "../models/connector/meeting";
-import AuditLogs from "../models/connector/AuditLogs";
+import ConnectionDetails from "../models/connector/connectionDetails";
 
 
 const getCalenderInstances = (id: number, startTime: string, endTime: string) => {
@@ -13,15 +13,19 @@ const getSourceCalenders = (connectorName: string) => {
         .then(res => res.data);
 }
 const getAuditAndLogs = (connectorName: string) => {
-    return http.get<AuditLogs>("api/connector/get?name=" + connectorName)
+    return http.get<ConnectionDetails>("api/connector/get?name=" + connectorName)
         .then(res => res.data);
 }
-
+const saveSettings = (connDetails: ConnectionDetails | undefined) => {
+    return http.put<any>("api/connector/update", connDetails)
+        .then(res => res.data);
+}
 
 const ConnectorManagementService = {
     getCalenderInstances,
     getSourceCalenders,
-    getAuditAndLogs
+    getAuditAndLogs,
+    saveSettings
 }
 
 export default ConnectorManagementService;
