@@ -1,4 +1,4 @@
-import Layout from "../components/Layout";
+import Layout from "../../components/Layout";
 import { styled } from "@mui/system";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -7,7 +7,6 @@ import InputLabel from "@mui/material/InputLabel";
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
-import roomData from "./data/bookRoomData";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';

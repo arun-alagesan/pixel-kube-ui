@@ -1,0 +1,9 @@
+{
+    "locations":[{"name":"Smart City, UK","id":1},{"name":"New York, US","id":2}],
+    "buildings":[{"name":"Tower 1","id":1},{"name":"Tower 2","id":2}],
+    "floors":[{"name":"1","id":1},{"name":"2","id":2}],
+    "reminders": [{"name":"Before 10 Mins","id":1},{"name":"Before 15 Mins","id":2}],
+    "meetPersons": [{"name":"per1","id":1}],
+    "selectMap":[{"name":"1","id":1}]
+
+}

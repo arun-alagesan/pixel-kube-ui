@@ -1,6 +1,6 @@
-import Layout from "../../components/Layout";
+import Layout from "../../../components/Layout";
 import Router from "next/router";
-import CardComponent from "../CardComponent";
+import CardComponent from "../compponents/CardComponent";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -22,7 +22,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Button, Stack } from "@mui/material";
-import SpaceContext from "../context/BookSpaceContext";
+import SpaceContext from "../../context/BookSpaceContext";
+import FloorViewer from "../compponents/FloorViewer";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -62,9 +63,7 @@ const BookRoom = () => {
   };
 
   const onBookMeetClick = () => {
-    //const searchInfo = {startDate,endDate, location,building,attendies,floor}
-    //spaceContextValue.bookRoomInfo = searchInfo;
-    Router.push("/bookroom/bookMeetingForm");
+    Router.push("/bookSpaces/bookroom/bookMeetingForm");
 
   }
 
@@ -78,7 +77,7 @@ const BookRoom = () => {
         <span style={{ fontSize: "12px", color: "#a5a0a0" }}> Check availabilty </span>
       </div>
 
-      <FormGroup>
+      <FormGroup  style={{ width: "80%" }}>
         <div className="text-sm py-8 mt-4 px-4 md:px-2">
           <div className="flex md-flex-wrap justify-between">
             <FormControlLabel
@@ -130,7 +129,7 @@ const BookRoom = () => {
         <div>
           <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+              <Tabs value={valueTab} onChange={handleChange} aria-label="basic tabs example">
                 <Tab label="List View" {...a11yProps(0)} />
                 <Tab label="Map View" {...a11yProps(1)} />
               </Tabs>
@@ -164,20 +163,22 @@ const BookRoom = () => {
                   </Grid>
                 </Grid>
 
+                <div className="relative h-32">
+                  <Button variant="contained" className="flex-1 w-64 absolute bottom-0 right-0" onClick={() => onBookMeetClick()}>
+                    Book Meeting
+                  </Button>
+                </div>
+
               </TabPanel>
 
               <TabPanel value={valueTab} index={1}>
-                Item Two
+                <FloorViewer></FloorViewer>
               </TabPanel>
             </div>
           </Box>
         </div>
 
-        <div className="relative h-32">
-          <Button variant="contained" className="flex-1 w-64 absolute bottom-0 right-0" onClick={() => onBookMeetClick()}>
-            Book Meeting
-          </Button>
-        </div>
+
       </div>
     </Layout>
   );

@@ -32,7 +32,7 @@ function Logs() {
       <div className='py-3'>
         <Button> Test Connection </Button>
       </div>
-      <TableContainer sx={{ margin: '20px', width: `calc(100% - ${marginVal})` }} component={Paper}>
+      <TableContainer sx={{ margin: '20px', width: `calc(100% - ${marginVal})`, maxHeight: 370 }} component={Paper}>
         <Table size="small" aria-label="simple table">
           <TableHead>
             <TableRow sx={{ backgroundColor: '#dee2e6' }}>

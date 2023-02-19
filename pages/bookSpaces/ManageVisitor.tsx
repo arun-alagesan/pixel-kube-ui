@@ -1,5 +1,5 @@
-import Layout from "../components/Layout";
-import InputBox from "../components/features/InputBox/InputBox";
+import Layout from "../../components/Layout";
+import InputBox from "../../components/features/InputBox/InputBox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -7,7 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import roomData from "./data/bookRoomData.json";
+import roomData from "../bookSpaces/data/bookRoomData.json";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Radio from '@mui/material/Radio';

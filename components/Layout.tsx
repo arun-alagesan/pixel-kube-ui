@@ -17,7 +17,7 @@ const Layout = ({ children }: any) => {
             <div className="p-4">
               <NotificationIcon />
             </div>
-            <div ><img src={"../assets/images/userprofile.png"} alt="" width="60" height="60" /> </div>
+            <div ><img src={"/assets/images/userprofile.png"} alt="" width="60" height="60" /> </div>
           </div>
         </div>
         <div className="flex flex-column p-4 h-full">

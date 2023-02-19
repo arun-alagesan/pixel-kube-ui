@@ -3,6 +3,7 @@ import { useState, createContext } from "react";
 import ReactDOM from "react-dom/client";
 export const initialvalue = {
   isBookSpaceMenu: false,
+  selectedMenu: -1,
   bookRoomInfo: {
     location: "",
     building: "",
@@ -14,6 +15,7 @@ export const initialvalue = {
 };
 type spaceContextDataType = {
   isBookSpaceMenu: boolean;
+  selectedMenu: number;
   bookRoomInfo: {
     location: string;
     building: string;

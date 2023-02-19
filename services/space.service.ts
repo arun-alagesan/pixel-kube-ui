@@ -1,6 +1,6 @@
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
-import roomData from "../pages/data/bookRoomData.json"
+import roomData from "../pages/bookSpaces/data/bookRoomData.json"
 
 
 const getSpaceList = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../../components/Layout";
+import Layout from "../../../components/Layout";
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Unstable_Grid2';
 import CardActions from '@mui/material/CardActions';
@@ -20,11 +20,11 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import roomData from "../data/bookRoomData.json";
 import dayjs, { Dayjs } from "dayjs";
-import SpaceContext from "../context/BookSpaceContext";
-import SystemManagement from "../../assets/icons/systemmanagement.svg";
-import AdminApps from "../../assets/icons/admin.svg";
-import SpaceManagement from "../../assets/icons/spacemanagement.svg";
-import CalendarIcon from "../../assets/icons/calendarIcon.svg"
+import SpaceContext from "../../context/BookSpaceContext";
+import SystemManagement from "/assets/icons/systemmanagement.svg";
+import AdminApps from "/assets/icons/admin.svg";
+import SpaceManagement from "/assets/icons/spacemanagement.svg";
+import CalendarIcon from "/assets/icons/calendarIcon.svg"
 
 import { Theme, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -33,7 +33,7 @@ import Chip from '@mui/material/Chip';
 import Modal from '@mui/material/Modal';
 import ServiceModal from "../Modals/servicesModal";
 import CloseIcon from '@mui/icons-material/Close';
-import DialogModal from "../../components/common/dialogModal";
+import DialogModal from "../../../components/common/dialogModal";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -99,13 +99,10 @@ const BookMeetingForm = () => {
   const spaceContextValue = React.useContext(SpaceContext);
   const [value, setValue] = React.useState<Dayjs | null>(spaceContextValue.bookRoomInfo.startDate);
 
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+  const [isServiceOpen, setIsServiceOpen] = React.useState(false);
 
   const onBookMeetClick = () => {
-    Router.push("/bookroom/confirmMeeting");
+    Router.push("/bookSpaces/bookroom/confirmMeeting");
   }
 
   return (
@@ -113,7 +110,7 @@ const BookMeetingForm = () => {
       <div className="flex justify-between sm:block sm:px-16 mt-4 px-16 md:px-2">
         <div className="col-md-6 flex md-flex-wrap justify-between">
           <Card sx={{ maxWidth: 345 }} className="shadow-none bg-transparent">
-            <img src={"../assets/images/userprofile.png"} alt="" className="float-left md:float-none sm:float-none lg:float-none" width="100" height="60" />
+            <img src={"/assets/images/userprofile.png"} alt="" className="float-left md:float-none sm:float-none lg:float-none" width="100" height="60" />
             <CardContent className="float-right">
               <Typography gutterBottom variant="h5" component="div" className="text-base">
                 Einstein - Meeting Room
@@ -251,7 +248,7 @@ const BookMeetingForm = () => {
             <br></br>
             <div className="text-sm">
               <Stack direction="row" spacing={5}>
-                <Button variant="outlined" className="flex-1 w-64" onClick={handleOpen}>Add Services</Button>
+                <Button variant="outlined" className="flex-1 w-64" onClick={(e) => { setIsServiceOpen(true) }}>Add Services</Button>
                 <Button variant="outlined" className="flex-1 w-64">Add Parking</Button>
               </Stack>
             </div>
@@ -262,19 +259,8 @@ const BookMeetingForm = () => {
             </div>
           </div>
         </div>
-        {/* <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-          <DialogTitle sx={{ m: 0, p: 2 }}>
-            <Box sx={style}>
-              <ServiceModal onClose={handleClose}></ServiceModal>
-            </Box>
-            <IconButton aria-label="close" onClick={handleClose} sx={{ position: 'absolute', right: 8, top: 8, color: (theme) => theme.palette.grey[500], }}>
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
-        </Modal> */}
-
-        <DialogModal open={open} onClose={handleClose} modalTitle="Select Services" >
-          <ServiceModal onClose={handleClose} ></ServiceModal>
+        <DialogModal open={isServiceOpen} onClose={() => { setIsServiceOpen(true) }} modalTitle="Select Services" >
+          <ServiceModal onClose={() => { setIsServiceOpen(true) }} ></ServiceModal>
         </DialogModal>
 
       </FormGroup>

@@ -3,9 +3,9 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import SystemManagement from "../assets/icons/systemmanagement.svg";
-import AdminApps from "../assets/icons/admin.svg";
-import SpaceManagement from "../assets/icons/spacemanagement.svg";
+import SystemManagement from "/assets/icons/systemmanagement.svg";
+import AdminApps from "/assets/icons/admin.svg";
+import SpaceManagement from "/assets/icons/spacemanagement.svg";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -24,7 +24,7 @@ const CardComponent = ({ children, isCheckBox }: any) => {
                                 <FormControlLabel control={<Checkbox />} label="" />
                             </div>
                         }
-                        <img src={"../assets/images/userprofile.png"} alt="" className="rounded-md outline outline-1 ring-blue-500" width="100" height="60" />
+                        <img src={"/assets/images/userprofile.png"} alt="" className="rounded-md outline outline-1 ring-blue-500" width="100" height="60" />
                         <span className="relative inset-y-2">#BRID20211</span>
                     </div>
 
