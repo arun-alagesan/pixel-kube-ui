@@ -11,7 +11,7 @@ Dont ignore the . at the  end of the statement. It denotes to look for the docke
 
 `docker run -d --name pixelkubeui -p 3001:80 arunalagesan/pixelkubeui`
 
-# == arunalagesan == is my personal Docker hub account. Replace it accordingly with your account or the Org account
+== arunalagesan == is my personal Docker hub account. Replace it accordingly with your account or the Org account
 
 And launch the brower and nabigate to http://localhost:3000/
 
