@@ -59,14 +59,14 @@ const Sidebar = () => {
   );
 
   const wrapperclasses = classNames(
-    "flex justify-between flex-col border w-80 relative bg-white",
+    "flex justify-between flex-col border relative bg-white",
     {
       ["w-80"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
     }
   );
   const collapseIconClasses = classNames(
-    "p-2 bg-sky-200 absolute toggle-arrow bg-white w-10",
+    "p-0 mt-2.5 mr-1 bg-sky-200 absolute toggle-arrow bg-white",
     {
       ["rotate-180"]: toggleCollapse,
     }
@@ -102,6 +102,7 @@ const Sidebar = () => {
             </button>
           </Link>
         </div>
+        
       );
     });
 

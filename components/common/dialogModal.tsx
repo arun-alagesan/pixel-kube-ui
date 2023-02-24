@@ -63,6 +63,7 @@ export default function DialogModal(props: DialogModalProps) {
     //     setOpen(true);
     // };
     const handleClose = () => {
+        debugger;
         props.onClose();
     };
 

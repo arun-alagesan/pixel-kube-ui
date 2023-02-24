@@ -25,7 +25,7 @@ const ServiceModal = (props: any) => {
                 <Grid xs={5}><Typography>Lunch</Typography></Grid>
                 <Grid xs={6}><IncDecCounter></IncDecCounter></Grid>
             </Grid>
-            <FormControl  sx={{ margin: "20px 20px 0px 0px" }} className="flex justify-center " size="small">
+            <FormControl  sx={{ margin: "20px 0px 0px 0px" }} className="flex justify-center " size="small">
                 <Button variant="contained"  onClick={props.onClose}  >Add Services</Button>
             </FormControl>
 

@@ -7,7 +7,7 @@ const ConfirmMeeting = () => {
 
     return (
         <Layout>
-            <div className="grid justify-center  row w-full text-sm mt-4 px-80 lg:px-2 md:px-2 sm:px-1">
+            <div className="grid justify-center  row w-full text-sm mt-4 px-64 lg:px-2 md:px-2 sm:px-1">
                 <div className="text-center">
                     <div className="grid justify-center">
                         <CheckMark></CheckMark>

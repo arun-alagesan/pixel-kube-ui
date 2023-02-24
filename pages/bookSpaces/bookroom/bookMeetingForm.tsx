@@ -259,8 +259,8 @@ const BookMeetingForm = () => {
             </div>
           </div>
         </div>
-        <DialogModal open={isServiceOpen} onClose={() => { setIsServiceOpen(true) }} modalTitle="Select Services" >
-          <ServiceModal onClose={() => { setIsServiceOpen(true) }} ></ServiceModal>
+        <DialogModal open={isServiceOpen} onClose={() => { setIsServiceOpen(false) }} modalTitle="Select Services" >
+          <ServiceModal onClose={() => { setIsServiceOpen(false) }} ></ServiceModal>
         </DialogModal>
 
       </FormGroup>

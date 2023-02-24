@@ -19,53 +19,41 @@ import dayjs, { Dayjs } from "dayjs";
 import { Button, Input, Stack } from "@mui/material";
 import SpaceService from "../../services/space.service";
 import { KVP } from "../../models/masters/Industry";
-import SpaceContext from "../context/BookSpaceContext";
+import SpaceContext, { initializeDataType } from "../context/BookSpaceContext";
 
 
 const BookRoom = () => {
-  const spaceContextValue = React.useContext(SpaceContext); 
-  type initializeDataType = {
-    locations: KVP[];
-    buildings: KVP[];
-    floors: KVP[];
-    reminders: KVP[];
-  };
-  const [initializeData, setInitializeData] = useState<initializeDataType>({
-    locations: [],
-    buildings: [],
-    floors: [],
-    reminders: [],
-  });
+  const spaceContextValue = React.useContext(SpaceContext);
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
   const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
   const [location, setLocation] = useState("");
   const [building, setBuilding] = useState("");
   const [floor, setFloor] = useState("");
   const [remainder, setReminder] = useState("");
-  const [attendies,setAttendies]=useState("");
+  const [attendies, setAttendies] = useState("");
 
   useEffect(() => {
     function fetchMyApi() {
       const basicResponse = SpaceService.getBasicFormDetails();
       const initializationData: initializeDataType = {
-        buildings: basicResponse.buildings,
-        floors: basicResponse.floors,
-        locations: basicResponse.locations,
-        reminders: basicResponse.reminders,
+        ...basicResponse,      
+        IsDataAvailable: true
       };
-      setInitializeData(initializationData);
+      spaceContextValue.bookingServiceDetails = initializationData;
+
+      // setInitializeData(initializationData);
     }
     fetchMyApi();
-  },[]);
+  }, []);
 
-  const onSearchClick=()=>{
-    const searchInfo = {startDate,endDate, location,building,attendies,floor}
+  const onSearchClick = () => {
+    const searchInfo = { startDate, endDate, location, building, attendies, floor }
     spaceContextValue.bookRoomInfo = searchInfo;
     Router.push("./bookroom/searchList");
 
   }
 
-  
+
   // const navigate = useNavigate();
   return (
     <Layout>
@@ -77,7 +65,7 @@ const BookRoom = () => {
         </span>
       </div>
       <FormGroup>
-        <div className="row w-full text-sm mt-4 px-80 lg:px-2 md:px-2 sm:px-1">
+        <div className="row w-full text-sm mt-4 px-64 lg:px-2 md:px-2 sm:px-1">
           <div className="flex">
             <FormControlLabel
               control={<Checkbox defaultChecked />}
@@ -91,8 +79,8 @@ const BookRoom = () => {
               className="grow w-48"
             >
               <InputLabel id="reminderLabel">Reminder</InputLabel>
-              <Select labelId="reminderLabel" label="Reminders">
-                {initializeData.reminders.map((x) => {
+              <Select labelId="reminderLabel" label="Reminders" onChange={(e) => { setReminder(e.target.name) }}>
+                {spaceContextValue?.bookingServiceDetails?.reminders.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -141,8 +129,8 @@ const BookRoom = () => {
               size="small"
             >
               <InputLabel id="locationLabel">Location</InputLabel>
-              <Select labelId="locationLabel" label="Location" onChange={(e)=>setLocation(e.target.name)} >
-                {initializeData.locations.map((x) => {
+              <Select labelId="locationLabel" label="Location" onChange={(e) => setLocation(e.target.name)} >
+                {spaceContextValue?.bookingServiceDetails?.locations.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -157,8 +145,8 @@ const BookRoom = () => {
               size="small"
             >
               <InputLabel id="buildingLabel">Building</InputLabel>
-              <Select labelId="buildingLabel" label="Building" onChange={(e)=>setBuilding(e.target.name)} >
-                {initializeData.buildings.map((x) => {
+              <Select labelId="buildingLabel" label="Building" onChange={(e) => setBuilding(e.target.name)} >
+                {spaceContextValue?.bookingServiceDetails?.buildings.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -173,8 +161,8 @@ const BookRoom = () => {
               size="small"
             >
               <InputLabel id="floorLabel">Floor</InputLabel>
-              <Select labelId="builfloorLabeldingLabel" label="Floor" onChange={(e)=>setFloor(e.target.name)}>
-                {initializeData.floors.map((x) => {
+              <Select labelId="builfloorLabeldingLabel" label="Floor" onChange={(e) => setFloor(e.target.name)}>
+                {spaceContextValue?.bookingServiceDetails?.floors.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -192,7 +180,7 @@ const BookRoom = () => {
                 id="attendies"
                 label="No. of attendies"
                 variant="outlined"
-                onChange={(e)=> setAttendies(e.target.value)}
+                onChange={(e) => setAttendies(e.target.value)}
               />
             </FormControl>
             <br></br>
