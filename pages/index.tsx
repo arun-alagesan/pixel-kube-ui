@@ -5,7 +5,6 @@ export default function Home() {
   // this component is not used
   return (
     <div className="p-0 fullHeight">
-      rtertaserserg
       <Layout />
     </div>
   )
