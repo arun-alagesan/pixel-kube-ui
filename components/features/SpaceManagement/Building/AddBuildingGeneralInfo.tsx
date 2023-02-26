@@ -13,6 +13,7 @@ import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import { KVP } from "../../../../models/masters/Industry";
 import Button from "@mui/material/Button";
+import OrganizationService from "../../../../services/organization.service";
 
 const schema = yup.object().shape({
     orgName: yup.string().required('Organization Name is required'),
@@ -30,30 +31,22 @@ const AddBuildingGeneralInfo = ({ changeStep }: props) => {
         resolver: yupResolver(schema)
     });
 
-    const [orgList, setOrgList] = useState<KVP[]>([{
-        id: 1,
-        name: "ABC"
-    },
-    {
-        id: 2,
-        name: "XYC"
-    }]);
+    const [orgList, setOrgList] = useState<any>();
+
+    useEffect(() => {
+
+        (async () => {
+
+            var orglist = await OrganizationService.getList();
+            if (orglist?.data)
+                setOrgList(orglist.data);
+        })();
+
+    }, [])
 
     const onSubmit = async (data: any) => {
         console.log("form data", data);
         changeStep(2);
-        // var formData = new FormData();
-        // for (var key in data) {
-        //   if (key === 'logo')
-        //     formData.append("logo", data.logo[0]);
-        //   else
-        //     formData.append(key, data[key]);
-        // }
-        // var response = await OrganizationService.postGeneralDetails(formData);
-        // if (response.status) {
-        //   setOpen(true);
-        //   changeStep(2);
-        // }
     }
 
     return (
@@ -64,7 +57,7 @@ const AddBuildingGeneralInfo = ({ changeStep }: props) => {
                         <FormControl fullWidth className="pk-dropdown" error={!!errors.orgName} >
                             <InputLabel id="demo-simple-select-label">Organization Name</InputLabel>
                             <Select {...register('orgName')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Organization Name">
-                                {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                                {orgList && orgList.length > 0 && orgList?.map((x: any) => (<MenuItem key={x.orgId} value={x.orgId}>{x.orgName}</MenuItem>))}
                             </Select>
                             {errors.orgName && <FormHelperText>{errors.orgName.message?.toString()}</FormHelperText>}
                         </FormControl>
@@ -73,7 +66,7 @@ const AddBuildingGeneralInfo = ({ changeStep }: props) => {
                         <FormControl fullWidth className="pk-dropdown" error={!!errors.location} >
                             <InputLabel id="demo-simple-select-label">Location</InputLabel>
                             <Select {...register('location')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Location">
-                                {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                                {/* {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))} */}
                             </Select>
                             {errors.location && <FormHelperText>{errors.location.message?.toString()}</FormHelperText>}
                         </FormControl>
@@ -82,7 +75,7 @@ const AddBuildingGeneralInfo = ({ changeStep }: props) => {
                         <FormControl fullWidth className="pk-dropdown" error={!!errors.building} >
                             <InputLabel id="demo-simple-select-label">Building</InputLabel>
                             <Select {...register('building')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Building">
-                                {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                                {/* {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))} */}
                             </Select>
                             {errors.building && <FormHelperText>{errors.building.message?.toString()}</FormHelperText>}
                         </FormControl>
@@ -91,7 +84,7 @@ const AddBuildingGeneralInfo = ({ changeStep }: props) => {
                         <FormControl fullWidth className="pk-dropdown" error={!!errors.group} >
                             <InputLabel id="demo-simple-select-label">Group</InputLabel>
                             <Select {...register('group')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Group">
-                                {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                                {/* {orgList.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))} */}
                             </Select>
                             {errors.group && <FormHelperText>{errors.group.message?.toString()}</FormHelperText>}
                         </FormControl>

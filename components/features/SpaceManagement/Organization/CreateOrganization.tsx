@@ -7,13 +7,20 @@ import Facilities from "./Facilities";
 import AddOrgGeneral from "./General";
 
 
-let renderCount = 0;
 const CreateOrganization = (props: any) => {
     console.log(props.organization);
     const [currentStep, setCurrentStep] = useState(1);
     var stepList = ["General", "Facilities"];
 
     const changeStepHandler = (step: number) => { setCurrentStep(step); };
+
+    const [organization, setOrganization] = useState(props.organization);
+
+    const onSubmitOrganization = (org: any) => {
+        if (!(organization && organization?.orgId))
+            setOrganization(org);
+        props.submittedCallback();
+    }
 
 
 
@@ -31,7 +38,7 @@ const CreateOrganization = (props: any) => {
                                 </div>
                             </div>
                             {
-                                currentStep === 1 ? <AddOrgGeneral organization={props.organization} key={1} submittedCallback={props.submittedCallback} changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities key={2} orgId={props?.organization?.orgId} ></Facilities>
+                                currentStep === 1 ? <AddOrgGeneral organization={props.organization} key={1} submittedCallback={onSubmitOrganization} changeStep={changeStepHandler}></AddOrgGeneral> : <Facilities key={2} orgId={organization?.orgId} onClose={props.close} ></Facilities>
                             }
                         </div>
                     </div>

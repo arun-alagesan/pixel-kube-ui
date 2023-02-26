@@ -26,7 +26,6 @@ function App() {
   }
   useEffect(() => {
     (async () => {
-      debugger;
       if (settings !== undefined) {
         settings.orgId = "1";
         settings.noOfDaysBefore = daysBefore;

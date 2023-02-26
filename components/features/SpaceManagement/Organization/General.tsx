@@ -36,7 +36,7 @@ const schema = yup.object().shape({
 });
 
 
-type props = { changeStep: (step: number) => void, submittedCallback: () => void, organization?: Organization };
+type props = { changeStep: (step: number) => void, submittedCallback: (org:any) => void, organization?: Organization };
 
 let renderCount = 0;
 const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) => {
@@ -169,10 +169,11 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
       response = await OrganizationService.createOrgGeneralDetails(formData);
     } else {
       response = await OrganizationService.updateOrgGeneralDetails(formData);
+
     }
     console.log(response);
     if (response.status) {
-      submittedCallback();
+      submittedCallback(response.data);
       setOpen(true);
       changeStep(2);
     }

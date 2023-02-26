@@ -12,21 +12,22 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from "@mui/material/Button";
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 
-type props = { orgId: number };
-const Facilities = ({ orgId }: props) => {
+type props = { orgId: number, onClose: any };
+const Facilities = ({ orgId, onClose }: props) => {
 
     const [facilities, setFacilities] = useState<Facility[]>([]);
 
     useEffect(() => {
-        async function fetchMyApi() {
-            var response = await FacilityService.getByOrgId(orgId);
-            if (response.status === true) {
-                setFacilities(response.data);
-            }
-        }
+
         fetchMyApi();
 
-    }, [])
+    }, []);
+    async function fetchMyApi() {
+        var response = await FacilityService.getByOrgId(orgId);
+        if (response.status === true) {
+            setFacilities(response.data);
+        }
+    }
 
     function cloneFacility(facility: Facility) {
 
@@ -47,17 +48,18 @@ const Facilities = ({ orgId }: props) => {
         );
     }
 
-    const onRowEditComplete = (e: any) => {
+    const onRowEditComplete = async (e: any) => {
         e.newData.notifyFacilities = e.newData?.notifyFacilities == "on" ? true : false;
         e.newData.notifyOrganizer = e.newData?.notifyOrganizer == "on" ? true : false;
         if (e.newData?.facilityId > 0 && e.newData?.orgId > 0) {
 
-            FacilityService.update(e.newData)
+            await FacilityService.update(e.newData)
         } else {
 
             e.newData.orgId = orgId;
-            FacilityService.create(e.newData)
+            await FacilityService.create(e.newData)
         }
+        fetchMyApi();
 
     }
 
@@ -74,7 +76,6 @@ const Facilities = ({ orgId }: props) => {
 
             {/* PrimeReact Data Grid */}
             {<div className='col-12'>
-                {facilities.length}
                 <DataTable value={facilities} editMode="row" dataKey="facilityId" onRowEditComplete={onRowEditComplete} responsiveLayout="scroll" size="small" footer={footer} >
                     <Column field="facilityName" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
                     <Column field="email" header="Email" editor={(options) => textEditor(options)} ></Column>
@@ -88,7 +89,7 @@ const Facilities = ({ orgId }: props) => {
             </div>}
 
             <div className='col-12 mt-3 text-center'>
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" type="submit" onClick={onClose} >Submit</Button>
             </div>
         </div>
     );
