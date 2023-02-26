@@ -47,6 +47,20 @@ const Facilities = ({ orgId }: props) => {
         );
     }
 
+    const onRowEditComplete = (e: any) => {
+        e.newData.notifyFacilities = e.newData?.notifyFacilities == "on" ? true : false;
+        e.newData.notifyOrganizer = e.newData?.notifyOrganizer == "on" ? true : false;
+        if (e.newData?.facilityId > 0 && e.newData?.orgId > 0) {
+
+            FacilityService.update(e.newData)
+        } else {
+
+            e.newData.orgId = orgId;
+            FacilityService.create(e.newData)
+        }
+
+    }
+
     const footer = (
         <button className='btn text-primary small p-0 border-0 ' style={{ 'fontSize': '15px' }} onClick={addRow}><i className='pi pi-plus-circle' style={{ 'fontSize': '14px' }}></i> Add More</button>
     );
@@ -60,7 +74,8 @@ const Facilities = ({ orgId }: props) => {
 
             {/* PrimeReact Data Grid */}
             {<div className='col-12'>
-                <DataTable value={facilities} editMode="row" dataKey="facilityId" responsiveLayout="scroll" size="small" footer={footer} >
+                {facilities.length}
+                <DataTable value={facilities} editMode="row" dataKey="facilityId" onRowEditComplete={onRowEditComplete} responsiveLayout="scroll" size="small" footer={footer} >
                     <Column field="facilityName" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
                     <Column field="email" header="Email" editor={(options) => textEditor(options)} ></Column>
                     <Column field="escalationPeriod" header="Escalation Period" editor={(options) => textEditor(options)} ></Column>
@@ -80,8 +95,8 @@ const Facilities = ({ orgId }: props) => {
 
     function addRow() {
         let facility: Facility = {} as Facility;
-        facilities.push(facility);
-        setFacilities(facilities);
+        var faclities = facilities.concat(facility);
+        setFacilities(faclities);
     }
 }
 

@@ -2,6 +2,7 @@ import { UpdateFacilityRequest } from './../models/spacemgmt/facility/updateFaci
 import { CreateFacilityRequest } from './../models/spacemgmt/facility/createFacilityRequest';
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
+import { Resource } from '../models/spacemgmt/facility/FacilityModel';
 
 const create = (request: CreateFacilityRequest) => {
     return http.post<ApiResponse>("api/facilities", request)
@@ -27,13 +28,19 @@ const getAll = () => {
     return http.get<ApiResponse>("api/facilities/getall")
         .then(res => res.data);
 }
+const CreateResource = (request: Resource) => {
+    return http.post<ApiResponse>("api/Resources", request)
+        .then(res => res.data);
+
+}
 
 const FacilityService = {
     create,
     update,
     get,
     getByOrgId,
-    getAll
+    getAll,
+    CreateResource
 }
 
 export default FacilityService

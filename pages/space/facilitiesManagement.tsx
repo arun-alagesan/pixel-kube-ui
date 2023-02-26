@@ -14,11 +14,11 @@ import { useEffect, useRef, useState } from "react";
 // import MenuItem from "@mui/material/MenuItem";
 import { Menu } from 'primereact/menu';
 
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+
 import Button from "@mui/material/Button";
-import { Dropdown } from 'primereact/dropdown';
-import { Facility } from "../../models/spacemgmt/facility/FacilityModel";
+import { Facility, Resource } from "../../models/spacemgmt/facility/FacilityModel";
 import FacilityService from "../../services/facility.service";
+import CustomResource from "./CustomResource";
 // import TextField from "@mui/material/TextField";
 
 
@@ -41,12 +41,7 @@ const FacilitiesManagement = () => {
 
     }, [])
 
-    const citySelectItems = [
-        { label: 'Toggle', value: 'Toggle' },
-        { label: 'Count', value: 'Count' },
-        { label: 'Bookable', value: 'Bookable' },
 
-    ];
 
     const [editingRows, setEditingRows] = useState({});
     const [rowIndex, setRowIndex] = useState(0);
@@ -104,72 +99,14 @@ const FacilitiesManagement = () => {
         setAnchorEl(null);
     };
     const rowExpansionTemplate = (data: Facility) => {
+
         return (
-            <div className="row p-5">
-                <div className="col-12 ">
-                    <div className="table-responsive ">
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Resources</th>
-                                    <th>Resources Type</th>
-                                    <th>Enable</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.resources?.map(x => {
-                                    return (
-                                        <tr>
-                                            <td>{x.name}</td>
-                                            <td>{x.type}</td>
-                                            <td>
-                                                <div className="form-check form-switch">
-                                                    <input className="form-check-input" type="checkbox" role="switch" checked={x.isEnabled} />
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                                <tr></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div className="col-12 mt-3">
-                    <form >
-                        <div className="row align-items-center ">
-                            <div className="col-12 col-md-3">
-                                {/* <TextField label="Add Custom" fullWidth variant="outlined" size="small" style={{ padding: "1.2rem 0.8rem" }} /> */}
-                                <span className="p-float-label">
-                                    <InputText type="text" className="p-inputtext-sm block" />
-                                    <label>Add Custom</label>
-                                </span>
-                            </div>
-                            <div className="col-12 col-md-3">
-                                <span className="p-float-label">
-                                    {/* <InputText type="text" className="p-inputtext-sm block" /> */}
-                                    <Dropdown options={citySelectItems} placeholder="Select Type" />
-                                    <label>Type</label>
-                                </span>
-                                {/* <TextField label="Type" variant="outlined" className="pk-input" /> */}
-                            </div>
-                            <div className="col-12 col-md-3">
-                                <Button variant="contained" type="button" size="small" >Choose icon</Button>
-                            </div>
-                            <div className="col-12 col-md-3" >
-                                <Button variant="contained" type="button" size="small">
-                                    <ControlPointIcon></ControlPointIcon>
-                                    <span className="ms-2">Add Custom </span> </Button>
-                            </div>
-                        </div>
-                    </form>
-                </div >
-            </div >
-        );
+            <CustomResource facilityData={data} ></CustomResource>
+        )
+
+
     }
     const allowExpansion = (rowData: any) => {
-        //return rowData.orders.length > 0;
-        console.log(rowData);
         return true;
     };
 
@@ -215,10 +152,12 @@ const FacilitiesManagement = () => {
 
 
             <div className='col-12'>
-                <DataTable value={facilities} editMode="row" dataKey="id" responsiveLayout="scroll" size="small" editingRows={editingRows}
+                <DataTable value={facilities} editMode="row" dataKey="facilityId" responsiveLayout="scroll" size="small" editingRows={editingRows}
                     onRowEditChange={onRowEditChange} onRowEditComplete={onRowEditComplete2}
                     rowExpansionTemplate={rowExpansionTemplate}
-                    expandedRows={expandedRows} onRowToggle={(e) => setExpandedRows(e.data)}
+                    expandedRows={expandedRows} onRowToggle={(e) => {
+                        setExpandedRows(e.data)
+                    }}
                 >
 
                     <Column field="facilityName" header="Facilities Group" editor={(options) => textEditor(options)} ></Column>
