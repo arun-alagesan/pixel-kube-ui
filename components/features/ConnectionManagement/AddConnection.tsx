@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState,useRef} from 'react';
 import Modal from "../../lib/modalPopup/components/Modal";
 import ModalBody from "../../lib/modalPopup/components/ModalBody";
 import ModalHeader from "../../lib/modalPopup/components/ModalHeader";
@@ -9,15 +9,61 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddButton from './AddButton';
+import axios from "axios";
 
 
 export default function AddConnection(props: any) {
 
-  const [calenderValue, setCalenderValue] = useState('')
+  const [calenderValue, setCalenderValue] = useState('');
+  const connectorName = useRef('');
+  const hiddenFileInput = useRef(null);
+  const [selectedFile,setSelectedFile] = useState('Import Json');
+  const [responseData,setResponseData]=useState({});
 
   const handleChange = (event: SelectChangeEvent) => {
     setCalenderValue(event.target.value as string);
   };
+
+  const handleFileChange=(event:SelectChangeEvent)=>
+  {
+    setSelectedFile(event.target.files[0].name);
+    let url = "https://localhost:7022/api/admin/createconnectionfromfile";
+    let file = event.target.files[0];
+    uploadFile(url, file);
+  };
+
+  const uploadFile = (url, file) => {
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("OrgID","1");
+    formData.append("Name","test");
+    axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }).then((response) => {
+        fnSuccess(response);
+      }).catch((error) => {
+        fnFail(error);
+      });
+  };
+  const fnSuccess = (response) => {
+    if(response!=null)
+    {
+      const data={'connectorName':connectorName.current.value,'connectorResponse':response.data};
+      console.log(data);
+      setResponseData(data);
+    }
+  };
+  
+  const fnFail = (error) => {
+    //Add failed handling
+  };
+
+  const handleClick = event => {
+    hiddenFileInput.current.click();
+  };
+
   return (
     <Modal>
       <ModalHeader>
@@ -29,7 +75,7 @@ export default function AddConnection(props: any) {
       <ModalBody>
         <div className="py-3">
           <label className="w-full" htmlFor="orgSpace">
-          <TextField fullWidth id="outlined-basic" label="Connector Name" variant="outlined" required/> 
+          <TextField inputRef={connectorName}  fullWidth id="outlined-basic" label="Connector Name" variant="outlined" required/> 
           </label>
         </div>
         <div className="py-3">
@@ -51,12 +97,20 @@ export default function AddConnection(props: any) {
           <MenuItem value={60}>Delphi</MenuItem>
           <MenuItem value={70}>Discrete Calender</MenuItem>
         </Select>
+        <div style={{display:'flex',color:'rgb(148 163 184)',justifyContent:'center',
+         alignItems:'center',paddingTop:'20px',paddingBottom:'20px'}}>OR</div>
+         <div style={{display: 'flex', color: 'rgb(148 163 184)',justifyContent:'center',
+         alignItems:'center',paddingTop:'20px',paddingBottom:'20px',borderStyle:'dashed',borderWidth:'2px' }}>
+          <img onClick={handleClick} src={"../assets/images/importIcon.png"} width="30" height="30"/>
+          <input  ref={hiddenFileInput} id="files" hidden type="file" onChange={handleFileChange} accept=".json"/>
+          <label id="lblSelectedFile" for="files">&nbsp;&nbsp;{selectedFile}</label>
+          </div>
         </FormControl>
         </div>
       </ModalBody>
       <ModalFooter>
         <div className="flex py-4 w-full">
-          <AddButton onClose={props.close} calenderValue={calenderValue}/> 
+          <AddButton onClose={props.close} calenderValue={calenderValue} modelResponse={responseData}/> 
         </div>
       </ModalFooter> 
     </Modal>
