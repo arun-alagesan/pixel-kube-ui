@@ -2,6 +2,7 @@ import { UpdateFacilityRequest } from './../models/spacemgmt/facility/updateFaci
 import { CreateFacilityRequest } from './../models/spacemgmt/facility/createFacilityRequest';
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
+import { Resource } from '../models/spacemgmt/facility/FacilityModel';
 
 const create = (request: CreateFacilityRequest) => {
     return http.post<ApiResponse>("api/facilities", request)
@@ -18,6 +19,11 @@ const get = (id: number) => {
         .then(res => res.data);
 }
 
+const deleteByFacilityId = (id: number) => {
+    return http.delete<ApiResponse>("api/facilities/" + id)
+        .then(res => res.data);
+}
+
 const getByOrgId = (orgId: number) => {
     return http.get<ApiResponse>("api/facilities/getByOrganization/" + orgId)
         .then(res => res.data);
@@ -28,12 +34,20 @@ const getAll = () => {
         .then(res => res.data);
 }
 
+const CreateResource = (request: Resource) => {
+    return http.post<ApiResponse>("api/Resources", request)
+        .then(res => res.data);
+
+}
+
 const FacilityService = {
     create,
     update,
     get,
     getByOrgId,
-    getAll
+    getAll,
+    CreateResource,
+    deleteByFacilityId
 }
 
 export default FacilityService

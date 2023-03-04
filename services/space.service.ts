@@ -1,6 +1,7 @@
 import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
-import roomData from "../pages/data/bookRoomData.json"
+import roomData from "../pages/bookSpaces/data/bookRoomData.json"
+import searchResult from "../pages/bookSpaces/data/searchResult.json"
 
 
 const getSpaceList = () => {
@@ -30,18 +31,35 @@ const getFloorList = () => {
     return http.post<ApiResponse>("api/temp/floor/list")
         .then(res => res.data);
 }
-const getRemainderList =()=>{
+const getRemainderList = () => {
     return http.post<ApiResponse>("api/temp/floor/list")
-    .then(res => res.data);
+        .then(res => res.data);
 }
-const getBasicFormDetails =()=>{
+
+const createBuilding = (buildingData: any) => {
+    return http.post<ApiResponse>("api/Buildings/CreateBuilding", buildingData)
+        .then(res => res.data);
+
+}
+const updateBuilding = (buildingData: any) => {
+    return http.put<ApiResponse>("api/Buildings", buildingData)
+        .then(res => res.data);
+
+}
+const getBasicFormDetails = () => {
     // return http.post<ApiResponse>("api/temp/floor/list")
     // .then(res => res.data);
-    let res ={
-        ...roomData        
+    let res = {
+        ...roomData
     }
     return res;
 }
+
+const onSearch = () => {
+    return searchResult;
+}
+
+
 const deleteSpace = (id: number) => {
     return http.delete<ApiResponse>("api/Spaces/" + id)
         .then(res => res.data);
@@ -58,7 +76,10 @@ const SpaceService = {
     getFloorList,
     getRemainderList,
     getBasicFormDetails,
-    deleteSpace
+    deleteSpace,
+    onSearch,
+    createBuilding,
+    updateBuilding
 }
 
 export default SpaceService;

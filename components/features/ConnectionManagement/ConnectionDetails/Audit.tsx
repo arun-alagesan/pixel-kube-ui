@@ -27,7 +27,7 @@ function Audit() {
 
 
   return (
-    <TableContainer sx={{ margin: '20px', width: `calc(100% - ${marginVal})` }} component={Paper}>
+    <TableContainer sx={{ margin: '20px', width: `calc(100% - ${marginVal})`, maxHeight: 440 }} component={Paper}>
       <Table size="small" aria-label="simple table">
         <TableHead>
           <TableRow sx={{ backgroundColor: '#dee2e6' }}>

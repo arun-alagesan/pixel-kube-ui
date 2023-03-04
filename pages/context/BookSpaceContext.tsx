@@ -1,8 +1,20 @@
 import dayjs from "dayjs";
-import { useState, createContext } from "react";
-import ReactDOM from "react-dom/client";
+import { createContext } from "react";
+import { KVP } from "../../models/masters/Industry";
+
+export type initializeDataType = {
+  locations: KVP[];
+  buildings: KVP[];
+  floors: KVP[];
+  reminders: KVP[];
+  IsDataAvailable: boolean;
+  mapDetails: KVP[];
+};
+
 export const initialvalue = {
   isBookSpaceMenu: false,
+  selectedMenu: -1,
+  bookingServiceDetails: null,
   bookRoomInfo: {
     location: "",
     building: "",
@@ -10,10 +22,13 @@ export const initialvalue = {
     startDate: dayjs("2022-04-07"),
     endDate: dayjs("2022-04-07"),
     attendies: "",
+
   },
 };
 type spaceContextDataType = {
+  bookingServiceDetails: initializeDataType | null;
   isBookSpaceMenu: boolean;
+  selectedMenu: number;
   bookRoomInfo: {
     location: string;
     building: string;

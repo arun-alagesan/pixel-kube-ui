@@ -36,7 +36,7 @@ const schema = yup.object().shape({
 });
 
 
-type props = { changeStep: (step: number) => void, submittedCallback: () => void, organization?: Organization };
+type props = { changeStep: (step: number) => void, submittedCallback: (org: any) => void, organization?: Organization };
 
 let renderCount = 0;
 const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) => {
@@ -135,6 +135,7 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
 
   const handleFileChange = (e: any) => {
+    
     setLogo(fileInput.current?.files[0]);
   }
 
@@ -151,16 +152,33 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
 
   const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    debugger;
     if (reason === 'clickaway') return;
     setOpen(false);
   };
 
+  const getBase64 = (file: any) => {
+    debugger;
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        // setFileName(file.name);
+        // onAddFile({ floorName: file.name, floorPlan: reader.result })
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+    };
+}
+
   const onSubmit = async (data: any) => {
+    debugger;
     console.log("form data", data);
     var formData = new FormData();
     for (var key in data) {
-      if (key === 'logo')
+      if (key === 'logo') {
+        debugger;
         formData.append("logo", data.logo[0]);
+      }
       else
         formData.append(key, data[key]);
     }
@@ -169,10 +187,11 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
       response = await OrganizationService.createOrgGeneralDetails(formData);
     } else {
       response = await OrganizationService.updateOrgGeneralDetails(formData);
+
     }
     console.log(response);
     if (response.status) {
-      submittedCallback();
+      submittedCallback(response.data);
       setOpen(true);
       changeStep(2);
     }

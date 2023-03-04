@@ -1,6 +1,6 @@
 .connectordetails{
     position: absolute;
-    top: 4.75rem;
+    top: 4rem;
     right: 0;
     bottom: 0;
     left: 55%;
@@ -12,7 +12,7 @@
     transition: .3s all ease;
     /* align-items: center;
     justify-content: center; */
-    box-shadow: rgba(0, 0, 0, 0.15) -1.95px -1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.03) -1.95px -1.95px 2.6px;
 }
 
 .switch {

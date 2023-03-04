@@ -11,10 +11,10 @@ export interface Facility {
 }
 
 export interface Resource {
-    resourceId: number;
+    resourceId?: number;
     type: string;
     name: string;
     isEnabled: boolean;
     icon?: string;
-    facilityId: number;
+    facilityId?: number;
 }

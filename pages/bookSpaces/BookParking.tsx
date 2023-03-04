@@ -1,5 +1,5 @@
-import Layout from "../components/Layout";
-import CardComponent from "./CardComponent";
+import Layout from "../../components/Layout";
+import CardComponent from "./compponents/CardComponent";
 import React from "react";
 import Grid from '@mui/material/Unstable_Grid2';
 
