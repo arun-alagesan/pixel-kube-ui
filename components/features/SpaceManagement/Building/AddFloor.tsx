@@ -1,16 +1,23 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useState } from "react";
+import { use, useState } from "react";
 import AddFloorItem from "./AddFloorItem";
 
 
-const AddFloor = () => {
+const AddFloor = ({ onSubmitData }: any) => {
 
-    const [floors, setFloors] = useState<any[]>([<AddFloorItem key={new Date().getTime()}></AddFloorItem>]);
+    const [floorItems, setFloorItems] = useState<any>([]);
+
+    const onAddFile = (data: any) => {
+        floorItems.push(data);
+        setFloorItems(floorItems);
+    }
+
+    const [floors, setFloors] = useState<any[]>([<AddFloorItem onAddFile={onAddFile} key={new Date().getTime()}></AddFloorItem>]);
 
     const onAddBtnClick = () => {
-        setFloors(floors.concat(<AddFloorItem key={new Date().getTime()}></AddFloorItem>));
+        setFloors(floors.concat(<AddFloorItem onAddFile={onAddFile} key={new Date().getTime()}></AddFloorItem>));
     };
 
     return (
@@ -38,7 +45,10 @@ const AddFloor = () => {
 
             </div>
             <div className="col-12 text-center mt-5">
-                <Button variant="contained" type="submit">Submit</Button>
+                <Button variant="contained" onClick={(e) => {
+                    debugger;
+                    onSubmitData(floorItems)
+                }} >Submit</Button>
             </div>
         </div>
     );

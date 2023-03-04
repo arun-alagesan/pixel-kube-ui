@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import CreateOrganization from "../../components/features/SpaceManagement/Organization/CreateOrganization";
 import Layout from "../../components/Layout";
 import ModalService from "../../components/lib/modalPopup/services/ModalService";
 import Organization from "../../models/spacemgmt/organization";
@@ -17,11 +16,17 @@ import Space from "../../models/spacemgmt/space";
 import SpaceService from "../../services/space.service";
 import CreateSpace from "../../components/features/SpaceManagement/Space/CreateSpace";
 import DeleteAlert from "../../components/common/deleteAlert";
+import RoomDetails from "./RoomDetails";
 
 const RoomManagement = () => {
 
     const [spaces, setSpaces] = useState<Space[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
+    const [IsRoomDetailsOpen, setRoomDetailsOpen] = useState<boolean>(false);
+
+
+
+
     useEffect(() => {
         fetchMyApi();
     }, []);
@@ -36,8 +41,6 @@ const RoomManagement = () => {
         setLoader(false);
         console.log("spaces", spaces);
     }
-
-
 
     const openModel = (component: any, props?: any) => {
         console.log("open clicked");
@@ -72,6 +75,9 @@ const RoomManagement = () => {
     async function editOrganization(org: Space) {
         openModel(CreateSpace, { "organization": org, "submittedCallback": fetchMyApi });
     }
+    function openRoomDetails(details: any) {
+        setRoomDetailsOpen(true);
+    }
 
     const actionBodyTemplate = (rowData: Space) => {
         return (
@@ -86,21 +92,28 @@ const RoomManagement = () => {
         );
     }
 
+    const data = [
+        { "spaceType": "Meeting Room", "orgName": "Wipro", "buildingName": "Head Quaters" },
+        { "spaceType": "Meeting Room", "orgName": "Wipro", "buildingName": "Head Quaters" },
+    ]
+
     return (
-        <Layout>
-            <h2 className="text-xl font-bold">Space Management</h2>
-            <Breadcrumbs currentPage={"Space Management"} routes={breadcrumbPaths} />
-            {
-                loader == true ?
-                    <div className="text-center">Loading Data...</div>
-                    :
-                    <div>
-                        {
-                            spaces.length == 0 ?
+        <>
+            <Layout>
+                <h2 className="text-xl font-bold">Space Management</h2>
+                <Breadcrumbs currentPage={"Space Management"} routes={breadcrumbPaths} />
+                {
+                    loader == true ?
+                        <div className="text-center">Loading Data...</div>
+                        :
+                        <div>
+                            {/* <Button onClick={openRoomDetails}>Open modal</Button> */}
+                            {IsRoomDetailsOpen && <RoomDetails onClose={() => setRoomDetailsOpen(false)} />}
+                            {data.length == 0 ?
                                 <div className="text-center">
-                                    <div className="mb-4 mt-4">
+                                    {/* <div className="mb-4 mt-4">
                                         <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
-                                    </div>
+                                    </div> */}
                                     <div className="h4 fw-bold">No Record Found</div>
                                     <div className="">Looks like you haven't setup any Buildings yet</div>
 
@@ -119,21 +132,21 @@ const RoomManagement = () => {
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <DataTable value={spaces} dataKey="spaceId" responsiveLayout="scroll" className="pk-master-table">
+                                            <DataTable value={data} dataKey="spaceId" responsiveLayout="scroll" className="pk-master-table" onRowClick={openRoomDetails}>
                                                 <Column field="spaceType" header="Type" sortable={true} ></Column>
-                                                <Column field="organization.orgName" header="Organization Name" sortable={true} ></Column>
-                                                <Column field="building.buildingName" header="Building Name" sortable={true} ></Column>
+                                                <Column field="orgName" header="Organization Name" sortable={true} ></Column>
+                                                <Column field="buildingName" header="Building Name" sortable={true} ></Column>
                                                 <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>
                                             </DataTable>
                                         </div>
                                     </div>
                                 </div>
-                        }
-                    </div>
-            }
-
+                            }
+                        </div>
+                }
+            </Layout>
             <ModalRoot />
-        </Layout>
+        </>
     );
 
 

@@ -188,6 +188,9 @@ const BookRoom = () => {
                     searchResult?.Result.map((x: Result) => <CardComponent key={x.id} roomDetails={x} isCheckBox={true}></CardComponent>)
                   }
                 </div>
+                <Button variant="contained" className="flex-1 w-64 absolute bottom-0 right-0" onClick={() => onBookMeetClick()}>
+                    Book Meeting
+                  </Button>
               </TabPanel>
 
               <TabPanel value={valueTab} index={1}>

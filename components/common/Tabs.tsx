@@ -1,30 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import RoomsandCalendersTab from './RoomsandCalendersTab';
-import Settings from './Settings';
-import Logs from './Logs';
-import Audit from './Audit';
 
-const tabsData: any = [
-  {
-    label: 'Rooms and Calenders',
-    component: RoomsandCalendersTab
-  },
-  {
-    label: 'Settings',
-    component: Settings,
-  },
-  {
-    label: 'Audit',
-    component: Audit,
-  },
-  {
-    label: 'Logs',
-    component: Logs,
 
-  },
-];
 
-export default function Tabs() {
+
+export default function Tabs({ tabsData }: any) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
@@ -66,7 +45,7 @@ export default function Tabs() {
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         />
       </div>
-      <div className="py-4">
+      <div className="py-0 overflow-y-auto" style={{height:"450px"}}>
         {tabsData.map((data: any, idx: number) => {
           if (idx === activeTabIndex) return <data.component key={idx} />
         })}

@@ -35,6 +35,17 @@ const getRemainderList = () => {
     return http.post<ApiResponse>("api/temp/floor/list")
         .then(res => res.data);
 }
+
+const createBuilding = (buildingData: any) => {
+    return http.post<ApiResponse>("api/Buildings/CreateBuilding", buildingData)
+        .then(res => res.data);
+
+}
+const updateBuilding = (buildingData: any) => {
+    return http.put<ApiResponse>("api/Buildings", buildingData)
+        .then(res => res.data);
+
+}
 const getBasicFormDetails = () => {
     // return http.post<ApiResponse>("api/temp/floor/list")
     // .then(res => res.data);
@@ -44,7 +55,7 @@ const getBasicFormDetails = () => {
     return res;
 }
 
-const onSearch  = () => {   
+const onSearch = () => {
     return searchResult;
 }
 
@@ -66,7 +77,9 @@ const SpaceService = {
     getRemainderList,
     getBasicFormDetails,
     deleteSpace,
-    onSearch
+    onSearch,
+    createBuilding,
+    updateBuilding
 }
 
 export default SpaceService;

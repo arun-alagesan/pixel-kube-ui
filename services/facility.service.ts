@@ -19,6 +19,11 @@ const get = (id: number) => {
         .then(res => res.data);
 }
 
+const deleteByFacilityId = (id: number) => {
+    return http.delete<ApiResponse>("api/facilities/" + id)
+        .then(res => res.data);
+}
+
 const getByOrgId = (orgId: number) => {
     return http.get<ApiResponse>("api/facilities/getByOrganization/" + orgId)
         .then(res => res.data);
@@ -28,6 +33,7 @@ const getAll = () => {
     return http.get<ApiResponse>("api/facilities/getall")
         .then(res => res.data);
 }
+
 const CreateResource = (request: Resource) => {
     return http.post<ApiResponse>("api/Resources", request)
         .then(res => res.data);
@@ -40,7 +46,8 @@ const FacilityService = {
     get,
     getByOrgId,
     getAll,
-    CreateResource
+    CreateResource,
+    deleteByFacilityId
 }
 
 export default FacilityService
