@@ -9,7 +9,7 @@ Dont ignore the . at the  end of the statement. It denotes to look for the docke
 
 ### To Spin up the container from the image:
 
-`docker run -d --name pixelkubeui -p 3001:80 arunalagesan/pixelkubeui`
+`docker run -d --name pixelkubeui -p 3000:3000 arunalagesan/pixelkube-ui`
 
 == arunalagesan == is my personal Docker hub account. Replace it accordingly with your account or the Org account
 
