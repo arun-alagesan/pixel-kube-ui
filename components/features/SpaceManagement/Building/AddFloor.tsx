@@ -46,7 +46,6 @@ const AddFloor = ({ onSubmitData }: any) => {
             </div>
             <div className="col-12 text-center mt-5">
                 <Button variant="contained" onClick={(e) => {
-                    debugger;
                     onSubmitData(floorItems)
                 }} >Submit</Button>
             </div>

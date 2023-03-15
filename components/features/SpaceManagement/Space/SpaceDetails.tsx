@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import * as yup from 'yup';
 import { KVP } from "../../../../models/masters/Industry";
 import SpaceService from "../../../../services/space.service";
+import BuildingService from "../../../../services/building.service";
 
 
 const schema = yup.object().shape({
@@ -24,9 +25,11 @@ type props = { afterSubmit: any };
 
 const SpaceDetails = (props: props) => {
 
-    type initializeDataType = { orgs: KVP[], locations: KVP[], buildings: KVP[], floors: KVP[] };
+    // type initializeDataType = { orgs: KVP[], locations: KVP[], buildings: KVP[], floors: KVP[] };
 
-    const [initializeData, setInitializeData] = useState<initializeDataType>({ orgs: [], locations: [], buildings: [], floors: [] });
+    const [initializeData, setInitializeData] = useState<any>();
+    // const [location, setLocation] = useState("")
+
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -35,34 +38,44 @@ const SpaceDetails = (props: props) => {
     useEffect(() => {
         async function fetchMyApi() {
             let orgResponse = await SpaceService.getOrgList();
-            let locationResponse = await SpaceService.getLocationList();
-            let buildingResponse = await SpaceService.getBuildingList();
-            let floorResponse = await SpaceService.getFloorList();
-
-            let initializationData: initializeDataType = {
-                buildings: buildingResponse.data,
-                floors: floorResponse.data,
-                locations: locationResponse.data,
+            let initializationData = {
                 orgs: orgResponse.data
             };
-
             setInitializeData(initializationData);
         }
         fetchMyApi();
     }, []);
 
-    const onSubmit = (data: any) => {
-        console.log(data);
-        props.afterSubmit();
+    const getBuildingbyGroup = (groupName: string) => {
+
+        const buildings = initializeData.locations.filter((x: any) => x.groupName == groupName);
+        setInitializeData({ ...initializeData, buildings: buildings });
+
     }
+    const getFloorbyBuilding = async (id: string) => {
+        const floors = await BuildingService.GetFloorByBuilding(id);
+        setInitializeData({ ...initializeData, floors: floors.data });
+
+    }
+
+    const fetchBuilding = async (id: string) => {
+        const buildings = await BuildingService.getBuildingsbyOrgId(id);
+        setInitializeData({ ...initializeData, locations: buildings.data });
+    }
+
+    const onSubmit = (data: any) => {
+        data.floorData = initializeData.floors.find((x: any) => x.floorId == data.floor);
+        props.afterSubmit(data);
+    }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row mt-3">
                 <div className="col-12">
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.organization} >
                         <InputLabel id="demo-simple-select-label">Organization</InputLabel>
-                        <Select {...register('organization')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Organization">
-                            {initializeData.orgs.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                        <Select {...register('organization')} defaultValue="" onChange={(e) => { fetchBuilding(e.target.value) }} labelId="demo-simple-select-label" id="demo-simple-select" label="Organization">
+                            {initializeData?.orgs?.map((x: any) => (<MenuItem key={x.orgId} value={x.orgId}>{x.orgName}</MenuItem>))}
                         </Select>
                         {errors.organization && <FormHelperText>{errors.organization.message?.toString()}</FormHelperText>}
                     </FormControl>
@@ -71,8 +84,8 @@ const SpaceDetails = (props: props) => {
                 <div className="col-12 mt-3">
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.location}>
                         <InputLabel id="demo-simple-select-label">Location</InputLabel>
-                        <Select {...register('location')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Location">
-                            {initializeData.locations.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                        <Select {...register('location')} defaultValue="" onChange={(e) => { getBuildingbyGroup(e.target.value) }} labelId="demo-simple-select-label" id="demo-simple-select" label="Location">
+                            {initializeData?.locations?.map((x: any) => (<MenuItem key={x.id} value={x.groupName}>{x.groupName}</MenuItem>))}
                         </Select>
                         {errors.location && <FormHelperText>{errors.location.message?.toString()}</FormHelperText>}
                     </FormControl>
@@ -81,8 +94,8 @@ const SpaceDetails = (props: props) => {
                 <div className="col-12 mt-3">
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.building} >
                         <InputLabel id="demo-simple-select-label">Building Name</InputLabel>
-                        <Select {...register('building')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Building Name">
-                            {initializeData.buildings.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                        <Select {...register('building')} defaultValue="" onChange={(e) => { getFloorbyBuilding(e.target.value) }} labelId="demo-simple-select-label" id="demo-simple-select" label="Building Name">
+                            {initializeData?.buildings?.map((x: any) => (<MenuItem key={x.buildingId} value={x.buildingId}>{x.buildingName}</MenuItem>))}
                         </Select>
                         {errors.building && <FormHelperText>{errors.building.message?.toString()}</FormHelperText>}
                     </FormControl>
@@ -92,7 +105,7 @@ const SpaceDetails = (props: props) => {
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.floor} >
                         <InputLabel id="demo-simple-select-label">Floor</InputLabel>
                         <Select {...register('floor')} defaultValue="" labelId="demo-simple-select-label" id="demo-simple-select" label="Floor">
-                            {initializeData.floors.map(x => (<MenuItem key={x.id} value={x.id}>{x.name}</MenuItem>))}
+                            {initializeData?.floors?.map((x: any) => (<MenuItem key={x.floorId} value={x.floorId}>{x.floorName}</MenuItem>))}
                         </Select>
                         {errors.floor && <FormHelperText>{errors.floor.message?.toString()}</FormHelperText>}
                     </FormControl>

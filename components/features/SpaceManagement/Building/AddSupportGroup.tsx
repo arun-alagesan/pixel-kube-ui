@@ -20,7 +20,6 @@ const AddSupportGroup = ({ changeStep, buildingData }: props) => {
 
 
     async function fetchMyApi() {
-        debugger;
         if (building?.orgId) {
             var response = await FacilityService.getByOrgId(building.orgId);
             if (response.status === true) {

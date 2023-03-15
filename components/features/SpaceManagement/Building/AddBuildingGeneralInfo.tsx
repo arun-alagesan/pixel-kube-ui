@@ -50,7 +50,6 @@ const AddBuildingGeneralInfo = ({ changeStep, buildingData }: props) => {
     }, [])
 
     const onSubmit = async (data: any) => {
-        debugger;
         console.log("form data", data);
         changeStep(2, { ...buildingData, ...data });
     }

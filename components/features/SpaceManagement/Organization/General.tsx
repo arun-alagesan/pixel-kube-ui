@@ -152,13 +152,11 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
 
   const handleCloseAlert = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    debugger;
     if (reason === 'clickaway') return;
     setOpen(false);
   };
 
   const getBase64 = (file: any) => {
-    debugger;
     let reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
@@ -171,12 +169,10 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 }
 
   const onSubmit = async (data: any) => {
-    debugger;
     console.log("form data", data);
     var formData = new FormData();
     for (var key in data) {
       if (key === 'logo') {
-        debugger;
         formData.append("logo", data.logo[0]);
       }
       else

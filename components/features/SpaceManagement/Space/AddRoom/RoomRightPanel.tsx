@@ -11,13 +11,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import { DropdownProps } from '../../../../../services/constants';
 import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
+import { ListItem, Paper } from '@mui/material';
+import React from 'react';
+import { IArea } from '@bmunozg/react-image-area/dist/src';
+import FacilityService from '../../../../../services/facility.service';
+import { Facility } from '../../../../../models/spacemgmt/facility/FacilityModel';
 
 
 const schema = yup.object().shape({
@@ -25,24 +30,27 @@ const schema = yup.object().shape({
     group: yup.string(),
     calender: yup.string(),
     email: yup.string(),
-    directionalCoordinate: yup.string(),
-
-    physicalInfrastructure: yup.object({
-        chair: yup.number(),
-        table: yup.boolean(),
-        fan: yup.boolean(),
-        ac: yup.boolean(),
-    }),
-
-    itInfrastructure: yup.object({
-        wifi: yup.boolean(),
-        projector: yup.boolean(),
-        computer: yup.boolean(),
-    })
+    directionalCoordinate: yup.string()
 });
 
-
 const RoomRightPanel = (props: any) => {
+
+    const [facilities, setFacilities] = useState<Facility[]>([]);
+    useEffect(() => {
+
+        fetchMyApi();
+
+    }, []);
+    async function fetchMyApi() {
+        var response = await FacilityService.getByOrgId(props?.floorDetails?.organization);
+        if (response.status === true) {
+            setFacilities(response.data);
+            debugger;
+        }
+    }
+
+
+
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -57,6 +65,12 @@ const RoomRightPanel = (props: any) => {
             typeof value === 'string' ? value.split(',') : value,
         );
     };
+    const onSubmit = (data: any) => {
+        debugger;
+        console.log('submitted data', data);
+        data.floorDetails = props?.floorDetails;    
+        props.afterSubmit(data);
+    }
 
     const calenderList = [
         'Calender 1',
@@ -65,10 +79,12 @@ const RoomRightPanel = (props: any) => {
         'Calender 4',
     ];
 
-
+    const handleDelete = (chipToDelete: IArea) => () => {
+        props.onAreaDelete(chipToDelete);
+    };
 
     return (
-        <div className={"col-12 col-md-4 pb-3 " + styles.right_panel} >
+        <form onSubmit={handleSubmit(onSubmit)} className={"col-12 col-md-4 pb-3 " + styles.right_panel} >
             <div className="row">
                 <div className="col-12 p-3  ">
                     <div className="float-end mt-2 " onClick={props.close}>
@@ -121,104 +137,64 @@ const RoomRightPanel = (props: any) => {
                     </FormControl>
                 </div>
                 <div className="col-12 mt-3">
-                    <TextField {...register('email')} fullWidth value="test@gmail.com" disabled variant="outlined" className="pk-input"
+                    <TextField {...register('email')} fullWidth label="Email"  variant="outlined" className="pk-input"
                         error={!!errors.email}
                         helperText={errors.email?.message?.toString()}
                     />
                 </div>
                 <div className="col-12 mt-3">
-                    <TextField
-                        {...register('directionalCoordinate')}
-                        fullWidth
-                        label="Room directional coordinates"
-                        multiline
-                        rows={4}
-                        variant="outlined" className="pk-input"
-                        error={!!errors.directionalCoordinate}
-                        helperText={errors.directionalCoordinate?.message?.toString()}
-                    />
+                    <Paper
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            flexWrap: 'wrap',
+                            listStyle: 'none',
+                            p: 0.5,
+                            m: 0,
+                        }}
+                        component="ul"
+                    >
+                        {props.areas.map((data: IArea, index: number) => {
+                            return (
+                                <ListItem key={index} className="contents">
+                                    <Chip
+                                        label={data.x + "," + data.y}
+                                        onDelete={handleDelete(data)}
+                                    />
+                                </ListItem>
+                            );
+                        })}
+                    </Paper>
                 </div>
 
-                <div className="col-12 mt-4">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="fw-bold">
-                                Physical Infrastructure
+                {facilities.map((x: any) => {
+                    return (
+                        <div className="col-12 mt-4">
+                            <div className="row">
+                                <div className="col-12">
+                                    <div className="fw-bold">
+                                        {x.facilityName}
+                                    </div>
+                                </div>
                             </div>
+                            {x.resources.map((y: any) => {
+                                return (
+                                    <div className="row p-2">
+                                        <div className="col-12 border-bottom">
+                                            <div className="float-start">
+                                                {y.name}
+                                            </div>
+                                            <div className="float-end">
+                                                <Switch   {...register(x.Name + "." + y.name)} />
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                Table
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.chair')} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                Fan
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.fan')} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                AC
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.ac')} />
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-                <div className="col-12 mt-4">
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="fw-bold">
-                                IT Infrastructure
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                Wifi
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.chair')} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                Projector
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.fan')} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row p-2">
-                        <div className="col-12 border-bottom">
-                            <div className="float-start">
-                                Computer
-                            </div>
-                            <div className="float-end">
-                                <Switch   {...register('physicalInfrastructure.ac')} />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                    )
+                })}
 
                 <div className="col-12 text-center mt-4">
                     <Button variant="contained" type="submit">Add Room</Button>
@@ -226,7 +202,7 @@ const RoomRightPanel = (props: any) => {
 
             </div>
 
-        </div>
+        </form>
     );
 }
 

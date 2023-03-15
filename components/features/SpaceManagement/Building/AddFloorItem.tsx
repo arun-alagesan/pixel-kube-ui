@@ -11,7 +11,6 @@ const AddFloorItem = ({ onAddFile }: any) => {
     const [fileName, setFileName] = useState("");
 
     const handleFileSelected = (e: React.ChangeEvent<HTMLInputElement>): void => {
-        debugger;
         console.log(e.target.files);
         if (e.target.files != null && e.target.files.length > 0) {
             // setSelectedFile(e.target.files[0]);
@@ -24,7 +23,6 @@ const AddFloorItem = ({ onAddFile }: any) => {
     }
 
     const getBase64 = (file: any) => {
-        debugger;
         let reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = function () {

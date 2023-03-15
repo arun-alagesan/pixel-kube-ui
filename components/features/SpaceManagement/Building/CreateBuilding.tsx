@@ -20,7 +20,6 @@ const CreateBuilding = (props: any) => {
         setCurrentStep(step);
     };
     const FloorSubmitData = async (floorItems: any) => {
-        debugger;
         buildingData.floors = floorItems;
         if (buildingData.buildingId)
             await SpaceService.updateBuilding(buildingData);

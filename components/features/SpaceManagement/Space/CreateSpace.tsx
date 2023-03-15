@@ -10,8 +10,15 @@ import SpaceDetails from "./SpaceDetails";
 const CreateSpace = (props: any) => {
     const steps = ['Select Space', 'Add Details', 'Add Room'];
     const [currentStep, setCurrentStep] = useState(0);
+    const [step1Details, setStep1Details] = useState<any>();
+    const [step2Details, setStep2Details] = useState<any>();
 
-    const changeStep = () => {
+    const changeStep = (data: any) => {
+        if (currentStep == 1) {
+            setStep1Details(data);
+        } else if (currentStep == 2) {
+            setStep2Details(data);
+        }
         setCurrentStep(currentStep + 1);
     }
     const getRenderPage = () => {
@@ -31,7 +38,7 @@ const CreateSpace = (props: any) => {
 
         if (currentStep === 2)
             return (
-                <AddRoom close={props.close}></AddRoom>
+                <AddRoom floorDetails={{ ...step1Details, ...step2Details }} close={props.close} ></AddRoom>
             );
     }
 

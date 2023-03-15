@@ -45,7 +45,7 @@ const SelectSpace = (props: props) => {
 
     const onSubmit = (data: any) => {
         console.log('submitted data', data);
-        props.afterSubmit();
+        props.afterSubmit(data);
     }
 
     return (

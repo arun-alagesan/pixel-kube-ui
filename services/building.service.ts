@@ -25,6 +25,17 @@ const getAll = () => {
         .then(res => res.data);
 }
 
+const getBuildingsbyOrgId = (id: string) => {
+    return http.get<ApiResponse>("api/Buildings/getBuildingsbyOrg?id=" + id)
+        .then(res => res.data);
+}
+
+const GetFloorByBuilding = (id: string) => {
+    return http.get<ApiResponse>("api/Floors/GetFloorByBuilding?id=" + id)
+        .then(res => res.data);
+}
+
+
 const deleteBuilding = (id: number) => {
     return http.delete<ApiResponse>("api/Buildings/" + id)
         .then(res => res.data);
@@ -38,7 +49,9 @@ const BuildingService = {
     createOrgGeneralDetails,
     updateOrgGeneralDetails,
     getAll,
-    deleteBuilding
+    deleteBuilding,
+    getBuildingsbyOrgId,
+    GetFloorByBuilding
 }
 
 export default BuildingService

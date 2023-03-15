@@ -8,6 +8,10 @@ const getSpaceList = () => {
     return http.post<ApiResponse>("api/temp/space/list")
         .then(res => res.data);
 }
+const createSpace = (request: any) => {
+    return http.post<ApiResponse>("api/spaces", request)
+        .then(res => res.data);
+}
 
 const getAll = () => {
     return http.get<ApiResponse>("api/Spaces")
@@ -15,24 +19,24 @@ const getAll = () => {
 }
 
 const getOrgList = () => {
-    return http.get<ApiResponse>("api/Spaces")
+    return http.get<ApiResponse>("api/Organizations/getList")
         .then(res => res.data);
 }
 const getLocationList = () => {
-    return http.post<ApiResponse>("api/temp/location/list")
+    return http.get<ApiResponse>("api/Countries")
         .then(res => res.data);
 }
 const getBuildingList = () => {
-    return http.post<ApiResponse>("api/temp/building/list")
+    return http.get<ApiResponse>("api/Buildings/getListOfBuildings")
         .then(res => res.data);
 
 }
 const getFloorList = () => {
-    return http.post<ApiResponse>("api/temp/floor/list")
+    return http.get<ApiResponse>("api/Floors")
         .then(res => res.data);
 }
 const getRemainderList = () => {
-    return http.post<ApiResponse>("api/temp/floor/list")
+    return http.post<ApiResponse>("api/floor/list")
         .then(res => res.data);
 }
 
@@ -79,7 +83,8 @@ const SpaceService = {
     deleteSpace,
     onSearch,
     createBuilding,
-    updateBuilding
+    updateBuilding,
+    createSpace
 }
 
 export default SpaceService;
