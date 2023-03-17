@@ -40,6 +40,7 @@ type props = { changeStep: (step: number) => void, submittedCallback: (org: any)
 
 let renderCount = 0;
 const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) => {
+  //debugger;
 
   console.log("renderCount", ++renderCount);
 
@@ -47,7 +48,7 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
   const [open, setOpen] = useState(false);
   const [loader, setLoader] = useState(true);
-  const [, setLogo] = useState<any>();
+  const [imglogo, setLogo] = useState<any>({ iconName: organization?.logo, iconImage: organization?.image });
   const [initializeData, setInitializeData] = useState<initializeDataType>({ industries: [], countries: [] });
   const [states, setStates] = useState<State[]>([]);
   const [cities, setCities] = useState<City[]>([]);
@@ -135,8 +136,19 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
 
   const handleFileChange = (e: any) => {
-    
-    setLogo(fileInput.current?.files[0]);
+
+    getBase64(fileInput.current?.files[0]);
+
+  }
+  const getBase64 = (file: any) => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      setLogo({ iconName: file.name, iconImage: reader.result });
+    };
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
   }
 
   const { ref, ...logo } = register("logo", { onChange: handleFileChange });
@@ -147,7 +159,7 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
 
   const removeFile = () => {
     setValue('logo', '')
-    setLogo('');
+    setLogo({});
   }
 
 
@@ -156,28 +168,16 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
     setOpen(false);
   };
 
-  const getBase64 = (file: any) => {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-        // setFileName(file.name);
-        // onAddFile({ floorName: file.name, floorPlan: reader.result })
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-    };
-}
 
   const onSubmit = async (data: any) => {
     console.log("form data", data);
-    var formData = new FormData();
+    var formData: any = {};
     for (var key in data) {
-      if (key === 'logo') {
-        formData.append("logo", data.logo[0]);
-      }
-      else
-        formData.append(key, data[key]);
+      formData[key] = data[key];
     }
+    formData.logo = imglogo.iconName;
+    formData.image = imglogo.iconImage;
+    //debugger;
     let response: ApiResponse;
     if (organization?.orgId == null) {
       response = await OrganizationService.createOrgGeneralDetails(formData);
@@ -292,9 +292,9 @@ const AddOrgGeneral = ({ changeStep, submittedCallback, organization }: props) =
           <div className="col-12 mt-3 text-center">
             <input type="file" className="d-none" ref={(e) => { ref(e); fileInput.current = e; }} {...logo} />
             {
-              fileInput.current?.files[0] ?
+              imglogo.iconName ?
                 <div className="pk-uploadFile">
-                  {fileInput.current.files[0].name}
+                  {imglogo.iconName}
                   <span className="ms-3 pk_pointer" onClick={removeFile}>
                     <CloseIcon fontSize="small" color="primary" />
                   </span>

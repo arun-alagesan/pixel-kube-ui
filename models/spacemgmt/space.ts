@@ -21,3 +21,6 @@ export default interface Space {
     organization: Organization;
     building: Building;
 }
+export interface SpaceType{
+    
+}

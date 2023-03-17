@@ -74,7 +74,7 @@ const Sidebar = () => {
   );
   const getSubMenuItems = (menu: any, classes: any) => {
     let submenus = menu.subMenu?.map((submenu: any, i: number) => {
-      // debugger;
+      // //debugger;
       const bgcolor = spaceContextValue.selectedMenu == submenu.id ? "#e0ffff" : ""
       return (
         <div className={classes} style={{ backgroundColor: bgcolor }} key={i}>

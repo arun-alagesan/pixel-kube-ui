@@ -21,6 +21,9 @@ const AddFloorItem = ({ onAddFile }: any) => {
         //const files = Array.from(e.target.files);
         //console.log("files:", files)
     }
+    const onNamechange = (e: any) => {
+        setFileName(e.target.value);
+    }
 
     const getBase64 = (file: any) => {
         let reader = new FileReader();
@@ -38,7 +41,7 @@ const AddFloorItem = ({ onAddFile }: any) => {
     return (
         <div className="row">
             <div className="col-12 col-md-4 mt-3">
-                <TextField fullWidth label="Floor Name" variant="outlined" value={fileName} className="pk-input" />
+                <TextField fullWidth label="Floor Name" variant="outlined" value={fileName} onChange={onNamechange} className="pk-input" />
             </div>
             <div className="col-12 col-md-8 mt-3">
                 <div className="row">

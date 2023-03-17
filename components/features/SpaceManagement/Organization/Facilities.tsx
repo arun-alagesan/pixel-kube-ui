@@ -49,7 +49,7 @@ const Facilities = ({ orgId, onClose, changeStep }: props) => {
 
     async function cloneFacility(facility: Facility) {
         await FacilityService.create(facility)
-        fetchMyApi();
+        await fetchMyApi();
     }
     function deleteFacility(facilityId: number) {
         setChildModalOpen(true);
@@ -89,12 +89,15 @@ const Facilities = ({ orgId, onClose, changeStep }: props) => {
         if (e.newData?.facilityId > 0 && e.newData?.orgId > 0) {
 
             await FacilityService.update(e.newData)
+
         } else {
 
             e.newData.orgId = orgId;
+            await fetchMyApi();
             await FacilityService.create(e.newData)
         }
-        fetchMyApi();
+        //debugger;
+        await fetchMyApi();
 
     }
 

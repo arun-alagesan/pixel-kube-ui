@@ -45,7 +45,7 @@ export default function Tabs({ tabsData }: any) {
           style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
         />
       </div>
-      <div className="py-0 overflow-y-auto" style={{height:"450px"}}>
+      <div className="py-0 overflow-y-auto">
         {tabsData.map((data: any, idx: number) => {
           if (idx === activeTabIndex) return <data.component key={idx} />
         })}

@@ -35,7 +35,7 @@ function RoomDetails({ onClose }: any) {
 
     return (
 
-        <div className={styles.roomdetails} >
+        <div className={styles.roomdetails} style={{height:"100%"}} >
             <div className='flex justify-between font-bold'>
                 <h2 className='flex'>Meeting Details</h2>
                 <button className="opacity-30 ml-auto	" onClick={(e) => onClose()}>✖</button>

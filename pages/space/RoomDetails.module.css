@@ -12,6 +12,7 @@
     /* align-items: center;
     justify-content: center; */
     box-shadow: rgba(0, 0, 0, 0.03) -1.95px -1.95px 2.6px;
+    /* overflow-y: hidden; */
 }
 
 .switch {

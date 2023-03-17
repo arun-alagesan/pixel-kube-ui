@@ -3,9 +3,18 @@ import ApiResponse from "../models/ApiResponse";
 import roomData from "../pages/bookSpaces/data/bookRoomData.json"
 import searchResult from "../pages/bookSpaces/data/searchResult.json"
 
+const GetSpaceById = (id: string) => {
+    return http.get<ApiResponse>("api/Spaces")
+        .then(res => res.data);
+}
 
 const getSpaceList = () => {
-    return http.post<ApiResponse>("api/temp/space/list")
+    return http.post<ApiResponse>("api/Spaces")
+        .then(res => res.data);
+}
+
+const updateSpace = (id: string, request: any) => {
+    return http.put<ApiResponse>("api/spaces/" + id, request)
         .then(res => res.data);
 }
 const createSpace = (request: any) => {
@@ -72,6 +81,7 @@ const deleteSpace = (id: number) => {
 
 
 const SpaceService = {
+    GetSpaceById,
     getSpaceList,
     getOrgList,
     getAll,
@@ -84,7 +94,8 @@ const SpaceService = {
     onSearch,
     createBuilding,
     updateBuilding,
-    createSpace
+    createSpace,
+    updateSpace
 }
 
 export default SpaceService;

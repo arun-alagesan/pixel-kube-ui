@@ -20,12 +20,13 @@ const CustomResource = ({ facilityData }: any) => {
     })
 
     const CreateCustomResource = (newValue: any) => {
-        // debugger;
+        // //debugger;
         // var newResource = Object.assign(customResource, newValue)
         setCustomResource({ ...customResource, ...newValue })
     }
     const onCustomAdd = () => {
         FacilityService.CreateResource(customResource);
+
     }
 
     return (

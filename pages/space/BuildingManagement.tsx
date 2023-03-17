@@ -14,19 +14,26 @@ import Building from "../../models/spacemgmt/building";
 import BuildingService from "../../services/building.service";
 import CreateBuilding from "../../components/features/SpaceManagement/Building/CreateBuilding";
 import DeleteAlert from "../../components/common/deleteAlert";
+import { useSearchParams } from "react-router-dom";
 
-const BuildingManagement = () => {
+const BuildingManagement = (props: any) => {
 
     const [buildings, setBuildings] = useState<Building[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
     useEffect(() => {
+        //debugger;
         fetchMyApi();
+        const urlParams = new URLSearchParams(window.location.search).get('openModal');;
+        if (urlParams == "true")
+            openModel(CreateBuilding, { "submittedCallback": fetchMyApi })
+
     }, []);
 
     async function fetchMyApi() {
+
         setLoader(true);
         var response = await BuildingService.getAll();
-
+        //debugger;
         if (response.status == true) {
             setBuildings(response.data);
         }

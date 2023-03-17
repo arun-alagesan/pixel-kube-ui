@@ -7,28 +7,27 @@ import Settings from './Settings';
 import Audit from './Audit';
 import Logs from './Logs';
 
-const tabsData: any = [
-  {
-    label: 'Rooms and Calenders',
-    component: RoomsandCalendersTab
-  },
-  {
-    label: 'Settings',
-    component: Settings,
-  },
-  {
-    label: 'Audit',
-    component: Audit,
-  },
-  {
-    label: 'Logs',
-    component: Logs,
-
-  },
-];
-
 function ConnectorDetails() {
   const { connectorDetailId, setopenConnectorDetailTab }: any = useContext(ConnectorContext)
+  const tabsData: any = [
+    {
+      label: 'Rooms and Calenders',
+      component: RoomsandCalendersTab
+    },
+    {
+      label: 'Settings',
+      component: Settings,
+    },
+    {
+      label: 'Audit',
+      component: Audit,
+    },
+    {
+      label: 'Logs',
+      component: Logs,
+
+    },
+  ];
   console.log(connectorDetailId)
   return (
 

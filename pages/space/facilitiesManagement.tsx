@@ -30,16 +30,17 @@ const FacilitiesManagement = () => {
     const [facilities, setFacilities] = useState<Facility[]>([]);
 
     useEffect(() => {
-        async function fetchMyApi() {
-            var orgId = 8;
-            var response = await FacilityService.getAll();
-            if (response.status === true) {
-                setFacilities(response.data);
-            }
-        }
+
         fetchMyApi();
 
-    }, [])
+    }, []);
+    async function fetchMyApi() {
+        var orgId = 8;
+        var response = await FacilityService.getAll();
+        if (response.status === true) {
+            setFacilities(response.data);
+        }
+    }
 
 
 

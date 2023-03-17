@@ -11,7 +11,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -26,16 +26,24 @@ import { Facility } from '../../../../../models/spacemgmt/facility/FacilityModel
 
 
 const schema = yup.object().shape({
-    alias: yup.string(),
+    spaceAliasName: yup.string(),
     group: yup.string(),
     calender: yup.string(),
     email: yup.string(),
-    directionalCoordinate: yup.string()
+    directionNotes: yup.string()
 });
 
 const RoomRightPanel = (props: any) => {
+    //debugger;
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
+        resolver: yupResolver(schema),
+        defaultValues: useMemo(() => {
+            return props.spaceDetails;
+        }, [props.spaceDetails])
+    });
 
     const [facilities, setFacilities] = useState<Facility[]>([]);
+    const [selectedFacility, setSelectedFacility] = useState<number[]>(props?.spaceDetails?.servicingFacilities ?? []);
     useEffect(() => {
 
         fetchMyApi();
@@ -45,16 +53,9 @@ const RoomRightPanel = (props: any) => {
         var response = await FacilityService.getByOrgId(props?.floorDetails?.organization);
         if (response.status === true) {
             setFacilities(response.data);
-            debugger;
         }
     }
 
-
-
-
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    });
     const [personName, setPersonName] = useState<string[]>([]);
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {
         const {
@@ -66,10 +67,24 @@ const RoomRightPanel = (props: any) => {
         );
     };
     const onSubmit = (data: any) => {
-        debugger;
+        //debugger;
         console.log('submitted data', data);
-        data.floorDetails = props?.floorDetails;    
+        data.floorDetails = props?.floorDetails;
+        data.servicingFacilities = selectedFacility;
         props.afterSubmit(data);
+    }
+    const onFacililitiesChange = (e: any) => {
+        //debugger;
+        // setSelectedFacility
+        let index = selectedFacility.indexOf(parseInt(e.target.value));
+        if (index > -1 && !e.target.checked) {
+            setSelectedFacility([...selectedFacility.splice(index, 1)]);
+        }
+        else {
+            selectedFacility.push(parseInt(e.target.value));
+            setSelectedFacility([...selectedFacility]);
+        }
+
     }
 
     const calenderList = [
@@ -96,7 +111,7 @@ const RoomRightPanel = (props: any) => {
                     <div className='small text-black-50'>2nd Floor, Boardwater Park</div>
                 </div>
                 <div className="col-12 mt-3">
-                    <TextField {...register('alias')} fullWidth label="Room Alias" variant="outlined" className="pk-input"
+                    <TextField {...register('spaceAliasName')} fullWidth label="Room Alias" variant="outlined" className="pk-input"
                         error={!!errors.alias}
                         helperText={errors.alias?.message?.toString()}
                     />
@@ -137,34 +152,23 @@ const RoomRightPanel = (props: any) => {
                     </FormControl>
                 </div>
                 <div className="col-12 mt-3">
-                    <TextField {...register('email')} fullWidth label="Email"  variant="outlined" className="pk-input"
+                    <TextField {...register('email')} fullWidth label="Email" variant="outlined" className="pk-input"
                         error={!!errors.email}
                         helperText={errors.email?.message?.toString()}
                     />
                 </div>
                 <div className="col-12 mt-3">
-                    <Paper
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            flexWrap: 'wrap',
-                            listStyle: 'none',
-                            p: 0.5,
-                            m: 0,
-                        }}
-                        component="ul"
-                    >
-                        {props.areas.map((data: IArea, index: number) => {
-                            return (
-                                <ListItem key={index} className="contents">
-                                    <Chip
-                                        label={data.x + "," + data.y}
-                                        onDelete={handleDelete(data)}
-                                    />
-                                </ListItem>
-                            );
-                        })}
-                    </Paper>
+                    <TextField
+                        {...register('directionNotes')}
+                        fullWidth
+                        label="Room directional coordinates"
+                        multiline
+                        rows={4}
+                        variant="outlined" className="pk-input"
+                        error={!!errors.directionNotes}
+                        helperText={errors.directionNotes?.message?.toString()}
+                    />
+
                 </div>
 
                 {facilities.map((x: any) => {
@@ -185,7 +189,8 @@ const RoomRightPanel = (props: any) => {
                                                 {y.name}
                                             </div>
                                             <div className="float-end">
-                                                <Switch   {...register(x.Name + "." + y.name)} />
+
+                                                <Switch value={y.resourceId} checked={selectedFacility.includes(y.resourceId)} onChange={(e) => onFacililitiesChange(e)} />
                                             </div>
                                         </div>
                                     </div>

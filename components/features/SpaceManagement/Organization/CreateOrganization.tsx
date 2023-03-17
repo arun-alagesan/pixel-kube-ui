@@ -4,7 +4,7 @@ import Router from "next/router";
 import { useState } from "react";
 import PopupHeader from "../../../common/PopupHeader";
 import StepProgress from "../../../common/StepProgress";
-import SuccssMessage from "../common/SuccessMessage";
+import SuccessMessage from "../common/SuccessMessage";
 
 import Facilities from "./Facilities";
 import AddOrgGeneral from "./General";
@@ -62,7 +62,7 @@ const CreateOrganization = (props: any) => {
                     }
                     {
                         currentStep == 3 &&
-                        <SuccssMessage
+                        <SuccessMessage
                             headerText="Congratulation!"
                             bodyText="You have successfully created company profile."
                             headerIcon={cup}
@@ -70,7 +70,7 @@ const CreateOrganization = (props: any) => {
                             close={props.close}
                             buttonCallback={onSuccessClick}
 
-                        ></SuccssMessage>
+                        ></SuccessMessage>
                     }
                 </div>
             </div>

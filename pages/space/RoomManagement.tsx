@@ -29,6 +29,9 @@ const RoomManagement = () => {
 
     useEffect(() => {
         fetchMyApi();
+        const urlParams = new URLSearchParams(window.location.search).get('openModal');;
+        if (urlParams == "true")
+            openModel(CreateSpace, { "submittedCallback": fetchMyApi });
     }, []);
 
     async function fetchMyApi() {
@@ -49,9 +52,6 @@ const RoomManagement = () => {
 
     let breadcrumbPaths = [{ 'name': 'Home', 'path': '/' }, { 'name': 'Space Management', 'path': '/space' }];
 
-    async function deleteOrganization(id: number) {
-
-    }
 
     async function invokeDelete(id: number) {
         try {
@@ -72,11 +72,15 @@ const RoomManagement = () => {
     }
 
 
-    async function editOrganization(org: Space) {
-        openModel(CreateSpace, { "organization": org, "submittedCallback": fetchMyApi });
+    async function editOrganization(space: Space) {
+        openModel(CreateSpace, { "spaceDetails": space, "submittedCallback": fetchMyApi });
     }
     function openRoomDetails(details: any) {
         setRoomDetailsOpen(true);
+    }
+    function OnCloseModal() {
+        setRoomDetailsOpen(false);
+        fetchMyApi();
     }
 
     const actionBodyTemplate = (rowData: Space) => {
@@ -92,10 +96,6 @@ const RoomManagement = () => {
         );
     }
 
-    const data = [
-        { "spaceType": "Meeting Room", "orgName": "Wipro", "buildingName": "Head Quaters" },
-        { "spaceType": "Meeting Room", "orgName": "Wipro", "buildingName": "Head Quaters" },
-    ]
 
     return (
         <>
@@ -107,9 +107,10 @@ const RoomManagement = () => {
                         <div className="text-center">Loading Data...</div>
                         :
                         <div>
+                            dasdfasdf
                             {/* <Button onClick={openRoomDetails}>Open modal</Button> */}
-                            {IsRoomDetailsOpen && <RoomDetails onClose={() => setRoomDetailsOpen(false)} />}
-                            {data.length == 0 ?
+                            {IsRoomDetailsOpen && <RoomDetails onClose={() => OnCloseModal()} />}
+                            {spaces.length == 0 ?
                                 <div className="text-center">
                                     {/* <div className="mb-4 mt-4">
                                         <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
@@ -132,10 +133,10 @@ const RoomManagement = () => {
                                     </div>
                                     <div className="row">
                                         <div className="col-12">
-                                            <DataTable value={data} dataKey="spaceId" responsiveLayout="scroll" className="pk-master-table" onRowClick={openRoomDetails}>
+                                            <DataTable value={spaces} dataKey="spaceId" responsiveLayout="scroll" paginator rows={5} className="pk-master-table" onRowClick={openRoomDetails}>
                                                 <Column field="spaceType" header="Type" sortable={true} ></Column>
-                                                <Column field="orgName" header="Organization Name" sortable={true} ></Column>
-                                                <Column field="buildingName" header="Building Name" sortable={true} ></Column>
+                                                <Column field="organization.orgName" header="Organization Name" sortable={true} ></Column>
+                                                <Column field="building.buildingName" header="Building Name" sortable={true} ></Column>
                                                 <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>
                                             </DataTable>
                                         </div>

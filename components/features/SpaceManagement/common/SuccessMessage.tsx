@@ -9,7 +9,7 @@ interface MessageProps {
     close: any,
     buttonCallback: any
 }
-export default function SuccssMessage(props: MessageProps) {
+export default function SuccessMessage(props: MessageProps) {
 
     return (
         <div className="card text-center">
