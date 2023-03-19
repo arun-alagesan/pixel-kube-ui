@@ -1,5 +1,4 @@
-export { connectorList }
-
+export { connectorList, playerList }
 
 const connectorList = [
     {
@@ -117,4 +116,60 @@ const connectorList = [
         name: "SMS Connector 1",
         lastSyncedTime: "2 mins",
     },
+]
+
+const playerList = [
+    {
+        id: 1,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.36",
+        department: "IT",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    },
+    {
+        id: 2,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.37",
+        department: "Intranet",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    },
+    {
+        id: 3,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.38",
+        department: "HR",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    },{
+        id: 4,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.39",
+        department: "Marketing",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    },
+    {
+        id: 5,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.12",
+        department: "Sales",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    },
+    {
+        id: 6,
+        serialNumber: "#PKD2005",
+        deviceName: "Waveshare HDMI LCD Display",
+        ioAddress: "192.168.1.13",
+        department: "IT",
+        location: "Meetingg Room 1, Desk 2, Pearl Garden, Brooklyn",
+        contactPerson: "Stephen Hardy"
+    }
 ]

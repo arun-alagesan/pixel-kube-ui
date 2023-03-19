@@ -49,6 +49,7 @@ const Sidebar = () => {
     { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
     { id: 5, label: "User Management", icon: UserManagement, link: "/" },
     { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
+    { id: 7, label: "Player Management", icon: SystemManagement, link: "/player" },
   ];
 
   const router = useRouter();
