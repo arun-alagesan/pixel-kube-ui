@@ -42,9 +42,10 @@ const Settings = () => {
                         <FormLabel component="legend">Work Weeks & Hours</FormLabel>
                         <FormGroup aria-label="position" row>
                             {
-                                weekList.map(x => {
+                                weekList.map((x, i) => {
                                     return (
                                         <FormControlLabel
+                                            key={i}
                                             value="bottom"
                                             control={<Checkbox />}
                                             label={x} className='m-0 text-xs w-7'
@@ -60,8 +61,8 @@ const Settings = () => {
                     <FormControl fullWidth sx={{ margin: "40px 20px 0px 0px" }} size="small">
                         <InputLabel id="locationLabel">Working hours</InputLabel>
                         <Select labelId="locationLabel" label="Working hours" className="text-sm">
-                            {roomData.locations.map((x) => {
-                                return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                            {roomData.locations.map((x, i) => {
+                                return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                             })}
                         </Select>
                     </FormControl>
@@ -81,8 +82,8 @@ const Settings = () => {
                 <FormControl fullWidth sx={{ margin: "0px 20px 15px 0px" }} size="small">
                     <InputLabel id="locationLabel">Maximum duration hours</InputLabel>
                     <Select labelId="locationLabel" label="Maximum duration hours" className="text-sm">
-                        {roomData.locations.map((x) => {
-                            return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                        {roomData.locations.map((x, i) => {
+                            return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                         })}
                     </Select>
                 </FormControl>
@@ -95,7 +96,7 @@ const Settings = () => {
                         label="Auto accept meeting requests"
                         labelPlacement="start"
                     />
-                    <span className='text-xs text-text-light' style={{ position: "relative", top: "-8px" }}>Set to "off" if you want to specify users who wants to accept meetings manually</span>
+                    <span className='text-xs text-text-light' style={{ position: "relative", top: "-8px" }}>Set to &quot;off&quot; if you want to specify users who wants to accept meetings manually</span>
                 </FormGroup>
             </div>
             <div className='row'>
@@ -103,7 +104,7 @@ const Settings = () => {
                 <span className='text-xs text-text-light'>Manage your space/Desks</span>
                 <img src={floor.src} className="" />
             </div>
-           
+
         </div>
     );
 

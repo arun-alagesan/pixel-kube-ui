@@ -103,7 +103,7 @@ const BuildingManagement = (props: any) => {
                                             <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
                                         </div>
                                         <div className="h4 fw-bold">No Record Found</div>
-                                        <div className="">Looks like you haven't setup any Buildings yet</div>
+                                        <div className="">Looks like you haven&apos;t setup any Buildings yet</div>
 
                                         <div className="mt-5">
                                             <Button variant="contained" type="submit" onClick={() => openModel(CreateBuilding, { "submittedCallback": fetchMyApi })}>Add Building</Button>

@@ -171,9 +171,9 @@ const RoomRightPanel = (props: any) => {
 
                 </div>
 
-                {facilities.map((x: any) => {
+                {facilities.map((x: any, i: number) => {
                     return (
-                        <div className="col-12 mt-4">
+                        <div className="col-12 mt-4" key={i}>
                             <div className="row">
                                 <div className="col-12">
                                     <div className="fw-bold">
@@ -181,9 +181,9 @@ const RoomRightPanel = (props: any) => {
                                     </div>
                                 </div>
                             </div>
-                            {x.resources.map((y: any) => {
+                            {x.resources.map((y: any, i: number) => {
                                 return (
-                                    <div className="row p-2">
+                                    <div className="row p-2" key={i}>
                                         <div className="col-12 border-bottom">
                                             <div className="float-start">
                                                 {y.name}

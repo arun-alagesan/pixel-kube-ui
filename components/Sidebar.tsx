@@ -22,7 +22,7 @@ import BookService from "../assets/icons/bookServices.svg";
 import MyBookings from "../assets/icons/myBookings.svg";
 
 import { display } from "@mui/system";
-import SpaceContext from "../pages/context/BookSpaceContext"
+import SpaceContext from "../context/BookSpaceContext"
 
 const Sidebar = () => {
   const spaceContextValue = React.useContext(SpaceContext);

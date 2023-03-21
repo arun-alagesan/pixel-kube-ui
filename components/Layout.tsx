@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import Sidebar from "./Sidebar";
 import NotificationIcon from "../assets/icons/notification.svg"
 import SearchIcon from "../assets/icons/loupe.svg"
-import UserContext, { initialvalue } from "../pages/context/BookSpaceContext"
+import UserContext, { initialvalue } from "../context/BookSpaceContext"
 import { Stack } from "@mui/material";
 
 const Layout = ({ children }: any) => {

@@ -1,14 +1,15 @@
 import dayjs from "dayjs";
 import { createContext } from "react";
-import { KVP } from "../../models/masters/Industry";
+import { KVP } from "../models/masters/Industry";
+
 
 export type initializeDataType = {
-  locations: KVP[];
-  buildings: KVP[];
-  floors: KVP[];
-  reminders: KVP[];
-  IsDataAvailable: boolean;
-  mapDetails: KVP[];
+  locations?: KVP[];
+  buildings?: KVP[];
+  floors?: KVP[];
+  reminders?: KVP[];
+  IsDataAvailable?: boolean;
+  mapDetails?: KVP[];
 };
 
 export const initialvalue = {

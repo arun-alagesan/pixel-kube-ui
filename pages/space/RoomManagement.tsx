@@ -107,7 +107,6 @@ const RoomManagement = () => {
                         <div className="text-center">Loading Data...</div>
                         :
                         <div>
-                            dasdfasdf
                             {/* <Button onClick={openRoomDetails}>Open modal</Button> */}
                             {IsRoomDetailsOpen && <RoomDetails onClose={() => OnCloseModal()} />}
                             {spaces.length == 0 ?
@@ -116,7 +115,7 @@ const RoomManagement = () => {
                                         <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
                                     </div> */}
                                     <div className="h4 fw-bold">No Record Found</div>
-                                    <div className="">Looks like you haven't setup any Buildings yet</div>
+                                    <div className="">Looks like you haven&apos;t setup any Buildings yet</div>
 
                                     <div className="mt-5">
                                         <Button variant="contained" type="submit" onClick={() => openModel(CreateSpace, { "submittedCallback": fetchMyApi })}>Add Space</Button>

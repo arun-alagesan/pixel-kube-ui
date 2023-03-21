@@ -34,9 +34,9 @@ const AddSupportGroup = ({ changeStep, buildingData }: props) => {
         <div className="row justify-content-center">
             <div className="col-12 col-md-6 col-lg-4 div-md-6 margin-auto">
                 {
-                    facilities.map((x) => {
+                    facilities.map((x, i) => {
                         return (
-                            <div className="row border-bottom align-items-center">
+                            <div className="row border-bottom align-items-center" key={i}>
                                 <div className="col-10">
                                     {x.facilityName}
                                 </div>

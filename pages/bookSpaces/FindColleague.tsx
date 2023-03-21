@@ -20,7 +20,7 @@ const FindColleague =()=>{
         <Layout>
         <div>
             <h2 className="text-xl font-bold">Find Colleague</h2>
-            <span style={{fontSize: "12px", color:"#a5a0a0"}}> Let's find your colleauge </span>
+            <span style={{fontSize: "12px", color:"#a5a0a0"}}> Let&apos;s find your colleauge </span>
         </div>
         <FormGroup>
         <div className="flex justify-around text-sm mt-4 px-2 md:px-2">

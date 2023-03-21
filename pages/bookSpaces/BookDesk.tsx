@@ -78,8 +78,8 @@ const BookDesk = () => {
                 label="Reminders"
                 className="text-sm"
               >
-                {roomData.reminders.map((x) => {
-                  return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                {roomData.reminders.map((x, i) => {
+                  return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                 })}
               </Select>
             </FormControl>
@@ -131,8 +131,8 @@ const BookDesk = () => {
                 label="Location"
                 className="text-sm"
               >
-                {roomData.locations.map((x) => {
-                  return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                {roomData.locations.map((x, i) => {
+                  return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                 })}
               </Select>
             </FormControl>
@@ -147,8 +147,8 @@ const BookDesk = () => {
                 label="Building"
                 className="text-sm"
               >
-                {roomData.buildings.map((x) => {
-                  return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                {roomData.buildings.map((x,i) => {
+                  return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                 })}
               </Select>
             </FormControl>
@@ -163,8 +163,8 @@ const BookDesk = () => {
                 label="Floor"
                 className="text-sm"
               >
-                {roomData.floors.map((x) => {
-                  return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                {roomData.floors.map((x,i) => {
+                  return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                 })}
               </Select>
             </FormControl>
