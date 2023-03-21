@@ -16,16 +16,17 @@ const CustomResource = ({ facilityData }: any) => {
     ];
 
     const [customResource, setCustomResource] = useState<Resource>({
-        name: "", type: "", isEnabled: true, facilityId: facilityData.facilityId
+        name: "", type: "", isEnabled: true, facilityId: facilityData?.facilityId
     })
 
     const CreateCustomResource = (newValue: any) => {
-        // debugger;
+        // //debugger;
         // var newResource = Object.assign(customResource, newValue)
         setCustomResource({ ...customResource, ...newValue })
     }
     const onCustomAdd = () => {
         FacilityService.CreateResource(customResource);
+
     }
 
     return (
@@ -41,7 +42,7 @@ const CustomResource = ({ facilityData }: any) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {facilityData.resources?.map((x: any) => {
+                            {facilityData?.resources?.map((x: any) => {
                                 return (
                                     <tr key={x?.resourceId}>
                                         <td>{x?.name}</td>

@@ -9,6 +9,6 @@ export interface Result {
 
 
 }
-export interface SearchResult {
+export default interface SearchResult {
     Result: Result[]
 }

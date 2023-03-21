@@ -22,10 +22,10 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React, { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Button, Stack } from "@mui/material";
-import SpaceContext, { initializeDataType } from "../../context/BookSpaceContext";
 import FloorViewer from "../compponents/FloorViewer";
 import SpaceService from "../../../services/space.service";
-import { Result, SearchResult } from "../dataModals/SearchResult";
+import SearchResult,{ Result } from "../../../models/spacemgmt/Room/SearchResult";
+import SpaceContext, { initializeDataType } from "../../../context/BookSpaceContext";
 
 
 interface TabPanelProps {
@@ -123,7 +123,7 @@ const BookRoom = () => {
             <FormControl sx={{ m: 1, minWidth: 140 }}>
               <InputLabel id="reminderLabel" className="text-sm">Reminder</InputLabel>
               <Select labelId="reminderLabel" label="Reminders">
-                {spaceContextValue?.bookingServiceDetails?.reminders.map((x) => {
+                {spaceContextValue?.bookingServiceDetails?.reminders?.map((x) => {
                   return <MenuItem key={x.id} value={x.name}>{x.name}</MenuItem>;
                 })}
               </Select>
@@ -172,7 +172,7 @@ const BookRoom = () => {
               <FormControl sx={{ m: 1, minWidth: 140 }} size="small">
                 <InputLabel id="selectMapLabel">Select Map</InputLabel>
                 <Select labelId="reminderLabel" label="Select Map">
-                  {spaceContextValue?.bookingServiceDetails?.mapDetails.map((x) => {
+                  {spaceContextValue?.bookingServiceDetails?.mapDetails?.map((x) => {
                     return <MenuItem key={x.id} value={x.name}>{x.name}</MenuItem>;
                   })}
                 </Select>
@@ -188,6 +188,9 @@ const BookRoom = () => {
                     searchResult?.Result.map((x: Result) => <CardComponent key={x.id} roomDetails={x} isCheckBox={true}></CardComponent>)
                   }
                 </div>
+                <Button variant="contained" className="flex-1 w-64 absolute bottom-0 right-0" onClick={() => onBookMeetClick()}>
+                    Book Meeting
+                  </Button>
               </TabPanel>
 
               <TabPanel value={valueTab} index={1}>

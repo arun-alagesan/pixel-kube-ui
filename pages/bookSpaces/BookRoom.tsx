@@ -18,8 +18,7 @@ import React, { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Button, Input, Stack } from "@mui/material";
 import SpaceService from "../../services/space.service";
-import { KVP } from "../../models/masters/Industry";
-import SpaceContext, { initializeDataType } from "../context/BookSpaceContext";
+import SpaceContext, { initializeDataType } from "../../context/BookSpaceContext";
 
 
 const BookRoom = () => {
@@ -80,7 +79,7 @@ const BookRoom = () => {
             >
               <InputLabel id="reminderLabel">Reminder</InputLabel>
               <Select labelId="reminderLabel" label="Reminders" onChange={(e) => { setReminder(e.target.name) }}>
-                {spaceContextValue?.bookingServiceDetails?.reminders.map((x) => {
+                {spaceContextValue?.bookingServiceDetails?.reminders?.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -130,7 +129,7 @@ const BookRoom = () => {
             >
               <InputLabel id="locationLabel">Location</InputLabel>
               <Select labelId="locationLabel" label="Location" onChange={(e) => setLocation(e.target.name)} >
-                {spaceContextValue?.bookingServiceDetails?.locations.map((x) => {
+                {spaceContextValue?.bookingServiceDetails?.locations?.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -146,7 +145,7 @@ const BookRoom = () => {
             >
               <InputLabel id="buildingLabel">Building</InputLabel>
               <Select labelId="buildingLabel" label="Building" onChange={(e) => setBuilding(e.target.name)} >
-                {spaceContextValue?.bookingServiceDetails?.buildings.map((x) => {
+                {spaceContextValue?.bookingServiceDetails?.buildings?.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}
@@ -162,7 +161,7 @@ const BookRoom = () => {
             >
               <InputLabel id="floorLabel">Floor</InputLabel>
               <Select labelId="builfloorLabeldingLabel" label="Floor" onChange={(e) => setFloor(e.target.name)}>
-                {spaceContextValue?.bookingServiceDetails?.floors.map((x) => {
+                {spaceContextValue?.bookingServiceDetails?.floors?.map((x) => {
                   return (
                     <MenuItem value={x.name} key={x.name}>
                       {x.name}

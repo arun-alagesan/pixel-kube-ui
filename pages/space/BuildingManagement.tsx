@@ -1,6 +1,5 @@
 import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
-import CreateOrganization from "../../components/features/SpaceManagement/Organization/CreateOrganization";
 import Layout from "../../components/Layout";
 import ModalService from "../../components/lib/modalPopup/services/ModalService";
 import Organization from "../../models/spacemgmt/organization";
@@ -15,19 +14,26 @@ import Building from "../../models/spacemgmt/building";
 import BuildingService from "../../services/building.service";
 import CreateBuilding from "../../components/features/SpaceManagement/Building/CreateBuilding";
 import DeleteAlert from "../../components/common/deleteAlert";
+import { useSearchParams } from "react-router-dom";
 
-const BuildingManagement = () => {
+const BuildingManagement = (props: any) => {
 
     const [buildings, setBuildings] = useState<Building[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
     useEffect(() => {
+        //debugger;
         fetchMyApi();
+        const urlParams = new URLSearchParams(window.location.search).get('openModal');;
+        if (urlParams == "true")
+            openModel(CreateBuilding, { "submittedCallback": fetchMyApi })
+
     }, []);
 
     async function fetchMyApi() {
+
         setLoader(true);
         var response = await BuildingService.getAll();
-
+        //debugger;
         if (response.status == true) {
             setBuildings(response.data);
         }
@@ -64,7 +70,7 @@ const BuildingManagement = () => {
     }
 
     async function editBuilding(org: Building) {
-        //openModel(CreateBuilding, { "organization": org, "submittedCallback": fetchMyApi });
+        openModel(CreateBuilding, { "building": org, "submittedCallback": fetchMyApi });
     }
 
     const actionBodyTemplate = (rowData: Building) => {
@@ -81,53 +87,56 @@ const BuildingManagement = () => {
     }
 
     return (
-        <Layout>
-            <h2 className="text-xl font-bold">Building Management</h2>
-            <Breadcrumbs currentPage={"Building Management"} routes={breadcrumbPaths} />
-            {
-                loader == true ?
-                    <div className="text-center">Loading Data...</div>
-                    :
-                    <div>
-                        {
-                            buildings.length == 0 ?
-                                <div className="text-center">
-                                    <div className="mb-4 mt-4">
-                                        <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
-                                    </div>
-                                    <div className="h4 fw-bold">No Record Found</div>
-                                    <div className="">Looks like you haven't setup any Buildings yet</div>
+        <>
+            <Layout>
+                <h2 className="text-xl font-bold">Building Management</h2>
+                <Breadcrumbs currentPage={"Building Management"} routes={breadcrumbPaths} />
+                {
+                    loader == true ?
+                        <div className="text-center">Loading Data...</div>
+                        :
+                        <div>
+                            {
+                                buildings.length == 0 ?
+                                    <div className="text-center">
+                                        <div className="mb-4 mt-4">
+                                            <img src={"../assets/images/not_found.png"} alt="not found" className="m-auto" />
+                                        </div>
+                                        <div className="h4 fw-bold">No Record Found</div>
+                                        <div className="">Looks like you haven&apos;t setup any Buildings yet</div>
 
-                                    <div className="mt-5">
-                                        <Button variant="contained" type="submit" onClick={() => openModel(CreateBuilding, { "submittedCallback": fetchMyApi })}>Add Building</Button>
+                                        <div className="mt-5">
+                                            <Button variant="contained" type="submit" onClick={() => openModel(CreateBuilding, { "submittedCallback": fetchMyApi })}>Add Building</Button>
+                                        </div>
                                     </div>
-                                </div>
-                                :
-                                <div className='col-12'>
-                                    <div className="row mb-3">
-                                        <div className="col-12 text-right">
-                                            <div className="mt-5">
-                                                <Button variant="contained" type="submit" onClick={() => openModel(CreateBuilding, { "submittedCallback": fetchMyApi })}>Add Building</Button>
+                                    :
+                                    <div className='col-12'>
+                                        <div className="row mb-3">
+                                            <div className="col-12 text-right">
+                                                <div className="mt-5">
+                                                    <Button variant="contained" type="submit" onClick={() => openModel(CreateBuilding, { "submittedCallback": fetchMyApi })}>Add Building</Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col-12">
+                                                <DataTable value={buildings} dataKey="buildingId" responsiveLayout="scroll" scrollable={true} paginator rows={5} className="pk-master-table">
+                                                    <Column field="buildingName" header="Building Name" sortable={true} ></Column>
+                                                    <Column field="organization.orgName" header="Organization Name" sortable={true} ></Column>
+                                                    <Column field="groupName" header="Group" sortable={true} ></Column>
+                                                    <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>
+                                                </DataTable>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col-12">
-                                            <DataTable value={buildings} dataKey="buildingId" responsiveLayout="scroll" className="pk-master-table">
-                                                <Column field="buildingName" header="Building Name" sortable={true} ></Column>
-                                                <Column field="organization.orgName" header="Organization Name" sortable={true} ></Column>
-                                                <Column field="groupName" header="Group" sortable={true} ></Column>
-                                                <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>
-                                            </DataTable>
-                                        </div>
-                                    </div>
-                                </div>
-                        }
-                    </div>
-            }
+                            }
+                        </div>
+                }
 
+
+            </Layout>
             <ModalRoot />
-        </Layout>
+        </>
     );
 
 

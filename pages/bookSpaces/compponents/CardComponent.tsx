@@ -9,11 +9,11 @@ import SpaceManagement from "/assets/icons/spacemanagement.svg";
 
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { Result } from '../dataModals/SearchResult';
+import { Result } from '../../../models/spacemgmt/Room/SearchResult';
 
 interface CardComponentProps {
-    isCheckBox: boolean;
-    roomDetails: Result;
+    isCheckBox?: boolean;
+    roomDetails?: Result;
 
 }
 
@@ -30,19 +30,19 @@ const CardComponent = ({ isCheckBox, roomDetails }: CardComponentProps) => {
                         </div>
                     }
                     <img src={"/assets/images/userprofile.png"} alt="" className="rounded-md outline outline-1 ring-blue-500" width="100" height="60" />
-                    <span className="relative inset-y-2">{roomDetails.RoomID}</span>
+                    <span className="relative inset-y-2">{roomDetails?.RoomID}</span>
                 </div>
 
                 <CardContent className="">
                     <div>
-                        <Typography className='mb-0' gutterBottom variant="h6" component="div">{roomDetails.RoomName}
+                        <Typography className='mb-0' gutterBottom variant="h6" component="div">{roomDetails?.RoomName}
                         </Typography>
                     </div>
                     <div>
                         <Grid container spacing={1}>
 
                             <Grid xs={7}>
-                                <Typography variant="body2" className="pl-0">{roomDetails.Description}</Typography>
+                                <Typography variant="body2" className="pl-0">{roomDetails?.Description}</Typography>
                             </Grid>
 
                             <Grid xs={1}>

@@ -1,4 +1,4 @@
-import http from "./http-common";
+import { ConnectionMgmtEndPoint as http } from "./http-common";
 import ApiResponse from "../models/ApiResponse";
 import Meeting from "../models/connector/meeting";
 import ConnectionDetails from "../models/connector/connectionDetails";

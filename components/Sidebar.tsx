@@ -22,7 +22,7 @@ import BookService from "../assets/icons/bookServices.svg";
 import MyBookings from "../assets/icons/myBookings.svg";
 
 import { display } from "@mui/system";
-import SpaceContext from "../pages/context/BookSpaceContext"
+import SpaceContext from "../context/BookSpaceContext"
 
 const Sidebar = () => {
   const spaceContextValue = React.useContext(SpaceContext);
@@ -33,7 +33,8 @@ const Sidebar = () => {
 
   const menuItems = [
     { id: 0, label: "Admin Apps", icon: AdminApps, link: "/" },
-    { id: 1, label: "Book Spaces", icon: SpaceManagement, link: "", isGroupMenu: true, collapsefn: setCollapseBookSpace,
+    {
+      id: 1, label: "Book Spaces", icon: SpaceManagement, link: "", isGroupMenu: true, collapsefn: setCollapseBookSpace,
       subMenu: [
         { id: 11, label: "Book Room", icon: BookRoom, link: "/bookSpaces/BookRoom", },
         { id: 12, label: "Book Desk", icon: BookDesk, link: "/bookSpaces/BookDesk", },
@@ -60,9 +61,9 @@ const Sidebar = () => {
   );
 
   const wrapperclasses = classNames(
-    "flex justify-between flex-col border relative bg-white",
+    "flex justify-between flex-col border bg-white h-full t-0 l-0 sidebar",
     {
-      ["w-80"]: !toggleCollapse,
+      ["w-72"]: !toggleCollapse,
       ["w-20"]: toggleCollapse,
     }
   );
@@ -74,7 +75,7 @@ const Sidebar = () => {
   );
   const getSubMenuItems = (menu: any, classes: any) => {
     let submenus = menu.subMenu?.map((submenu: any, i: number) => {
-      // debugger;
+      // //debugger;
       const bgcolor = spaceContextValue.selectedMenu == submenu.id ? "#e0ffff" : ""
       return (
         <div className={classes} style={{ backgroundColor: bgcolor }} key={i}>
@@ -103,7 +104,7 @@ const Sidebar = () => {
             </button>
           </Link>
         </div>
-        
+
       );
     });
 
@@ -132,79 +133,81 @@ const Sidebar = () => {
       className={wrapperclasses}
       onMouseEnter={onMouseOver}
       onMouseLeave={onMouseOver}
-      style={{ transition: "width 300ms cubic-bezier(0.2, 0 ,0, 1) 0s" }}
+      style={{ transition: "width 300ms cubic-bezier(0.2, 0 ,0, 1) 0s", }}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col"  style={{overflowY:'clip', overflowX:"visible"}}>
         <div className="flex items-center justify-between relative">
           <div
             className="mainlogo flex items-center pl-2 pt-4 gap-4"
-            style={{ margin: "auto" }}
-          >
+            style={{ margin: "auto" }} >
             <PixleKubeLogo />
+            <button className={collapseIconClasses} onClick={handleSidebarToggle}>
+              <ToggleIcon />
+            </button>
           </div>
         </div>
-        <div className="flex flex-col items-start mt-4">
-          {menuItems.map(({ icon: Icon, ...menu }, i: number) => {
-            const classes = getNavItemClasses(menu);
-            const subMenuItems = getSubMenuItems(menu, classes);
-            const bgcolor = spaceContextValue.selectedMenu == menu.id ? "#e0ffff" : ""
+        <div className="flex flex-col items-start mt-4" style={{overflowY: 'hidden' }}>
+          <div style={{ overflowY:'auto', width:'100%'}}>
+            {menuItems.map(({ icon: Icon, ...menu }, i: number) => {
+              const classes = getNavItemClasses(menu);
+              const subMenuItems = getSubMenuItems(menu, classes);
+              const bgcolor = spaceContextValue.selectedMenu == menu.id ? "#e0ffff" : ""
 
-            return (
-              <div
-                style={{ width: "100%", borderBottom: "1px solid #f7f3f3", backgroundColor: bgcolor }}
-                key={i}
-              >
-                <div className={classes} key={i}>
-                  <Link
-                    href={menu.link}
-                    onClick={() => {
-                      if (menu.collapsefn)
-                        menu.collapsefn(!isCollapseBookSpace);
-                      spaceContextValue.isBookSpaceMenu = !spaceContextValue.isBookSpaceMenu;
-                      if (!menu.isGroupMenu)
-                        spaceContextValue.selectedMenu = menu.id;
-                    }}
-                  >
-                    <button className="flex py-4 px-3 items-center w-full h-full">
-                      <div style={{ width: "2.5rem" }}>
-                        <Icon />
-                      </div>
-                      {!toggleCollapse && (
-                        <div
-                          style={{
-                            width: "70%",
-                            textAlign: "left",
-                            fontSize: "14px",
-                          }}
-                        >
-                          <span
-                            className={classNames(
-                              "text-md font-medium text-text-light",
-                              { hidden: toggleCollapse }
-                            )}
+              return (
+                <div
+                  style={{ width: "100%", borderBottom: "1px solid #f7f3f3", backgroundColor: bgcolor }}
+                  key={i}
+                >
+                  <div className={classes} key={i}>
+                    <Link
+                      href={menu.link}
+                      onClick={() => {
+                        if (menu.collapsefn)
+                          menu.collapsefn(!isCollapseBookSpace);
+                        spaceContextValue.isBookSpaceMenu = !spaceContextValue.isBookSpaceMenu;
+                        if (!menu.isGroupMenu)
+                          spaceContextValue.selectedMenu = menu.id;
+                      }}
+                    >
+                      <button className="flex py-4 px-3 items-center w-full h-full">
+                        <div style={{ width: "2.5rem" }}>
+                          <Icon />
+                        </div>
+                        {!toggleCollapse && (
+                          <div
+                            style={{
+                              width: "70%",
+                              textAlign: "left",
+                              fontSize: "14px",
+                            }}
                           >
-                            {menu.label}
-                          </span>
-                        </div>
-                      )}
-                      {menu.isGroupMenu && (
-                        <div className={isCollapseBookSpace ? "rotate-180" : ""}>
-                          <ExpandArrow />
-                        </div>
-                      )}
-                    </button>
-                  </Link>
+                            <span
+                              className={classNames(
+                                "text-md font-medium text-text-light",
+                                { hidden: toggleCollapse }
+                              )}
+                            >
+                              {menu.label}
+                            </span>
+                          </div>
+                        )}
+                        {menu.isGroupMenu && (
+                          <div className={isCollapseBookSpace ? "rotate-180" : ""}>
+                            <ExpandArrow />
+                          </div>
+                        )}
+                      </button>
+                    </Link>
+                  </div>
+                  {isCollapseBookSpace && <div>{subMenuItems}</div>}
                 </div>
-                {isCollapseBookSpace && <div>{subMenuItems}</div>}
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
       <div></div>
-      <button className={collapseIconClasses} onClick={handleSidebarToggle}>
-        <ToggleIcon />
-      </button>
+
     </div>
   );
 };

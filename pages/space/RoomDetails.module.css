@@ -1,18 +1,18 @@
-.connectordetails{
+.roomdetails{
     position: absolute;
-    top: 4rem;
+    top: 0;
     right: 0;
     bottom: 0;
-    left: 55%;
     z-index: 100;
-    width: 45%;
-    height: calc(100% - 4.75rem);
+    width: 48%;
+    height:100%;
     background-color: white;
-    padding: 2rem;
+    padding: 24px 20px;
     transition: .3s all ease;
     /* align-items: center;
     justify-content: center; */
     box-shadow: rgba(0, 0, 0, 0.03) -1.95px -1.95px 2.6px;
+    /* overflow-y: hidden; */
 }
 
 .switch {

@@ -17,7 +17,7 @@ const schema = yup.object().shape({
     space: yup.string().required('Please select any space')
 });
 
-type props = { afterSubmit: any };
+type props = { afterSubmit: any, spaceDetails: any };
 const SelectSpace = (props: props) => {
 
     type initializeDataType = { spaces: string[] };
@@ -29,36 +29,21 @@ const SelectSpace = (props: props) => {
         resolver: yupResolver(schema)
     });
 
-    useEffect(() => {
-        // async function fetchMyApi() {
-        //     let spaceResponse = ['Room', 'Hot Desk', 'Parking'];//await SpaceService.getSpaceList();
-
-        //     let initializationData: initializeDataType = {} as initializeDataType;
-
-        //     if (spaceResponse.status === true) {
-        //         initializationData.spaces = spaceResponse.data;
-        //     }
-        //     setInitializeData(initializationData);
-        // }
-        // fetchMyApi();
-    }, []);
 
     const onSubmit = (data: any) => {
         console.log('submitted data', data);
-        props.afterSubmit();
+        props.afterSubmit(data);
     }
-
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row mt-3">
                 <div className="col-12">
                     <FormControl fullWidth className="pk-dropdown" error={!!errors.space}>
                         <InputLabel id="demo-simple-select-label">Select Space</InputLabel>
-                        <Select {...register('space')} defaultValue="" labelId="ddlSelectSpace" id="ddlSelectSpace" label="Select Space">
-                            {initializeData.spaces.map(x => (<MenuItem key={x} value={x}>{x}</MenuItem>))}
-                            {/* <MenuItem value="Room">Room</MenuItem>
-                            <MenuItem value="Hot Desk">Hot Desk</MenuItem>
-                            <MenuItem value="Parking">Parking</MenuItem> */}
+                        <Select {...register('space')} defaultValue="" value={props?.spaceDetails?.spaceType} labelId="ddlSelectSpace" id="ddlSelectSpace" label="Select Space">
+                            {initializeData.spaces.map(x => {
+                                return <MenuItem key={x} value={x}>{x}</MenuItem>
+                            })}
                         </Select>
                         {errors.space && <FormHelperText>{errors.space.message?.toString()}</FormHelperText>}
                     </FormControl>

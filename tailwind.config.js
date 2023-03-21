@@ -45,6 +45,12 @@ module.exports = {
       container: {
         center: true,
       },
+      height: {
+        '128': '56rem',
+      },
+      zIndex: {
+        '1200': '1200',
+      }
     },
     extend: {},
   },

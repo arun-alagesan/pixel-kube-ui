@@ -4,19 +4,19 @@ import ApiResponse from "../models/ApiResponse";
 
 
 
-const createOrgGeneralDetails = (request: FormData) => {
+const createOrgGeneralDetails = (request: any) => {
     console.log("request ", request)
 
-    let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
-    return http.post<ApiResponse>("api/Organizations/create", request, customConfig)
+    // let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
+    return http.post<ApiResponse>("api/Organizations/create", request)
         .then(res => res.data);
 }
 
-const updateOrgGeneralDetails = (request: FormData) => {
+const updateOrgGeneralDetails = (request: any) => {
     console.log("request ", request)
 
-    let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
-    return http.put<ApiResponse>("api/Organizations/update", request, customConfig)
+    // let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
+    return http.put<ApiResponse>("api/Organizations/update", request)
         .then(res => res.data);
 }
 

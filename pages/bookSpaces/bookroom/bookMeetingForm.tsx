@@ -20,7 +20,6 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import roomData from "../data/bookRoomData.json";
 import dayjs, { Dayjs } from "dayjs";
-import SpaceContext from "../../context/BookSpaceContext";
 import SystemManagement from "/assets/icons/systemmanagement.svg";
 import AdminApps from "/assets/icons/admin.svg";
 import SpaceManagement from "/assets/icons/spacemanagement.svg";
@@ -34,6 +33,7 @@ import Modal from '@mui/material/Modal';
 import ServiceModal from "../Modals/servicesModal";
 import CloseIcon from '@mui/icons-material/Close';
 import DialogModal from "../../../components/common/dialogModal";
+import SpaceContext from "../../../context/BookSpaceContext";
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -231,16 +231,16 @@ const BookMeetingForm = () => {
               <FormControl fullWidth sx={{ margin: "20px 20px 0px 0px" }} size="small">
                 <InputLabel id="locationLabel">Meeting Type</InputLabel>
                 <Select labelId="locationLabel" label="Meeting Type" className="text-sm">
-                  {roomData.locations.map((x) => {
-                    return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                  {roomData.locations.map((x, i) => {
+                    return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                   })}
                 </Select>
               </FormControl>
               <FormControl fullWidth sx={{ margin: "20px 0px 0px 20px" }} size="small">
                 <InputLabel id="locationLabel">Notification</InputLabel>
                 <Select labelId="locationLabel" label="Notification" className="text-sm">
-                  {roomData.locations.map((x) => {
-                    return <MenuItem value={x.id}>{x.name}</MenuItem>;
+                  {roomData.locations.map((x, i) => {
+                    return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                   })}
                 </Select>
               </FormControl>
