@@ -1,25 +1,32 @@
-FROM node:16.19.1-alpine3.17
+FROM node:16.19.1-alpine3.17 as builder
 
 RUN mkdir app
-WORKDIR app
+WORKDIR /app
 
-copy . .
+COPY package.json package-lock.json ./
+RUN npm install
 
-RUN rm package-lock.json
-
-RUN npm install --legacy-peer-deps
+COPY . .
 
 RUN npx next telemetry disable
 
-EXPOSE 3000
+EXPOSE 80
 
-CMD "npm" "run" "dev"
+RUN npm run build
 
-#this is a dev run. Ideally it app should be served from release build
-# TO DO: 
-#1. Fix the app struture to relove the build errors and
-#2. Uncomment the below two statements
-#3. Commnet line 16 
-#4. Build the image again 
-#RUN npm run build
-#CMD "npm" "run" "start"
+
+FROM nginx:alpine
+
+#!/bin/sh
+
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy from the stahg 1
+COPY --from=builder /app/out /usr/share/nginx/html
+
+EXPOSE 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
