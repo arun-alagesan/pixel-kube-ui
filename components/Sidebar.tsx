@@ -6,7 +6,7 @@ import Link from "next/link";
 import PixleKubeLogo from "../assets/icons/pixelkube-logo.svg";
 import AdminApps from "../assets/icons/admin.svg";
 import DashBoard from "../assets/icons/dashboard.svg";
-import ConnectionManagement from "../assets/icons/connectorManagement.svg";
+import ConnectionManagement from "../assets/icons/connectormanagement.svg";
 import SystemManagement from "../assets/icons/systemmanagement.svg";
 import UserManagement from "../assets/icons/usermanagement.svg";
 import SpaceManagement from "../assets/icons/spacemanagement.svg";
