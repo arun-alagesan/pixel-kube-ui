@@ -4,7 +4,7 @@ import ModalBody from "../../lib/modalPopup/components/ModalBody";
 import ModalHeader from "../../lib/modalPopup/components/ModalHeader";
 import ModalFooter from "../../lib/modalPopup/components/ModalFooter";
 import Button from "../../common/Button";
-import ConnectorIcon from "../../../assets/icons/connectorManagement.svg";
+import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
 import { ListBox } from 'primereact/listbox';
 
 export default function Connector(props) {
