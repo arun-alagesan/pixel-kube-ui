@@ -4,7 +4,7 @@ import ModalBody from "../../lib/modalPopup/components/ModalBody";
 import ModalHeader from "../../lib/modalPopup/components/ModalHeader";
 import ModalFooter from "../../lib/modalPopup/components/ModalFooter";
 import Button from "../../common/Button";
-import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
+import ConnectorIcon from "../../../assets/icons/connectorManagement.svg";
 import { ListBox } from 'primereact/listbox';
 
 export default function Connector(props) {
@@ -37,7 +37,7 @@ export default function Connector(props) {
             </ModalHeader>
             <ModalBody>
                 <div className="card flex justify-content-center">
-                    <ListBox value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={calenders} optionLabel="sourceCalendarId" className="w-full md:w-14rem" />
+                    <ListBox value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={calenders} optionLabel="title" className="w-full md:w-14rem" />
                 </div>
             </ModalBody>
             <ModalFooter>
