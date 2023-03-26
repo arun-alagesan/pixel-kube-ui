@@ -10,6 +10,8 @@ import ConnectorList from "../components/features/ConnectionManagement/Connector
 import SearchBar from "../components/common/SearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import ConnectorDetails from "../components/features/ConnectionManagement/ConnectionDetails/ConnectorDetails";
+import axios from "axios";
+
 export const ConnectorContext: any = createContext({
   setopenConnectorDetailTab: () => { },
   connectorDetailId: {},
@@ -23,7 +25,11 @@ const Connector = () => {
 
   useEffect(() => {
     const temp: any = getConnectorList();
-    setConnectorList(temp);
+    axios.get("https://roombookingappus-vftldv7jma-uc.a.run.app/api/connector/getall").then(res => {
+      setConnectorList(res.data);
+    })
+
+    //setConnectorList(temp);
   }, []);
 
   const addModal = () => {
