@@ -9,7 +9,7 @@ const getCalenderInstances = (id: number, startTime: string, endTime: string) =>
         .then(res => res.data);
 }
 const getSourceCalenders = (connectorName: string) => {
-    return http.get<any[]>("api/connector/getsourcecalendars?connectorName=" + connectorName)
+    return http.get<any[]>("api/connector/getcalendars?connectorName=" + connectorName)
         .then(res => res.data);
 }
 const getAuditAndLogs = (connectorName: string) => {
