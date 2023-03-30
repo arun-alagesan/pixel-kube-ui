@@ -15,8 +15,8 @@ import axios from "axios";
 export default function AddConnection(props: any) {
 
   const [calenderValue, setCalenderValue] = useState(props.SelectedCalenderId);
-  const connectorName = useRef('');
-  const hiddenFileInput = useRef(null);
+  const connectorName = useRef<any>(null);
+  const hiddenFileInput = useRef<any>(null);
   const [selectedFile,setSelectedFile] = useState('Import Json');
   const [responseData,setResponseData]=useState({});
 
@@ -24,7 +24,7 @@ export default function AddConnection(props: any) {
     setCalenderValue(event.target.value as string);
   };
 
-  const handleFileChange=(event:SelectChangeEvent)=>
+  const handleFileChange=(event:any)=>
   {
     setSelectedFile(event.target.files[0].name);
     let url = "https://localhost:7022/api/admin/createconnectionfromfile";
@@ -32,7 +32,7 @@ export default function AddConnection(props: any) {
     uploadFile(url, file);
   };
 
-  const uploadFile = (url, file) => {
+  const uploadFile = (url:any, file:any) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("OrgID","1");
@@ -47,7 +47,7 @@ export default function AddConnection(props: any) {
         fnFail(error);
       });
   };
-  const fnSuccess = (response) => {
+  const fnSuccess = (response:any) => {
     if(response!=null)
     {
       const data={'connectorName':props.connectorName,'connectorResponse':response.data};
@@ -56,12 +56,12 @@ export default function AddConnection(props: any) {
     }
   };
   
-  const fnFail = (error) => {
+  const fnFail = (error:any) => {
     //Add failed handling
   };
 
-  const handleClick = event => {
-    hiddenFileInput.current.click();
+  const handleClick = (event:any) => {
+    hiddenFileInput?.current?.click();
   };
 
   return (
@@ -103,7 +103,7 @@ export default function AddConnection(props: any) {
          alignItems:'center',paddingTop:'20px',paddingBottom:'20px',borderStyle:'dashed',borderWidth:'2px' }}>
           <img onClick={handleClick} src={"../assets/images/importIcon.png"} width="30" height="30"/>
           <input  ref={hiddenFileInput} id="files" hidden type="file" onChange={handleFileChange} accept=".json"/>
-          <label id="lblSelectedFile" for="files">&nbsp;&nbsp;{selectedFile}</label>
+          <label id="lblSelectedFile" htmlFor="files">&nbsp;&nbsp;{selectedFile}</label>
           </div>
         </FormControl>
         </div>
