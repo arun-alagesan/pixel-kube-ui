@@ -21,9 +21,9 @@ export default function ChooseConnector(props: any) {
  
 
   const [calenderValue, setCalenderValue] = useState('');
-  const connectorName = useRef('');
-  const selectedCalId = useRef('');
-  const hiddenFileInput = useRef(null);
+  const connectorName = useRef<any>(null);
+  const selectedCalId = useRef<any>(null);
+  /* const hiddenFileInput = useRef(null); */
   const [selectedFile,setSelectedFile] = useState('Import Json');
   const [responseData,setResponseData]=useState({});
 
@@ -31,7 +31,7 @@ export default function ChooseConnector(props: any) {
     setCalenderValue(event.target.value as string);
   };
 
-  const handleFileChange=(event:SelectChangeEvent)=>
+  const handleFileChange=(event:any)=>
   {
     setSelectedFile(event.target.files[0].name);
     let url = "https://localhost:7022/api/admin/createconnectionfromfile";
@@ -39,7 +39,7 @@ export default function ChooseConnector(props: any) {
     uploadFile(url, file);
   };
 
-  const uploadFile = (url, file) => {
+  const uploadFile = (url:any, file:any) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("OrgID","1");
@@ -54,22 +54,22 @@ export default function ChooseConnector(props: any) {
         fnFail(error);
       });
   };
-  const fnSuccess = (response) => {
+  const fnSuccess = (response:any) => {
     if(response!=null)
     {
-      const data={'connectorName':connectorName.current.value,'connectorResponse':response.data};
+      const data={'connectorName':connectorName?.current?.value,'connectorResponse':response.data};
       console.log(data);
       setResponseData(data);
     }
   };
   
-  const fnFail = (error) => {
+  const fnFail = (error:any) => {
     //Add failed handling
   };
 
-  const handleClick = event => {
-    hiddenFileInput.current.click();
-  };
+  /* const handleClick = (event:any) => {
+    hiddenFileInput?.current?.click();
+  }; */
 
   const AddConnector = () => {
     console.log(connectorName);
