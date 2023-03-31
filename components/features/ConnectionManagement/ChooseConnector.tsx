@@ -34,7 +34,7 @@ export default function ChooseConnector(props: any) {
   const handleFileChange=(event:any)=>
   {
     setSelectedFile(event.target.files[0].name);
-    let url = "https://localhost:7022/api/admin/createconnectionfromfile";
+    let url = "http://3.94.231.14:3002/api/admin/createconnectionfromfile";
     let file = event.target.files[0];
     uploadFile(url, file);
   };
