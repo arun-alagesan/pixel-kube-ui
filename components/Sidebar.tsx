@@ -29,10 +29,19 @@ const Sidebar = () => {
   const [toggleCollapse, setToggleCollapse] = useState(false);
   const [isCollapsible, setIsCollapsible] = useState(false);
   const [isCollapseBookSpace, setCollapseBookSpace] = useState(spaceContextValue.isBookSpaceMenu);
+  const [isCollapseAdminApps, setCollapseAdminApps] = useState(false);
   // const [selectedItem,setSelecte]
 
   const menuItems = [
-    { id: 0, label: "Admin Apps", icon: AdminApps, link: "/" },
+    { id: 0, label: "Admin Apps", icon: AdminApps, link: "", isGroupMenu: true, collapseAdminApps: setCollapseAdminApps,
+    subMenu: [
+      { id: 3, label: "Connector Management", icon: ConnectionManagement, link: "/connector", },
+    { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
+    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
+    { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
+    { id: 7, label: "Player Management", icon: SystemManagement, link: "/player" },
+    ],
+  },
     {
       id: 1, label: "Book Spaces", icon: SpaceManagement, link: "", isGroupMenu: true, collapsefn: setCollapseBookSpace,
       subMenu: [
@@ -46,11 +55,7 @@ const Sidebar = () => {
       ],
     },
     { id: 2, label: "Dashboard", icon: DashBoard, link: "/dashboard" },
-    { id: 3, label: "Connector Management", icon: ConnectionManagement, link: "/connector", },
-    { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
-    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
-    { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
-    { id: 7, label: "Player Management", icon: SystemManagement, link: "/player" },
+    
   ];
 
   const router = useRouter();
@@ -73,8 +78,15 @@ const Sidebar = () => {
       ["rotate-180"]: toggleCollapse,
     }
   );
-  const getSubMenuItems = (menu: any, classes: any) => {
+  const getSubMenuItems = (menu: any, classes: any,subMenuType:any) => {
     let submenus = menu.subMenu?.map((submenu: any, i: number) => {
+      let isBookSpaceSubMenu=(submenu.id==11 || submenu.id==12 || submenu.id==13 || submenu.id==14 || submenu.id==15|| submenu.id==16 || submenu.id==17)?true:false;
+      let isAdminAppsSubMenu=(submenu.id==3 || submenu.id==4 || submenu.id==5 || submenu.id==6 || submenu.id==7)?true:false;
+      if(subMenuType=="BOOKS_SPACE" && isAdminAppsSubMenu)
+          return null;
+      if(subMenuType=="ADMIN_APPS" && isBookSpaceSubMenu)
+          return null;
+
       // //debugger;
       const bgcolor = spaceContextValue.selectedMenu == submenu.id ? "#e0ffff" : ""
       return (
@@ -150,7 +162,8 @@ const Sidebar = () => {
           <div style={{ overflowY:'auto', width:'100%'}}>
             {menuItems.map(({ icon: Icon, ...menu }, i: number) => {
               const classes = getNavItemClasses(menu);
-              const subMenuItems = getSubMenuItems(menu, classes);
+              const bookSpaceSubMenuItems = getSubMenuItems(menu, classes,"BOOKS_SPACE");
+              const adminAppsSubMenuItems = getSubMenuItems(menu, classes,"ADMIN_APPS");
               const bgcolor = spaceContextValue.selectedMenu == menu.id ? "#e0ffff" : ""
 
               return (
@@ -164,6 +177,8 @@ const Sidebar = () => {
                       onClick={() => {
                         if (menu.collapsefn)
                           menu.collapsefn(!isCollapseBookSpace);
+                        if (menu.collapseAdminApps)
+                          menu.collapseAdminApps(!isCollapseAdminApps);
                         spaceContextValue.isBookSpaceMenu = !spaceContextValue.isBookSpaceMenu;
                         if (!menu.isGroupMenu)
                           spaceContextValue.selectedMenu = menu.id;
@@ -192,14 +207,15 @@ const Sidebar = () => {
                           </div>
                         )}
                         {menu.isGroupMenu && (
-                          <div className={isCollapseBookSpace ? "rotate-180" : ""}>
+                          <div className={(isCollapseBookSpace || isCollapseAdminApps) ? "rotate-180" : ""}>
                             <ExpandArrow />
                           </div>
                         )}
                       </button>
                     </Link>
                   </div>
-                  {isCollapseBookSpace && <div>{subMenuItems}</div>}
+                  {isCollapseBookSpace && <div>{bookSpaceSubMenuItems}</div>}
+                  {isCollapseAdminApps && <div>{adminAppsSubMenuItems}</div>}
                 </div>
               );
             })}

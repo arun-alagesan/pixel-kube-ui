@@ -11,6 +11,7 @@ import SearchBar from "../components/common/SearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import ConnectorDetails from "../components/features/ConnectionManagement/ConnectionDetails/ConnectorDetails";
 import axios from "axios";
+import { config } from '../../pixelKube/services/http-common';
 
 export const ConnectorContext: any = createContext({
   setopenConnectorDetailTab: () => { },
@@ -24,8 +25,9 @@ const Connector = () => {
   const [connectorDetailId, setConnectorDetailId] = useState({});
 
   useEffect(() => {
+    let url = config.connectionManagement.baseURL+config.connectionManagement.GetAllConnectors;
     const temp: any = getConnectorList();
-    axios.get("https://roombookingappus-vftldv7jma-uc.a.run.app/api/connector/getall").then(res => {
+    axios.get(url).then(res => {
       setConnectorList(res.data);
     })
 

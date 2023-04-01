@@ -7,6 +7,7 @@ import Button from "../../common/Button";
 import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
 import { ListBox } from 'primereact/listbox';
 import axios from 'axios';
+import { config } from '../../../../pixelKube/services/http-common';
 
 export default function Connector(props) {
     const calenders = [];
@@ -18,6 +19,7 @@ export default function Connector(props) {
     });
 
     const onSave = () => {
+        let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
         const req={
             "name": "Pixel ser acc 2",
              "source": "Google",
@@ -31,7 +33,7 @@ export default function Connector(props) {
              },
              "orgId": "1"
            }
-           const res = axios.post('https://roombookingappus-vftldv7jma-uc.a.run.app/api/connector/addcalendar', req);
+           const res = axios.post(url, req);
         alert('Saved');
         props.close();
     }

@@ -8,68 +8,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
-import AddButton from './AddButton';
 import Button from './../../common/Button';
-import axios from "axios";
 import AddConnection from '../../../components/features/ConnectionManagement/AddConnection';
 import ModalService from "../../../components/lib/modalPopup/services/ModalService";
-//import ModalService from "../components/lib/modalPopup/services/ModalService";
-
 
 export default function ChooseConnector(props: any) {
 
- 
-
   const [calenderValue, setCalenderValue] = useState('');
   const connectorName = useRef<any>(null);
-  const selectedCalId = useRef<any>(null);
-  /* const hiddenFileInput = useRef(null); */
-  const [selectedFile,setSelectedFile] = useState('Import Json');
-  const [responseData,setResponseData]=useState({});
 
   const handleChange = (event: SelectChangeEvent) => {
     setCalenderValue(event.target.value as string);
   };
-
-  const handleFileChange=(event:any)=>
-  {
-    setSelectedFile(event.target.files[0].name);
-    let url = "http://3.94.231.14:3002/api/admin/createconnectionfromfile";
-    let file = event.target.files[0];
-    uploadFile(url, file);
-  };
-
-  const uploadFile = (url:any, file:any) => {
-    let formData = new FormData();
-    formData.append("file", file);
-    formData.append("OrgID","1");
-    formData.append("Name","test");
-    axios.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }).then((response) => {
-        fnSuccess(response);
-      }).catch((error) => {
-        fnFail(error);
-      });
-  };
-  const fnSuccess = (response:any) => {
-    if(response!=null)
-    {
-      const data={'connectorName':connectorName?.current?.value,'connectorResponse':response.data};
-      console.log(data);
-      setResponseData(data);
-    }
-  };
-  
-  const fnFail = (error:any) => {
-    //Add failed handling
-  };
-
-  /* const handleClick = (event:any) => {
-    hiddenFileInput?.current?.click();
-  }; */
 
   const AddConnector = () => {
     console.log(connectorName);

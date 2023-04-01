@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddButton from './AddButton';
 import axios from "axios";
+import { config } from '../../../../pixelKube/services/http-common';
 
 
 export default function AddConnection(props: any) {
@@ -27,7 +28,7 @@ export default function AddConnection(props: any) {
   const handleFileChange=(event:any)=>
   {
     setSelectedFile(event.target.files[0].name);
-    let url = "http://3.94.231.14:3002/api/admin/createconnectionfromfile";
+    let url = config.connectionManagement.baseURL+config.connectionManagement.CreateConnectionFromFile;
     let file = event.target.files[0];
     uploadFile(url, file);
   };
