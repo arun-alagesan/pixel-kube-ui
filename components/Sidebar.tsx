@@ -37,7 +37,7 @@ const Sidebar = () => {
     subMenu: [
       { id: 3, label: "Connector Management", icon: ConnectionManagement, link: "/connector", },
     { id: 4, label: "Space Management", icon: SpaceManagement, link: "/space" },
-    { id: 5, label: "User Management", icon: UserManagement, link: "/" },
+    { id: 5, label: "User Management", icon: UserManagement, link: "/user" },
     { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
     { id: 7, label: "Player Management", icon: SystemManagement, link: "/player" },
     ],
