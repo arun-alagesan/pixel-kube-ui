@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
 import Layout from "../../components/Layout";
-import OrganizationService from "../../services/organization.service";
-import Organization from "../../models/spacemgmt/organization";
+import RolesandPermissionList from "../../models/usermgmt/RoleList";
+import UsermanagementService from "../../services/usermanagement.service";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Button from "@mui/material/Button";
@@ -16,10 +16,21 @@ import DeleteAlert from "../../components/common/deleteAlert";
 
 const RolesandPermission = () => {
 
+    const [Roleslistdata, setRoles] = useState<RolesandPermissionList[]>([]);
+    useEffect(() => {
+        fetchMyApi();
+    }, []);
 
+    async function fetchMyApi() {
+        setLoader(true);
+        var response = await UsermanagementService.getroleslist();
+        setRoles(response);
+        setLoader(false);
+        console.log("organizations", Roleslistdata);
+    }
     const [loader, setLoader] = useState<boolean>(false);
     let breadcrumbPaths = [{ 'name': 'Home', 'path': '/' }, { 'name': 'Roles & Permissions', 'path': '/user' }];
-    const actionBodyTemplate = (rowData: Organization) => {
+    const actionBodyTemplate = (rowData: RolesandPermissionList) => {
         return (
             <div className="flex">
                 <Button>
@@ -53,7 +64,7 @@ const RolesandPermission = () => {
                                         <div className="row">
                                             <div className="col-12">
                                                <DataTable />
-                                                <DataTable  dataKey="id" responsiveLayout="scroll" scrollable={true} paginator rows={5} className="pk-master-table">
+                                                <DataTable value={Roleslistdata} dataKey="id" responsiveLayout="scroll" scrollable={true} paginator rows={5} className="pk-master-table">
                                                     <Column field="role" header="Role" sortable={true} ></Column>
                                                     <Column field="rolebase" header="Role Base" sortable={true} ></Column>
                                                     <Column header="Actions" body={actionBodyTemplate} exportable={false} align="center" ></Column>

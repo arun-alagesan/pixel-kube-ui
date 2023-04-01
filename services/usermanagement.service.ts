@@ -8,9 +8,10 @@ const getuserlist = () => {
         return UserList;
 }
 
-const getroleslist = (id: number) => {
-    return http.delete<ApiResponse>("api/Organizations/" + id)
-        .then(res => res.data);
+const getroleslist = () => {
+    // return http.delete<ApiResponse>("api/Organizations/" + id)
+    //     .then(res => res.data);
+    return RolesandPermissionList;
 }
 
 const UsermanagementService = {
@@ -23,6 +24,13 @@ export const UserList = [
         email: "dinesh.indermull@gmail.com",
         roles :"admin",
         Joined :"20/06/23"
+    }
+]
+
+export const RolesandPermissionList = [
+    {
+        role: "Admin",
+        rolebase: "Features & Functions",
     }
 ]
 export default UsermanagementService
