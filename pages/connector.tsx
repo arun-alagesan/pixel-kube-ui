@@ -11,7 +11,7 @@ import SearchBar from "../components/common/SearchBar";
 import AddIcon from "@mui/icons-material/Add";
 import ConnectorDetails from "../components/features/ConnectionManagement/ConnectionDetails/ConnectorDetails";
 import axios from "axios";
-import { config } from '../../services/http-common';
+import { config } from '../services/http-common';
 
 export const ConnectorContext: any = createContext({
   setopenConnectorDetailTab: () => { },
