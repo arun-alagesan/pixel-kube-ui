@@ -10,7 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddButton from './AddButton';
 import axios from "axios";
-import { config } from '../../../../pixelKube/services/http-common';
+import { config } from '../../../services/http-common';
 
 
 export default function AddConnection(props: any) {
