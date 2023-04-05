@@ -7,7 +7,7 @@ import Button from "../../common/Button";
 import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
 import { ListBox } from 'primereact/listbox';
 import axios from 'axios';
-import { config } from '../../../../pixelKube/services/http-common';
+import {config} from '../../../services/http-common';
 
 export default function Connector(props) {
     const calenders = [];
