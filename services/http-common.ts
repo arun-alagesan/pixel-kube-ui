@@ -13,6 +13,7 @@ connectionManagement:{
     baseURL: "http://3.94.231.14:3002/",
     AddCalender:"api/connector/addcalendar",
     CreateConnectionFromFile:"api/admin/createconnectionfromfile",
-    GetAllConnectors:"api/connector/getall"
+    GetAllConnectors:"api/connector/getall",
+    createConnector:"api/connector/create",
 }
 };

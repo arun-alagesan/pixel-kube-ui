@@ -10,6 +10,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from './../../common/Button';
 import AddConnection from '../../../components/features/ConnectionManagement/AddConnection';
+import AddOfficeConnection from '../../../components/features/ConnectionManagement/AddOfficeConnection';
 import ModalService from "../../../components/lib/modalPopup/services/ModalService";
 
 export default function ChooseConnector(props: any) {
@@ -27,7 +28,10 @@ export default function ChooseConnector(props: any) {
       connectorName:connectorName.current.value,
       SelectedCalenderId:calenderValue
     }
-    ModalService.open(AddConnection,connectorDetails);
+    if(calenderValue=="30")
+      ModalService.open(AddOfficeConnection,connectorDetails);
+    else
+      ModalService.open(AddConnection,connectorDetails);
   };
 
   return (
