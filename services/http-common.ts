@@ -12,7 +12,7 @@ export const config = { headers: { "Content-type": "application/json" },
 connectionManagement:{
     baseURL: "http://3.94.231.14:3002/",
     AddCalender:"api/connector/addcalendar",
-    CreateConnectionFromFile:"api/admin/createconnectionfromfile",
+    CreateConnectionFromFile:"api/connector/createconnectionfromfile",
     GetAllConnectors:"api/connector/getall",
     createConnector:"api/connector/create",
 }
