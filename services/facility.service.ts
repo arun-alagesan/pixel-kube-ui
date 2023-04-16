@@ -39,6 +39,10 @@ const CreateResource = (request: Resource) => {
         .then(res => res.data);
 
 }
+const GetResourceList = (floorId: number) => {
+    return http.get<ApiResponse>("api/Resources/GetResourceList/" + floorId)
+        .then(res => res.data);
+}
 
 const FacilityService = {
     create,
@@ -47,7 +51,8 @@ const FacilityService = {
     getByOrgId,
     getAll,
     CreateResource,
-    deleteByFacilityId
+    deleteByFacilityId,
+    GetResourceList
 }
 
 export default FacilityService

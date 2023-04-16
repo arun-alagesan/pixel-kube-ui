@@ -23,6 +23,7 @@ const RoomManagement = () => {
     const [spaces, setSpaces] = useState<Space[]>([]);
     const [loader, setLoader] = useState<boolean>(true);
     const [IsRoomDetailsOpen, setRoomDetailsOpen] = useState<boolean>(false);
+    const [selectedSpace, setSelectedSpace] = useState<Space>();
 
 
 
@@ -76,6 +77,8 @@ const RoomManagement = () => {
         openModel(CreateSpace, { "spaceDetails": space, "submittedCallback": fetchMyApi });
     }
     function openRoomDetails(details: any) {
+        debugger;
+        setSelectedSpace(details.data)
         setRoomDetailsOpen(true);
     }
     function OnCloseModal() {
@@ -108,7 +111,7 @@ const RoomManagement = () => {
                         :
                         <div>
                             {/* <Button onClick={openRoomDetails}>Open modal</Button> */}
-                            {IsRoomDetailsOpen && <RoomDetails onClose={() => OnCloseModal()} />}
+                            {IsRoomDetailsOpen && <RoomDetails space ={selectedSpace} onClose={() => OnCloseModal()} />}
                             {spaces.length == 0 ?
                                 <div className="text-center">
                                     {/* <div className="mb-4 mt-4">

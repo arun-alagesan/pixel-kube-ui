@@ -31,8 +31,7 @@ const tabsData: any = [
 
 ];
 
-function RoomDetails({ onClose }: any) {
-
+function RoomDetails({ onClose,space }: any) {
     return (
 
         <div className={styles.roomdetails} style={{height:"100%"}} >
@@ -42,7 +41,7 @@ function RoomDetails({ onClose }: any) {
 
             </div>
             <div className='text-xs opacity-70'>Data Synched rt{34} ago</div>
-            <Tabs tabsData={tabsData} />
+            <Tabs tabsData={tabsData} spaceDetails = {space} />
         </div>
     )
 }

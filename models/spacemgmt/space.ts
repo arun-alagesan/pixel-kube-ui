@@ -13,13 +13,20 @@ export default interface Space {
     directionNotes?: any;
     servicingFacilities?: any;
     coordinates?: any;
-    workweekdays?: any;
+    workweekdays?: string[];
     startTime?: any;
     endTime?: any;
     resources?: any;
     role?: any;
     organization: Organization;
     building: Building;
+    allowRepeat?:boolean,
+    allowWorkHours?:boolean,
+    autoDecline:boolean,
+    maximumDuration:string,
+    autoAccept:boolean,
+
+
 }
 export interface SpaceType{
     

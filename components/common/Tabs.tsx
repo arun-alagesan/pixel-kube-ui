@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 
 
 
-export default function Tabs({ tabsData }: any) {
+export default function Tabs({ tabsData,spaceDetails }: any) {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0);
   const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0);
@@ -47,7 +47,7 @@ export default function Tabs({ tabsData }: any) {
       </div>
       <div className="py-0 overflow-y-auto">
         {tabsData.map((data: any, idx: number) => {
-          if (idx === activeTabIndex) return <data.component key={idx} />
+          if (idx === activeTabIndex) return <data.component key={idx} spaceDetails = {spaceDetails} />
         })}
       </div>
     </div>

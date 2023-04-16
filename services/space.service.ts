@@ -13,7 +13,7 @@ const getSpaceList = () => {
         .then(res => res.data);
 }
 
-const updateSpace = (id: string, request: any) => {
+const updateSpace = (id: any, request: any) => {
     return http.put<ApiResponse>("api/spaces/" + id, request)
         .then(res => res.data);
 }
@@ -95,7 +95,7 @@ const SpaceService = {
     createBuilding,
     updateBuilding,
     createSpace,
-    updateSpace
+    updateSpace,
 }
 
 export default SpaceService;

@@ -1,44 +1,49 @@
-import * as React from 'react';
+
 import Devices from "/assets/icons/devices.svg"
 import Lunch from "/assets/icons/lunch.svg"
 import Coffee from "/assets/icons/coffee.svg"
 import Plan from "/assets/icons/plan.svg"
+import { useEffect, useState } from "react"
+import FacilityService from "../../../services/facility.service"
+import {  Resource } from "../../../models/spacemgmt/facility/FacilityModel"
 
-const Resources = () => {
+const Resources = ({ spaceDetails }: any) => {
 
+  debugger;
+  const [resources, setResources] = useState<Resource[]>([]);
+  useEffect(() => {
+    fetchMyApi();
+  }, []);
 
-  const resources = [{
+  async function fetchMyApi() {
+    debugger;
 
-  }]
+    var response = await FacilityService.GetResourceList(spaceDetails.floorId);
+
+    if (response.status === true) {
+      setResources(response.data);
+    }
+
+  }
+
 
   return (
     <div>
       <table className='table-auto w-full'>
         <tbody>
-          <tr style={{ borderBottom: "1px solid #f7f3f3", height: "50px" }}>
-            <td className='w-9'><Devices></Devices></td>
-            <td className='text-sm'>Seats (4)</td>
-            <td className='text-xs text-success'>Active</td>
-            <td></td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #f7f3f3", height: "50px" }}>
-            <td className='w-9'><Plan></Plan></td>
-            <td className='text-sm'>AC</td>
-            <td className='text-xs text-danger'>Not working properly</td>
-            <td className='text-xs text-primary'>Notify</td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #f7f3f3", height: "50px" }}>
-            <td className='w-9'><Lunch></Lunch></td>
-            <td className='text-sm'>Computer</td>
-            <td className='text-xs text-success'>Active</td>
-            <td></td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #f7f3f3", height: "50px" }}>
-            <td className='w-9'><Coffee></Coffee></td>
-            <td className='text-sm'>Network / WiFi</td>
-            <td className='text-xs text-success'>Active</td>
-            <td></td>
-          </tr>
+          {
+            resources.map((item, index) => {
+              return (
+                <tr style={{ borderBottom: "1px solid #f7f3f3", height: "50px" }} key={index}>
+                  <td className='w-9'><Devices></Devices></td>
+                  <td className='text-sm'>{item.name}</td>
+                  <td className='text-xs text-success'>Active</td>
+                  <td></td>
+                </tr>
+              )
+            })
+          }
+
         </tbody>
       </table>
     </div>
