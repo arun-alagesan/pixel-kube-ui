@@ -4,12 +4,14 @@ import ModalBody from "../../lib/modalPopup/components/ModalBody";
 import ModalHeader from "../../lib/modalPopup/components/ModalHeader";
 import ModalFooter from "../../lib/modalPopup/components/ModalFooter";
 import Button from "../../common/Button";
-import ConnectorIcon from "../../../assets/icons/connectorManagement.svg";
+import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
 import { ListBox } from 'primereact/listbox';
+import axios from 'axios';
+import {config} from '../../../services/http-common';
 
 export default function Connector(props) {
     const calenders = [];
-    const [selectedCity, setSelectedCity] = useState(null);
+    const [selectedCalendar, setSelectedCalendar] = useState(null);
 
     props.connectorResponse.map((x) => {
         calenders.push({ daysToSync: x.daysToSync, description: x.description, sourceCalendarId: x.sourceCalendarId, timeZone: x.timeZone, title: x.title });
@@ -17,7 +19,21 @@ export default function Connector(props) {
     });
 
     const onSave = () => {
-        console.log(selectedCity);
+        let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
+        const req={
+            "name": "Pixel ser acc 2",
+             "source": "Google",
+             "accessMode": "Service Account",
+             "calendar": {
+               "sourceCalendarId": selectedCalendar.sourceCalendarId,
+               "timeZone": selectedCalendar.timeZone,
+               "title": selectedCalendar.title,
+               "description": selectedCalendar.description,
+           "allowedAccess": "writer"
+             },
+             "orgId": "1"
+           }
+           const res = axios.post(url, req);
         alert('Saved');
         props.close();
     }
@@ -37,7 +53,7 @@ export default function Connector(props) {
             </ModalHeader>
             <ModalBody>
                 <div className="card flex justify-content-center">
-                    <ListBox value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={calenders} optionLabel="sourceCalendarId" className="w-full md:w-14rem" />
+                    <ListBox value={selectedCalendar} onChange={(e) => setSelectedCalendar(e.value)} options={calenders} optionLabel="title" className="w-full md:w-14rem" />
                 </div>
             </ModalBody>
             <ModalFooter>
