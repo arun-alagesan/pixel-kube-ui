@@ -17,7 +17,7 @@ export default function AddOfficeConnection(props: any) {
   const clientSecret = useRef<any>(null);
 
   const AddConnector = () => {
-    let url=config.connectionManagement.baseURL+config.connectionManagement.createConnector;
+    let url=config.connectionManagement.baseURL+config.connectionManagement.CreateConnectionFromFile;
         console.log(url);
         const req={
           "name": props.connectorName,
