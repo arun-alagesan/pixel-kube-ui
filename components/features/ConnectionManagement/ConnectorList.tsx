@@ -13,7 +13,7 @@ function ConnectorList({ data }: any) {
 
   return (
     <div className='flex justify-between px-6 py-4 mt-2 items-center border border-gray-800	rounded hover:cursor-pointer' onClick={handleClick}>
-      <div className='flex items-center'>
+      <div className='flex items-center' style={{width:"25%"}}>
         {/* <ConnectorIcon /> */}
         <div className='font-extrabold ml-3'>{data.name}</div>
       </div>

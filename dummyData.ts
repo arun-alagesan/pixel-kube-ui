@@ -13,7 +13,7 @@ const connectorList = [
     },
     {
         id: 3,
-        name: "SMS Connector 3",
+        name: "SMS Connecdfgtor 3",
         lastSyncedTime: "2 mins",
     },
     {
@@ -23,7 +23,7 @@ const connectorList = [
     },
     {
         id: 5,
-        name: "SMS Connector 1",
+        name: "SMS dfgdfg 1",
         lastSyncedTime: "2 mins",
     },
     {
@@ -33,7 +33,7 @@ const connectorList = [
     },
     {
         id: 7,
-        name: "SMS Connector 1",
+        name: "SMS df 1",
         lastSyncedTime: "2 mins",
     },
     {
@@ -43,12 +43,12 @@ const connectorList = [
     },
     {
         id: 9,
-        name: "SMS Connector 1",
+        name: "SMS dfg 1",
         lastSyncedTime: "2 mins",
     },
     {
         id: 10,
-        name: "SMS Connector 1",
+        name: "SMS d 1",
         lastSyncedTime: "2 mins",
     },
     {
