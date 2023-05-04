@@ -30,7 +30,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
     }]
 
     React.useEffect(() => {
-        SpaceService.updateSpace(settingsSaved.spaceId, settingsSaved);
+        SpaceService.updateSpace(settingsSaved?.spaceId, settingsSaved);
     }, [settingsSaved])
 
 
@@ -43,7 +43,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
                         <FormControlLabel className='text-sm w-full block ml-0'
                             value="start"
                             control={<Switch color="primary" className='float-right'
-                                checked={settingsSaved.allowRepeat}
+                                checked={settingsSaved?.allowRepeat}
                                 onChange={(e) => {
                                     setSettings({ ...settingsSaved, allowRepeat: e.target.checked })
                                 }} />
@@ -54,7 +54,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
                         <FormControlLabel className='text-sm w-full block ml-0'
                             value="start"
                             control={<Switch color="primary" className='float-right'
-                                checked={settingsSaved.allowWorkHours}
+                                checked={settingsSaved?.allowWorkHours}
                                 onChange={(e) => {
                                     setSettings({ ...settingsSaved, allowWorkHours: e.target.checked })
                                 }} />
@@ -101,7 +101,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
                     <FormControl fullWidth sx={{ margin: "40px 20px 0px 0px" }} size="small">
                         <InputLabel id="locationLabel">Working hours</InputLabel>
                         <Select labelId="locationLabel" label="Working hours" className="text-sm"
-                            value={settingsSaved.startTime + " " + settingsSaved.endTime}
+                            value={settingsSaved?.startTime + " " + settingsSaved?.endTime}
                             onChange={(e: any) => {
                                 debugger;
                                 let item = WorkingHours.find(x=>x.id == e.target.value);
@@ -143,7 +143,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
                 <FormGroup aria-label="position" row>
                     <FormControlLabel className='text-sm w-full block ml-0'
                         value="start"
-                        checked={settingsSaved.autoAccept}
+                        checked={settingsSaved?.autoAccept}
                         control={<Switch color="primary" className='float-right' onChange={(e) => {
                             setSettings({ ...settingsSaved, autoAccept: e.target.checked })
                         }} />}
