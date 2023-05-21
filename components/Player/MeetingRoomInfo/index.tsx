@@ -40,7 +40,7 @@ function MeetingRoomInfo({ info, size = "LARGE", booked }: any) {
                 >
                   <img
                     className={`text-[#58968b] h-[35px] w-[35px]`}
-                    src="../../../assets/icons/info_icon.svg"
+                    src="../assets/images/info_icon.svg"
                   />
                 </span>
               )}

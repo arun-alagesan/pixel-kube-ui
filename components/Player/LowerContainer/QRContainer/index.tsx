@@ -12,7 +12,7 @@ function ORContainer() {
         className="cursor-pointer"
           height={54}
           width={54}
-          src={"./Search_BTN.png"}
+          src= {"../../../../assets/images/Search_BTN.png"}
           onClick={() => setShowModal(!showModal)}
         />
       </div>
@@ -29,7 +29,7 @@ function ORContainer() {
         <p className="text-7xl font-light">until 12:00am</p>
       </div>
       <div className="self-end mb-10 mr-20">
-        <img height={150} width={150} src="./qr.png" />
+        <img height={150} width={150} src={"../../../../assets/images/qr.png"} />
       </div>
     </div>
   );

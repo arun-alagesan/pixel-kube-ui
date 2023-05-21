@@ -1,9 +1,9 @@
 import Image from 'next/image'
-import { Inter } from 'next/font/google'
+//import { Inter } from 'next/font/google'
 import MeetingRoomInfo from '../../../components/Player/MeetingRoomInfo'
 import MeetingCalenderContainer from '../../../components/Player/MeetingCalenderContainer'
 
-const inter = Inter({ subsets: ['latin'] })
+//const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
