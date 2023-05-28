@@ -4,23 +4,38 @@ import Devices from "../Devices";
 import ReportFaultModal from "../ReportFaultModal";
 import { Modal } from "../Modals/FindRoom";
 import Calender from "../MeetingCalenderContainer/Calender";
+import AnalogClock from 'analog-clock-react';
+
 function MeetingRoomInfo({ info, size = "LARGE", booked }: any) {
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
   const handleClick = () => {
-    router.push("/meetinginfo");
+    router.push("/PlayerPage/meetinginfo");
   };
   const handleDeviceClick = () => {
       setShowModal(!showModal)
   }
+  const options = {
+    border: true,
+    borderColor: "#2e2e2e",
+    baseColor: "#17a2b8",
+    centerColor: "#459cff",
+    centerBorderColor: "#ffffff",
+    handColors: {
+      second: "#d81c7a",
+      minute: "#ffffff",
+      hour: "#ffffff"
+    }
+};
   return (
     <div
       className={
         "w-full h-[20vh] min-h-[150px] flex justify-between box-border  rounded-[40px] bg-white/25"
       }
     >
-      <div className={"flex pt-6 pb-5 pl-10 pr-6"}>
+      <div className={"flex justify-between flex-1 pt-6 pb-5 pl-10 pr-6"}>
+        <div className="flex ">
         <div className={"flex flex-col justify-between items-center mr-4"}>
           <img src={"../assets/images/meeting_logo.png"} className={"h-[40px]"} />
           {!info && (
@@ -57,6 +72,10 @@ function MeetingRoomInfo({ info, size = "LARGE", booked }: any) {
             </p>
 
           )}
+        </div>
+        </div>
+        <div className="self-end relative z-0">
+        <AnalogClock width={"110px"} {...options}/>
         </div>
       </div>
       {info ? (
