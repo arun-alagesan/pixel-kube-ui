@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { Modal } from "../../../components/Player/Modals/FindRoom";
 import Button from "../@common/Button";
 import TimelineComponent from "../MeetingCalenderContainer/BottomComponent/TimelineComponent";
 import QRContainer from "./QRContainer";
 
 function LowerContainer({ booked }: any) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <div className="flex justify-between h-full">
       <QRContainer />
@@ -17,7 +20,10 @@ function LowerContainer({ booked }: any) {
           </div>
         </div>
         <div className="flex items-center justify-center h-[20%] rounded-b-[40px]">
-          <Button text={"Book This Room"} className={"px-10"} />
+        <Button text={"Book This Room"} className={"px-10"} handleClick={() => setShowModal(true)}/>
+          <Modal onClose={() => setShowModal(false)} show={showModal} title = {"Book a Room"}>
+            <div></div>
+          </Modal>
         </div>
       </div>
     </div>
