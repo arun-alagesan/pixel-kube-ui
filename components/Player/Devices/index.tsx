@@ -1,8 +1,8 @@
 import React from "react";
 
-function Devices({ size }: any) {
+function Devices({ size, handleClick }: any) {
   return (
-    <div className={`flex items-center`}>
+    <div className={`flex items-center`} onClick={handleClick}>
       <img
         src={"../assets/images/Screen_Icon.png"}
         className={`${
