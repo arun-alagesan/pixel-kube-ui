@@ -24,6 +24,19 @@ const Connector = () => {
   const [openConnectorDetailTab, setopenConnectorDetailTab] = useState(false);
   const [connectorDetailId, setConnectorDetailId] = useState({});
 
+  function onSearch(searchName:any) {
+    let searchReqd=searchName!=null && searchName.length>0?true:false;
+    let url = searchReqd?config.connectionManagement.baseURL + config.connectionManagement.GetConnectorByName:config.connectionManagement.baseURL + config.connectionManagement.GetAllConnectors;
+    let reqData=searchReqd?{ params: { name: searchName }}:{};
+    const temp: any = [{}];
+    axios.get(url, reqData).then(res => {
+      if(res.data!=null && res.data.length>0)
+        setConnectorList(res.data);
+      else
+        setConnectorList(temp);
+    });
+ }
+
   useEffect(() => {
     let url = config.connectionManagement.baseURL + config.connectionManagement.GetAllConnectors;
     const temp: any = getConnectorList();
@@ -56,7 +69,7 @@ const Connector = () => {
               <div className="flex flex-column py-4 ">
 
                 <div className="flex w-full">
-                  <SearchBar />
+                  <SearchBar onSearch = {onSearch}/>
                   <button
                     onClick={addModal}
                     className={
