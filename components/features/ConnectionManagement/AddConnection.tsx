@@ -37,7 +37,7 @@ export default function AddConnection(props: any) {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("OrgID","1");
-    formData.append("Name","test");
+    formData.append("Name",props.connectorName);
     axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
