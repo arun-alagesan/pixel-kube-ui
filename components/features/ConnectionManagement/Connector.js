@@ -21,7 +21,7 @@ export default function Connector(props) {
     const onSave = () => {
         let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
         const req={
-            "name": "Pixel ser acc 2",
+            "name": props.connectorName,
              "source": "Google",
              "accessMode": "Service Account",
              "calendar": {
