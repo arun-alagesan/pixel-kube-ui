@@ -19,6 +19,7 @@ connectionManagement:{
     //baseURL: "https://localhost:7022/",
     AddCalender:"api/connector/addcalendar",
     CreateConnectionFromFile:"api/connector/createconnectionfromfile",
+    CreateConnector:"api/connector/create",
     GetAllConnectors:"api/connector/getall",
     GetConnectorByName:"api/connector/getallbyname",
     deleteConnector:"api/connector/delete"
