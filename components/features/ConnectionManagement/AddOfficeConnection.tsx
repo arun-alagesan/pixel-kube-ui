@@ -39,7 +39,6 @@ export default function AddOfficeConnection(props: any) {
       "noOfDaysToSyncAfter": 30,
       "noOfSecondsToSyncCalendar": 90
     }
-    let status="";
     const res = axios.post(url, req).then((response) => {
       console.log(response);
       alert('Saved');

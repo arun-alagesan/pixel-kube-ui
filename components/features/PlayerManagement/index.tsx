@@ -6,7 +6,7 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import { useState } from "react";
-import DataTable from "./grid-view";
+import PlayerData from "./grid-view";
 import { PlayerDeviceInfo } from "./PlayerDeviceInfo";
 import CustomizedInputBase from "./search-field";
 
@@ -56,7 +56,7 @@ export const PlayerManagement = () => {
             </div>
             <div>
                 <TabPanel value={value} index={0}>
-                    <DataTable />
+                    <PlayerData />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
                     Item Two
