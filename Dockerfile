@@ -12,7 +12,7 @@ RUN npx next telemetry disable
 
 EXPOSE 80
 
-RUN npm run build
+RUN npm run docker-build
 
 
 FROM nginx:alpine
