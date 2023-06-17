@@ -15,13 +15,26 @@ import RadioGroup from "@mui/material/RadioGroup";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import React from "react";
+import React, { useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Button, Stack } from "@mui/material";
+import SpaceContext, { initializeDataType } from "../../context/BookSpaceContext";
+import Router from "next/router";
 
 const BookDesk = () => {
+  const spaceContextValue = React.useContext(SpaceContext);
   const [startDate, setStartDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
   const [endDate, setEndDate] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  const [location, setLocation] = useState("");
+  const [building, setBuilding] = useState("");
+  const [floor, setFloor] = useState("");
+  const [attendies, setAttendies] = useState("");
+
+  const onSearchClick = () => {
+    const searchInfo = { startDate, endDate, location, building, attendies, floor }
+    spaceContextValue.bookRoomInfo = searchInfo;
+    Router.push("./bookDesk/searchList");
+  }
   // const []
 
   return (
@@ -178,7 +191,7 @@ const BookDesk = () => {
                 <Button
                   variant="contained"
                   className="flex-1 w-64"
-                  href="#outlined-buttons"
+                  onClick={() => onSearchClick()}
                 >
                   Search
                 </Button>

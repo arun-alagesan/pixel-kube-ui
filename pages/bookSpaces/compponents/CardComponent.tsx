@@ -10,15 +10,16 @@ import SpaceManagement from "/assets/icons/spacemanagement.svg";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Result } from '../../../models/spacemgmt/Room/SearchResult';
+import { Result as DeskResult}  from '../../../models/spacemgmt/Desk/SearchResult';
 
 interface CardComponentProps {
     isCheckBox?: boolean;
     roomDetails?: Result;
-
+    deskDetails?: DeskResult;
 }
 
 
-const CardComponent = ({ isCheckBox, roomDetails }: CardComponentProps) => {
+const CardComponent = ({ isCheckBox, roomDetails,deskDetails }: CardComponentProps) => {
     return (
         <div className="text-sm mt-4 px-2 md:px-2">
             <Card className='rounded-md' sx={{ width: 500 }}>
@@ -39,10 +40,17 @@ const CardComponent = ({ isCheckBox, roomDetails }: CardComponentProps) => {
                         </Typography>
                     </div>
                     <div>
+                        <Typography className='mb-0' gutterBottom variant="h6" component="div">{deskDetails?.DeskName}
+                        </Typography>
+                    </div>
+                    <div>
                         <Grid container spacing={1}>
 
                             <Grid xs={7}>
                                 <Typography variant="body2" className="pl-0">{roomDetails?.Description}</Typography>
+                            </Grid>
+                            <Grid xs={7}>
+                                <Typography variant="body2" className="pl-0">{deskDetails?.location}</Typography>
                             </Grid>
 
                             <Grid xs={1}>
@@ -55,7 +63,7 @@ const CardComponent = ({ isCheckBox, roomDetails }: CardComponentProps) => {
 
                         </Grid>
                     </div>
-
+                    {roomDetails?
                     <div className="pt-5">
                         <Grid container spacing={2}>
                             <Grid xs={1}>
@@ -74,6 +82,8 @@ const CardComponent = ({ isCheckBox, roomDetails }: CardComponentProps) => {
 
                         </Grid>
                     </div>
+                    :null
+                    }
 
                     <div className="pt-5">
                         <Grid container spacing={2}>

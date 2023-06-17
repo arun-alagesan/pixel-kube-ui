@@ -7,8 +7,7 @@ import Lunch from "/assets/icons/lunch.svg"
 import Snack from "/assets/icons/snack.svg"
 import IncDecCounter from '../../../components/incDecCounter';
 
-const ServiceModal = (props: any) => {
-
+const AddServicesModal = (props: any) => {
     return (
         <div>
             {/* <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -28,8 +27,7 @@ const ServiceModal = (props: any) => {
             <FormControl  sx={{ margin: "20px 0px 0px 0px" }} className="flex justify-center " size="small">
                 <Button variant="contained"  onClick={props.onClose}  >Add Services</Button>
             </FormControl>
-
         </div >
     );
 };
-export default ServiceModal;
+export default AddServicesModal;
