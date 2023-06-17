@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
+    "docker-build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
@@ -15,7 +16,7 @@
     "@hookform/resolvers": "^2.9.11",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
-    "@mui/x-data-grid": "^5.17.23",
+    "@mui/x-data-grid": "latest",
     "@mui/x-date-pickers": "^5.0.18",
     "@react-oauth/google": "^0.7.0",
     "@types/node": "18.13.0",

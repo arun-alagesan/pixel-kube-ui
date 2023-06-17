@@ -38,6 +38,7 @@ const Sidebar = () => {
         { id: 5, label: "User Management", icon: UserManagement, link: "/user" },
         { id: 6, label: "System Management", icon: SystemManagement, link: "/" },
         { id: 7, label: "Player Management", icon: SystemManagement, link: "/player" },
+        { id: 8, label: "Playlist Management", icon: SystemManagement, link: "/playlist" },
       ],
     },
     {
