@@ -7,6 +7,7 @@ import NotificationIcon from "../assets/icons/notification.svg"
 import SearchIcon from "../assets/icons/loupe.svg"
 import UserContext, { initialvalue } from "../context/BookSpaceContext"
 import { Stack } from "@mui/material";
+import Image from 'next/image'
 
 const Layout = ({ children }: any) => {
 
@@ -22,7 +23,7 @@ const Layout = ({ children }: any) => {
                     <div className="p-4">
                       <NotificationIcon />
                     </div>
-                    <div ><img src={"/assets/images/userprofile.png"} alt="" width="50" height="50" /> </div>
+                    <div ><Image src={"/assets/images/userprofile.png"} alt="" width="50" height="50" /> </div>
                   </div>
                 </div>
               </header>

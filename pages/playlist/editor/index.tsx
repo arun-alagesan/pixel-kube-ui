@@ -20,7 +20,7 @@ const columns: GridColDef[] = [
     field: "id",
     headerName: "Thumbnail",
     width: 140,
-
+    headerClassName: "hideRightSeparator",
     renderCell: (params: GridCellParams) => (
       <img
         className="w-[100px] aspect-video rounded-md"
@@ -29,13 +29,15 @@ const columns: GridColDef[] = [
     ),
   },
 
-  { field: "mediaName", headerName: "Media Name", minWidth: 300, flex: 1 },
+  { field: "mediaName", headerName: "Media Name", minWidth: 300, flex: 1,     headerClassName: "hideRightSeparator",
+},
   {
     field: "lastName",
     headerName: "Duration",
     minWidth: 300,
     flex: 1,
     sortable: false,
+    headerClassName: "hideRightSeparator",
     renderCell: (params: GridCellParams,) => {
 
       return params.row.type === "image" ? (
@@ -60,6 +62,7 @@ const columns: GridColDef[] = [
     headerName: "Volume",
     minWidth: 300,
     flex: 1,
+    headerClassName: "hideRightSeparator",
     // valueGetter: (params: GridValueGetterParams) =>
     //   `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     renderCell: (params: GridCellParams) =>
@@ -115,6 +118,9 @@ export default function DataTable() {
             [`& .${gridClasses.columnHeader}:focus, & .${gridClasses.columnHeader}:focus-within`]:
               {
                 outline: 'none',
+              },
+              '& .hideRightSeparator > .MuiDataGrid-columnSeparator': {
+                display: 'none',
               },
           }}
         rows={rows}
