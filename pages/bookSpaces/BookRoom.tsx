@@ -183,7 +183,7 @@ const BookRoom = () => {
               />
             </FormControl>
             <br></br>
-            <div className="bg-indigo-500">
+            <div className="text-sm">
               <Stack direction="row" spacing={2}>
                 <Button variant="outlined" className="flex-1 w-64">
                   Clear
