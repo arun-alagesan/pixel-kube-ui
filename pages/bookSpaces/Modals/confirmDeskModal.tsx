@@ -6,13 +6,17 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Router from "next/router";
 import SystemManagement from "/assets/icons/systemmanagement.svg";
+import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
 
 const ConfirmDeskModal = (props: any) => {
 
+    const [AddParticipantDisplay, setAddParticipantDisplay] = useState(false);
+    const [AddParticipant,setAddParticipant]=useState("");
     const onBookDeskClick = () => {
-        Router.push("/bookSpaces/bookDesk/bookDeskForm");
-
+        (!AddParticipantDisplay || AddParticipant.length==0) ?setAddParticipantDisplay(true):Router.push("/bookSpaces/bookDesk/bookDeskForm");
     }
+
     return (
         <div>
             <div className="text-sm mt-4 px-2 md:px-2">
@@ -57,19 +61,28 @@ const ConfirmDeskModal = (props: any) => {
                     </CardContent>
                 </Card>
                 <div>
+                    <div style={!AddParticipantDisplay?{display:'block'}:{display:'none'}}>
                     January 1,2024 - wednesday<br></br>
                     <span style={{fontSize: "14px", color:"green"}}>Available Full Day</span>
                     <br></br>
                     <br></br>
                     <br></br>
-                    <input placeholder="Add Participant" />
+                    </div>
+                    <TextField
+                id="addPartipant"
+                label="Add Participant"
+                variant="outlined"
+                style={AddParticipantDisplay?{display:'block'}:{display:'none'}}
+                onChange={(e) => setAddParticipant(e.target.value)}
+              />
                 </div>
+                
                 
             </div>
             <br></br>
             <div className="text-sm">
               <Stack direction="row" spacing={5}>
-                <Button variant="outlined" className="flex-1 w-64" onClick={() => onBookDeskClick()}>Continue</Button>
+                <Button variant="outlined" className="flex-1 w-64" onClick={() => onBookDeskClick()}>{AddParticipant?"Add":"Continue"}</Button>
                 <Button variant="outlined" className="flex-1 w-64">Cancel</Button>
               </Stack>
             </div>
