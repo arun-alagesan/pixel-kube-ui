@@ -6,8 +6,18 @@ import Cofee from "/assets/icons/coffee.svg"
 import Lunch from "/assets/icons/lunch.svg"
 import Snack from "/assets/icons/snack.svg"
 import IncDecCounter from '../../../components/incDecCounter';
+import Router from "next/router";
 
 const AddServicesModal = (props: any) => {
+
+    let routeUrl='';
+    console.log(props);
+    if(props.modalFrom==="bookService")
+        routeUrl="/bookSpaces/bookService/confirmMeeting";
+    const onAddServiceClick = () => {
+        routeUrl=='' ?props.onClose():Router.push(routeUrl);
+    }
+
     return (
         <div>
             {/* <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -25,7 +35,7 @@ const AddServicesModal = (props: any) => {
                 <Grid xs={6}><IncDecCounter></IncDecCounter></Grid>
             </Grid>
             <FormControl  sx={{ margin: "20px 0px 0px 0px" }} className="flex justify-center " size="small">
-                <Button variant="contained"  onClick={props.onClose}  >Add Services</Button>
+                <Button variant="contained"  onClick={onAddServiceClick}  >Add Services</Button>
             </FormControl>
         </div >
     );
