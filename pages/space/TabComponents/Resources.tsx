@@ -9,14 +9,13 @@ import {  Resource } from "../../../models/spacemgmt/facility/FacilityModel"
 
 const Resources = ({ spaceDetails }: any) => {
 
-  debugger;
+  //debugger;
   const [resources, setResources] = useState<Resource[]>([]);
   useEffect(() => {
     fetchMyApi();
   }, []);
 
   async function fetchMyApi() {
-    debugger;
 
     var response = await FacilityService.GetResourceList(spaceDetails.floorId);
 

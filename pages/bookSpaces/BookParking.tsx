@@ -2,8 +2,13 @@ import Layout from "../../components/Layout";
 import CardComponent from "./compponents/CardComponent";
 import React from "react";
 import Grid from '@mui/material/Unstable_Grid2';
+import Router from "next/router";
 
 const BookParking =()=>{
+
+const onClickParkingCard = () => {
+    Router.push("./bookParking/ParkingView");
+}
     return (
         <Layout>
         <div className="px-4">
@@ -13,7 +18,7 @@ const BookParking =()=>{
         <div className="py-4">
             <Grid container spacing={1}>
                 <Grid xs={6}>
-                    <div>
+                    <div onClick={() => onClickParkingCard()}>
                     <CardComponent></CardComponent>
                     </div>
                 </Grid>

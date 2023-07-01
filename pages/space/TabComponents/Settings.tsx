@@ -16,7 +16,6 @@ import Space from '../../../models/spacemgmt/space';
 
 
 const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
-    debugger;
     const [settingsSaved, setSettings] = React.useState<Space>(spaceDetails)
     const weekList = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     const WorkingHours = [{
@@ -103,7 +102,7 @@ const Settings = ({ spaceDetails }: { spaceDetails: Space }) => {
                         <Select labelId="locationLabel" label="Working hours" className="text-sm"
                             value={settingsSaved?.startTime + " " + settingsSaved?.endTime}
                             onChange={(e: any) => {
-                                debugger;
+                                //debugger;
                                 let item = WorkingHours.find(x=>x.id == e.target.value);
                                 setSettings({ ...settingsSaved, startTime: item?.startTime, endTime: item?.endTime })
                             }}

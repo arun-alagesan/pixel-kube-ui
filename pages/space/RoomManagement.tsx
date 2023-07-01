@@ -77,7 +77,7 @@ const RoomManagement = () => {
         openModel(CreateSpace, { "spaceDetails": space, "submittedCallback": fetchMyApi });
     }
     function openRoomDetails(details: any) {
-        debugger;
+        //debugger;
         setSelectedSpace(details.data)
         setRoomDetailsOpen(true);
     }

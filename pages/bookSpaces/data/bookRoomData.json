@@ -4,6 +4,7 @@
     "floors":[{"name":"1","id":1},{"name":"2","id":2}],
     "reminders": [{"name":"Before 10 Mins","id":1},{"name":"Before 15 Mins","id":2}],
     "meetPersons": [{"name":"per1","id":1}],
-    "mapDetails":[{"name":"1","id":1},{"name":"1","id":1}]
+    "mapDetails":[{"name":"1","id":1},{"name":"1","id":1}],
+    "participants":[{"name":"Adam levar","id":1},{"name":"Bruno Mars","id":2},{"name":"Sliverson Stolen","id":3}]
 
 }
