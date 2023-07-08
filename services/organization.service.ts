@@ -8,7 +8,7 @@ const createOrgGeneralDetails = (request: any) => {
     console.log("request ", request)
 
     // let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
-    return http.post<ApiResponse>("api/Organizations/create", request)
+    return http.post<ApiResponse>("api/SMSService/Organizations/create", request)
         .then(res => res.data);
 }
 
@@ -16,17 +16,17 @@ const updateOrgGeneralDetails = (request: any) => {
     console.log("request ", request)
 
     // let customConfig = { headers: { 'Content-Type': 'multipart/form-data' } };
-    return http.put<ApiResponse>("api/Organizations/update", request)
+    return http.put<ApiResponse>("api/SMSService/Organizations/update", request)
         .then(res => res.data);
 }
 
 const getList = () => {
-    return http.get<ApiResponse>("api/Organizations/getList")
+    return http.get<ApiResponse>("api/SMSService/Organizations/getList")
         .then(res => res.data);
 }
 
 const deleteOrg = (id: number) => {
-    return http.delete<ApiResponse>("api/Organizations/" + id)
+    return http.delete<ApiResponse>("api/SMSService/Organizations/" + id)
         .then(res => res.data);
 }
 

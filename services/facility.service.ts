@@ -5,42 +5,42 @@ import ApiResponse from "../models/ApiResponse";
 import { Resource } from '../models/spacemgmt/facility/FacilityModel';
 
 const create = (request: CreateFacilityRequest) => {
-    return http.post<ApiResponse>("api/facilities", request)
+    return http.post<ApiResponse>("api/SMSService/facilities", request)
         .then(res => res.data);
 }
 
 const update = (request: UpdateFacilityRequest) => {
-    return http.put<ApiResponse>("api/facilities", request)
+    return http.put<ApiResponse>("api/SMSService/facilities", request)
         .then(res => res.data);
 }
 
 const get = (id: number) => {
-    return http.get<ApiResponse>("api/facilities/" + id)
+    return http.get<ApiResponse>("api/SMSService/facilities/" + id)
         .then(res => res.data);
 }
 
 const deleteByFacilityId = (id: number) => {
-    return http.delete<ApiResponse>("api/facilities/" + id)
+    return http.delete<ApiResponse>("api/SMSService/facilities/" + id)
         .then(res => res.data);
 }
 
 const getByOrgId = (orgId: number) => {
-    return http.get<ApiResponse>("api/facilities/getByOrganization/" + orgId)
+    return http.get<ApiResponse>("api/SMSService/facilities/getByOrganization/" + orgId)
         .then(res => res.data);
 }
 
 const getAll = () => {
-    return http.get<ApiResponse>("api/facilities/getall")
+    return http.get<ApiResponse>("api/SMSService/facilities/getall")
         .then(res => res.data);
 }
 
 const CreateResource = (request: Resource) => {
-    return http.post<ApiResponse>("api/Resources", request)
+    return http.post<ApiResponse>("api/SMSService/Resources", request)
         .then(res => res.data);
 
 }
 const GetResourceList = (floorId: number) => {
-    return http.get<ApiResponse>("api/Resources/GetResourceList/" + floorId)
+    return http.get<ApiResponse>("api/SMSService/Resources/GetResourceList/" + floorId)
         .then(res => res.data);
 }
 
