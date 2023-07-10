@@ -52,8 +52,8 @@ export default function Connector(props) {
                 </div>
             </ModalHeader>
             <ModalBody>
-                <div className="card flex justify-content-center">
-                    <ListBox value={selectedCalendar} onChange={(e) => setSelectedCalendar(e.value)} options={calenders} optionLabel="title" className="w-full md:w-14rem" />
+               <div className="py-4 overflow-auto" style={{ maxHeight: '68vh' }}>
+                    <ListBox value={selectedCalendar} onChange={(e) => setSelectedCalendar(e.value)} options={calenders} optionLabel="title"/>
                 </div>
             </ModalBody>
             <ModalFooter>
