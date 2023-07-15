@@ -17,11 +17,11 @@ connectionManagement:{
     //baseURL: "https://roombookingappus-vftldv7jma-uc.a.run.app/",
     baseURL: "http://3.94.231.14:3002/",
     //baseURL: "https://localhost:7022/",
-    AddCalender:"api/connector/addcalendar",
-    CreateConnectionFromFile:"api/connector/createconnectionfromfile",
-    CreateConnector:"api/connector/create",
-    GetAllConnectors:"api/connector/getall",
-    GetConnectorByName:"api/connector/getallbyname",
-    deleteConnector:"api/connector/delete"
+    AddCalender:"api/pixconnectors/connector/addcalendar",
+    CreateConnectionFromFile:"api/pixconnectors/connector/createconnectionfromfile",
+    CreateConnector:"api/pixconnectors/connector/create",
+    GetAllConnectors:"api/pixconnectors/connector/getall",
+    GetConnectorByName:"api/pixconnectors/connector/getallbyname",
+    deleteConnector:"api/pixconnectors/connector/delete"
 }
 };

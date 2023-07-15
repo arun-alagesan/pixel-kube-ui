@@ -5,19 +5,19 @@ import ConnectionDetails from "../models/connector/connectionDetails";
 
 
 const getCalenderInstances = (id: number, startTime: string, endTime: string) => {
-    return http.get<Meeting[]>("api/event/getinstances?calendarId=" + id + "&startTime=" + startTime + "&endTime=" + endTime)
+    return http.get<Meeting[]>("api/pixconnectors/event/getinstances?calendarId=" + id + "&startTime=" + startTime + "&endTime=" + endTime)
         .then(res => res.data);
 }
 const getSourceCalenders = (connectorName: string) => {
-    return http.get<any[]>("api/connector/getcalendars?connectorName=" + connectorName)
+    return http.get<any[]>("api/pixconnectors/connector/getcalendars?connectorName=" + connectorName)
         .then(res => res.data);
 }
 const getAuditAndLogs = (connectorName: string) => {
-    return http.get<ConnectionDetails>("api/connector/get?name=" + connectorName)
+    return http.get<ConnectionDetails>("api/pixconnectors/connector/get?name=" + connectorName)
         .then(res => res.data);
 }
 const saveSettings = (connDetails: ConnectionDetails | undefined) => {
-    return http.put<any>("api/connector/update", connDetails)
+    return http.put<any>("api/pixconnectors/connector/update", connDetails)
         .then(res => res.data);
 }
 

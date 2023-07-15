@@ -3,14 +3,10 @@ import http from "./http-common";
 import ApiResponse from "../models/ApiResponse";
 
 const getuserlist = () => {
-    // return http.get<ApiResponse>("api/Organizations/getList")
-    //     .then(res => res.data);
         return UserList;
 }
 
 const getroleslist = () => {
-    // return http.delete<ApiResponse>("api/Organizations/" + id)
-    //     .then(res => res.data);
     return RolesandPermissionList;
 }
 
