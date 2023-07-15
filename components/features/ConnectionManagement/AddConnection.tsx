@@ -16,11 +16,10 @@ import { config } from '../../../services/http-common';
 export default function AddConnection(props: any) {
 
   const [calenderValue, setCalenderValue] = useState(props.SelectedCalenderId);
-  const connectorName = useRef<any>(null);
   const hiddenFileInput = useRef<any>(null);
   const [selectedFile,setSelectedFile] = useState('Import Json');
   const [responseData,setResponseData]=useState({});
-  const [delegatedId,setDelegatedId]= useState(props.delegatedUserId);
+  const delegatedUserId = useRef<any>(null);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCalenderValue(event.target.value as string);
@@ -34,17 +33,12 @@ export default function AddConnection(props: any) {
     uploadFile(url, file);
   };
 
-  const handleTextChange=(event:any)=>
-  {
-    setDelegatedId(event.target.value as string);
-  };
-
   const uploadFile = (url:any, file:any) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("OrgID","1");
     formData.append("Name",props.connectorName);
-    formData.append("DelegatedUserId",props.delegatedUserId)
+    formData.append("DelegatedUserId",delegatedUserId.current.value)
     axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -105,8 +99,7 @@ export default function AddConnection(props: any) {
          alignItems:'center',paddingTop:'20px',paddingBottom:'20px'}}>OR</div>
         <div className="py-3">
           <label className="w-full" htmlFor="delegatedUserId">
-          {/* <TextField value={props.delegatedUserId}   hidden type="delegatedUserId" onChange={handleTextChange} fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/>  */}
-          <TextField value={props.delegatedUserId} onChange={handleTextChange} fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/> 
+          <TextField inputRef={delegatedUserId}  fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/> 
           </label>
         </div>
          <div style={{display: 'flex', color: 'rgb(148 163 184)',justifyContent:'center',
