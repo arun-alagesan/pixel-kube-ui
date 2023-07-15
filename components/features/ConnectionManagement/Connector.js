@@ -28,8 +28,8 @@ export default function Connector(props) {
                "sourceCalendarId": selectedCalendar.sourceCalendarId,
                "timeZone": selectedCalendar.timeZone,
                "title": selectedCalendar.title,
-               "description": selectedCalendar.description,
-           "allowedAccess": "writer"
+               "description": selectedCalendar.description ? selectedCalendar.description: selectedCalendar.title,
+            "allowedAccess": "writer"
              },
              "orgId": "1"
            }

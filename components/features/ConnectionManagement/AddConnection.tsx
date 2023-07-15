@@ -99,7 +99,7 @@ export default function AddConnection(props: any) {
          alignItems:'center',paddingTop:'20px',paddingBottom:'20px'}}>OR</div>
         <div className="py-3">
           <label className="w-full" htmlFor="delegatedUserId">
-          <TextField inputRef={delegatedUserId}  fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/> 
+          <TextField inputRef={delegatedUserId}  fullWidth id="outlined-basic" label="ServiceAccount User" variant="outlined" required/> 
           </label>
         </div>
          <div style={{display: 'flex', color: 'rgb(148 163 184)',justifyContent:'center',

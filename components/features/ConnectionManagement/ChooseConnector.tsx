@@ -62,10 +62,6 @@ export default function ChooseConnector(props: any) {
           <MenuItem value={10}>Google Calender</MenuItem>
           <MenuItem value={20}>Office 365 (Basic Authentication) </MenuItem>
           <MenuItem value={30}>Office 365 (Modern Authentication) </MenuItem>
-          <MenuItem value={40}>Exchange </MenuItem>
-          <MenuItem value={50}>Opera</MenuItem>
-          <MenuItem value={60}>Delphi</MenuItem>
-          <MenuItem value={70}>Discrete Calender</MenuItem>
         </Select>
         
         </FormControl>
