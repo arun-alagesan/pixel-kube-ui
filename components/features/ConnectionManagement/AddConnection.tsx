@@ -20,6 +20,7 @@ export default function AddConnection(props: any) {
   const hiddenFileInput = useRef<any>(null);
   const [selectedFile,setSelectedFile] = useState('Import Json');
   const [responseData,setResponseData]=useState({});
+  const [delegatedId,setDelegatedId]= useState(props.delegatedUserId);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCalenderValue(event.target.value as string);
@@ -33,11 +34,17 @@ export default function AddConnection(props: any) {
     uploadFile(url, file);
   };
 
+  const handleTextChange=(event:any)=>
+  {
+    setDelegatedId(event.target.value as string);
+  };
+
   const uploadFile = (url:any, file:any) => {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("OrgID","1");
     formData.append("Name",props.connectorName);
+    formData.append("DelegatedUserId",props.delegatedUserId)
     axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -93,13 +100,15 @@ export default function AddConnection(props: any) {
           <MenuItem value={10}>Google Calender</MenuItem>
           <MenuItem value={20}>Office 365 (Basic Authentication) </MenuItem>
           <MenuItem value={30}>Office 365 (Modern Authentication) </MenuItem>
-          <MenuItem value={40}>Exchange </MenuItem>
-          <MenuItem value={50}>Opera</MenuItem>
-          <MenuItem value={60}>Delphi</MenuItem>
-          <MenuItem value={70}>Discrete Calender</MenuItem>
         </Select>
         <div style={{display:'flex',color:'rgb(148 163 184)',justifyContent:'center',
          alignItems:'center',paddingTop:'20px',paddingBottom:'20px'}}>OR</div>
+        <div className="py-3">
+          <label className="w-full" htmlFor="delegatedUserId">
+          {/* <TextField value={props.delegatedUserId}   hidden type="delegatedUserId" onChange={handleTextChange} fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/>  */}
+          <TextField value={props.delegatedUserId} onChange={handleTextChange} fullWidth id="outlined-basic" label="Delegated UserName" variant="outlined" required/> 
+          </label>
+        </div>
          <div style={{display: 'flex', color: 'rgb(148 163 184)',justifyContent:'center',
          alignItems:'center',paddingTop:'20px',paddingBottom:'20px',borderStyle:'dashed',borderWidth:'2px' }}>
           <img onClick={handleClick} src={"../assets/images/importIcon.png"} width="30" height="30"/>
