@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -10,12 +10,14 @@ import Button from '../../../common/Button'
 import LogDetails from '../../../../models/connector/logDetails';
 import ConnectorManagementService from '../../../../services/connectorManagement.service';
 import moment from 'moment';
+import { ConnectorContext } from '../../../../pages/connector';
 
 const marginVal = '40px'
 
 
 function Logs() {
 
+  const contextData: any = useContext(ConnectorContext);
   const [logs, setLogs] = useState<LogDetails[]>([])
 
   useEffect(() => {
@@ -23,7 +25,9 @@ function Logs() {
   }, []);
   async function FetchAuditAndLog() {
 
-    var auditLog = await ConnectorManagementService.getAuditAndLogs("Pixel ser acc 2");
+    var connectorname =contextData.connectorDetailId.name ?contextData.connectorDetailId.name :"Pixel ser acc 2";
+    console.log(connectorname);
+    var auditLog = await ConnectorManagementService.getAuditAndLogs(connectorname);
     setLogs(auditLog.logs)
   }
 

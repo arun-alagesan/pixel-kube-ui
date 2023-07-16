@@ -3,8 +3,9 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from "@mui/material/InputLabel";
 import Select from '@mui/material/Select';
 import ConnectorManagementService from '../../../../services/connectorManagement.service';
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ConnectionDetails from '../../../../models/connector/connectionDetails';
+import { ConnectorContext } from '../../../../pages/connector';
 
 function App() {
 
@@ -12,12 +13,15 @@ function App() {
   const [daysBefore, setDaysBefore] = React.useState<number>(0)
   const [daysAfter, setDaysAfter] = React.useState<number>(0)
   const [secToSync, setSecToSync] = React.useState<number>(0)
+  const contextData: any = useContext(ConnectorContext);
 
   useEffect(() => {
     FetchAuditAndLog();
   }, []);
   async function FetchAuditAndLog() {
-    var resp = await ConnectorManagementService.getAuditAndLogs("Pixel ser acc 2");
+    var connectorname =contextData.connectorDetailId.name ?contextData.connectorDetailId.name :"Pixel ser acc 2";
+    console.log(connectorname);
+    var resp = await ConnectorManagementService.getAuditAndLogs(connectorname);
 
     setSettings(resp);
     setDaysBefore(resp.noOfDaysBefore);

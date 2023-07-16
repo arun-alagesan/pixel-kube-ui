@@ -67,7 +67,9 @@ function RoomsandCalendersTab() {
   }, [])
 
   async function fetchcalender() {
-    var response = await ConnectorManagementService.getSourceCalenders("Pixel ser acc 2");
+    var connectorname =contextData.connectorDetailId.name ?contextData.connectorDetailId.name :"Pixel ser acc 2";
+    console.log(connectorname);
+    var response = await ConnectorManagementService.getSourceCalenders(connectorname);
     setCalanderList(response);
   }
 
