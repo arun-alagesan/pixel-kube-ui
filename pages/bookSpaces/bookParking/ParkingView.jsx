@@ -146,7 +146,7 @@ function ParkingView() {
                     </div>
                      <div  className="col-6 text-center">
                         {parkingDetail?.floorDetails[selectedFloor]?.parkingSlots.map(x=>
-                        <div style={{display:savedSlots.some(y=>{return y==x.id})?"block":"none"}}>
+                        <div key={x.id} style={{display:savedSlots.some(y=>{return y==x.id})?"block":"none"}}>
                             
                             <Card className='rounded-md' sx={{ height: "25%",width:"70%", marginLeft:"20%"  }}>
                             <Typography sx={{ fontWeight: 'bold' }} marginTop={"20px"} align="center">{x.id}</Typography>
