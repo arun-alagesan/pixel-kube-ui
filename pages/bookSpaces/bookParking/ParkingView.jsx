@@ -31,6 +31,11 @@ function ParkingView() {
     const [selectedID, setSelectedID] = useState();
     const [parkingDetail, setParkingDetail] = useState();
     const [selectedFloor, setSelectedFloor] = useState(0);
+    const [savedSlots,setSavedSlots]=useState([]);
+
+    const onBookParkingClick = () => {
+        Router.push("/bookSpaces/bookParking/confirmParking");
+    }
 
     useEffect(() => {
         ParkingService.getParkingSlots().then((res)=>{
@@ -134,14 +139,37 @@ function ParkingView() {
                     </FormControl>
                 </FormGroup>
                 <br></br>
-                <div>
-                    <FloorViewer floorSlots={parkingDetail?.floorDetails[selectedFloor]?.parkingSlots} onSlotClick={(id) => { setIsSlotOpen(true); setSelectedID(id) }} imageSrc={parkingDetail?.floorDetails[selectedFloor]?.imageData}></FloorViewer>
+                <div className="row">
+                    <div>{savedSlots}</div>
+                    <div className="col-6 text-center">
+                        <FloorViewer floorSlots={parkingDetail?.floorDetails[selectedFloor]?.parkingSlots} onSlotClick={(id) => { setIsSlotOpen(true); setSelectedID(id) }} imageSrc={parkingDetail?.floorDetails[selectedFloor]?.imageData}></FloorViewer>
+                    </div>
+                     <div  className="col-6 text-center">
+                        {parkingDetail?.floorDetails[selectedFloor]?.parkingSlots.map(x=>
+                        <div style={{display:savedSlots.some(y=>{return y==x.id})?"block":"none"}}>
+                            
+                            <Card className='rounded-md' sx={{ height: "25%",width:"70%", marginLeft:"20%"  }}>
+                            <Typography sx={{ fontWeight: 'bold' }} marginTop={"20px"} align="center">{x.id}</Typography>
+                                <Typography sx={{ fontWeight: 'normal',alignContent:"center" }} marginTop={"20px"} align="center">{x.name}&nbsp;&nbsp;&nbsp;&nbsp;KZE 4567</Typography>
+                                <br></br>
+                            </Card>
+                            <br></br>
+                        </div>
+                            )
+                            }
+                        
+                        
+                        {savedSlots.length>1?
+                        <FormControl className='rounded-md' sx={{ height: "25%",width:"70%", marginLeft:"10%"}}>
+                            <Button variant="contained" onClick={() => onBookParkingClick()}>Request</Button>
+                        </FormControl>:null}
+                    </div>
                 </div>
 
             </div>
 
             <DialogModal open={isSlotOpen} onClose={() => { setIsSlotOpen(false) }} modalTitle="" >
-                <SelectParkingSlotModal selectedSlot={selectedID} onClose={() => { setIsSlotOpen(false) }} addClick={(slot)=>{ParkingService.saveSlot(slot)}} ></SelectParkingSlotModal>
+                <SelectParkingSlotModal selectedSlot={selectedID} onClose={() => { setIsSlotOpen(false) }} addClick={(slot)=>{setSavedSlots(current => [...current, slot]); ParkingService.saveSlot(slot);setIsSlotOpen(false);}} ></SelectParkingSlotModal>
             </DialogModal>
         </Layout>
     )

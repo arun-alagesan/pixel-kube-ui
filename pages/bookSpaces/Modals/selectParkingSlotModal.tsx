@@ -16,8 +16,8 @@ function SelectParkingSlotModal(props){
             <div className="text-sm mt-4 px-2 md:px-2">
             <FormGroup>
                     <FormControl fullWidth sx={{ margin: "20px 20px 0px 0px" }} size="small">
-                        <InputLabel id="locationLabel">select Participant</InputLabel>
-                        <Select labelId="locationLabel" label="Select Participant" className="text-sm">
+                        <InputLabel id="locationLabel">Add Participant</InputLabel>
+                        <Select labelId="locationLabel" label="Add Participant" className="text-sm">
                             {roomData.participants.map((x, i) => {
                                 return <MenuItem key={i} value={x.id}>{x.name}</MenuItem>;
                             })}

@@ -23,18 +23,18 @@ const getParkingSlots = async () => {
         endDate: "June 01, 7.30PM",
         floorDetails: [{
             floorName: "Ground Floor", floorId: "1",
-            parkingSlots: [{ top: "40px", left: "122px", isAvailable: true, id: "Slot -1" },
-            { top: "40px", left: "159px", isAvailable: false, id: "Slot -2" },
-            { top: "40px", left: "191px", isAvailable: true, id: "Slot -3" },
-            { top: "40px", left: "228px", isAvailable: true, id: "Slot -4" }],
+            parkingSlots: [{ top: "40px", left: "122px", isAvailable: true, id: "Slot -1",name:"Robert Mathew" },
+            { top: "40px", left: "159px", isAvailable: false, id: "Slot -2",name:"James Rodrigues" },
+            { top: "40px", left: "191px", isAvailable: true, id: "Slot -3",name:"John David" },
+            { top: "40px", left: "228px", isAvailable: true, id: "Slot -4",name:"Williams Edward" }],
             imageData: base64data
         },
         {
             floorName: "First Floor", floorId: "2",
-            parkingSlots: [{ top: "110px", left: "175px", isAvailable: true, id: "Slot -11" },
-            { top: "110px", left: "200px", isAvailable: false, id: "Slot -12" },
-            { top: "230px", left: "175px", isAvailable: true, id: "Slot -13" },
-            { top: "230px", left: "200px", isAvailable: true, id: "Slot -14" }],
+            parkingSlots: [{ top: "110px", left: "175px", isAvailable: true, id: "Slot -11",name:"Robert Mathew" },
+            { top: "110px", left: "200px", isAvailable: false, id: "Slot -12",name:"James Rodrigues" },
+            { top: "230px", left: "175px", isAvailable: true, id: "Slot -13",name:"John David" },
+            { top: "230px", left: "200px", isAvailable: true, id: "Slot -14",name:"Williams Edward" }],
             imageData: base64data
         }]
     }

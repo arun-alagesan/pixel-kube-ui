@@ -18,10 +18,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import React from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { Button, Stack } from "@mui/material";
+import AddServicesModal from '../bookSpaces/Modals/addServicesModal';
+import DialogModal from "../../components/common/dialogModal";
 // import InputBox from "../components/features/InputBox/InputBox";
 // import Input from
 const ManageVisitor = () => {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-07"));
+  const [isServiceOpen, setIsServiceOpen] = React.useState(false);
   return (
     <Layout>
       <div>
@@ -82,7 +85,7 @@ const ManageVisitor = () => {
             <br></br>
             <div className="text-sm">
               <Stack direction="row" spacing={2}>
-                <Button variant="outlined" className="flex-1 w-64">Add Services</Button>
+                <Button variant="outlined" className="flex-1 w-64" onClick={(e) => { setIsServiceOpen(true) }}>Add Services</Button>
                 <Button variant="outlined" className="flex-1 w-64">Add Parking</Button>
               </Stack>
             </div>
@@ -113,6 +116,9 @@ const ManageVisitor = () => {
             </div>
           </div>
         </div>
+        <DialogModal open={isServiceOpen} onClose={() => { setIsServiceOpen(false) }} modalTitle="Select Services" >
+          <AddServicesModal onClose={() => { setIsServiceOpen(false) }} ></AddServicesModal>
+        </DialogModal>
       </FormGroup>
     </Layout>
   );
