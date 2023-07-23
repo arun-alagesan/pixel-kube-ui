@@ -249,7 +249,7 @@ const BookMeetingForm = () => {
             <div className="text-sm">
               <Stack direction="row" spacing={5}>
                 <Button variant="outlined" className="flex-1 w-64" onClick={(e) => { setIsServiceOpen(true) }}>Add Services</Button>
-                <Button variant="outlined" className="flex-1 w-64">Add Parking</Button>
+                <Button variant="outlined" className="flex-1 w-64" onClick={(e)=>Router.push(".././bookParking/ParkingView")}>Add Parking</Button>
               </Stack>
             </div>
             <div className="text-sm">
