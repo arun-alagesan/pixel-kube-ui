@@ -20,6 +20,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { Button, Stack } from "@mui/material";
 import AddServicesModal from '../bookSpaces/Modals/addServicesModal';
 import DialogModal from "../../components/common/dialogModal";
+import Router from "next/router";
 // import InputBox from "../components/features/InputBox/InputBox";
 // import Input from
 const ManageVisitor = () => {
@@ -86,7 +87,7 @@ const ManageVisitor = () => {
             <div className="text-sm">
               <Stack direction="row" spacing={2}>
                 <Button variant="outlined" className="flex-1 w-64" onClick={(e) => { setIsServiceOpen(true) }}>Add Services</Button>
-                <Button variant="outlined" className="flex-1 w-64">Add Parking</Button>
+                <Button variant="outlined" className="flex-1 w-64" onClick={(e)=>Router.push("./bookParking/ParkingView")}>Add Parking</Button>
               </Stack>
             </div>
             <div className="flex justify-between">
