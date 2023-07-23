@@ -112,7 +112,7 @@ const ManageVisitor = () => {
             </div>
             <div className="text-sm">
               <FormControl fullWidth sx={{ margin: "20px 20px 0px 0px" }} size="small">
-                <Button variant="contained" className="w-100">Book Meeting</Button>
+                <Button variant="contained" className="w-100" onClick={(x)=>Router.push("/bookSpaces/bookDesk/confirmDesk")}>Book Meeting</Button>
               </FormControl>
             </div>
           </div>
