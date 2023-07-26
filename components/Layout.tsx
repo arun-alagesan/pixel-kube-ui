@@ -24,8 +24,11 @@ const { data: session, status } = useSession();
       signOut({ callbackUrl: "/" });
     }
   }, [session, status]); */
-
-  if(session){
+  console.log (`status  ${status}`);
+  if (status == "loading")
+  {
+    return <div> Loading ....</div>;
+  } else if(session) {
     console.log((session !=null)? "Active Session" : "No Session")
     return (
         <UserContext.Provider value={initialvalue}>
