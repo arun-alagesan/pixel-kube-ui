@@ -36,7 +36,7 @@ const SignIn = () => {
 
     const authtenticate = () => {
         console.log("Invoked Authenticate method");
-        signIn();
+        signIn("keycloak");
     } 
     
     return (
