@@ -32,9 +32,9 @@ export const authOptions = {
             clientId : `${process.env.CLIENT_ID}`,
             clientSecret : `${process.env.CLIENT_SECRET}`,
             issuer : `${process.env.AUTH_ISSUER}`,
-        }),
+        })
     ],
-    callbacks : {
+    /* callbacks : {
         async jwt ({token, account}) {
             const nowTimeStamp = Math.floor(Date.now() / 1000)
             if (account){
@@ -67,8 +67,8 @@ export const authOptions = {
             session.id_token = encrypt(token.id_token);
             session.roles = token.decoded.relm_access.roles;
             return session;
-        }
-    }
+        } 
+    }*/
 }
 
 
