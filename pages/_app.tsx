@@ -9,9 +9,11 @@ import "primeicons/primeicons.css"; //icons
 
 import '../styles/prime-react-overwrite.css'
 
+import SessionProviderWrapper from "../components/lib/wrappers/sessionProviderWrapper"
+
 
 import type { AppProps } from 'next/app'
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+export default function App({ Component, pageProps :{session, ...pageProps}}: AppProps) {
+  return <SessionProviderWrapper {...session = session } > <Component {...pageProps} /> </SessionProviderWrapper>
 }

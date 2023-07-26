@@ -1,6 +1,6 @@
 
 import React from "react"
-import { useRouter } from "next/router";
+import { useSession, signIn, signOut } from "next-auth/react"
 import Container from '@mui/material/Container'
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -34,13 +34,13 @@ const SignIn = () => {
         setOpen(false);
     };
 
-    const router = useRouter();
     const authtenticate = () => {
         console.log("Invoked Authenticate method");
+        signIn();
     } 
     
     return (
-        <div>
+        <div style={{ padding : '10%' }}>
             <Container maxWidth="sm">
                 <Card sx={{ minWidth: 345 }}>
                 <CardMedia
