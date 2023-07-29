@@ -5,8 +5,13 @@ import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined
 import { ConnectorContext } from '../../../pages/connector';
 import {config} from '../../../services/http-common';
 import axios from "axios";
-function ConnectorList({ data }: any) {
+import DeleteAlert from '../../common/deleteAlert';
+import { useState } from "react";
+import ModalService from '../../lib/modalPopup/services/ModalService';
 
+
+function ConnectorList({ data }: any) {
+  const [loader, setLoader] = useState<boolean>(false);
   const contextData: any = useContext(ConnectorContext)
   const handleClick = () => {
     contextData.setopenConnectorDetailTab(true)
@@ -14,15 +19,30 @@ function ConnectorList({ data }: any) {
   }
 
   const handleDelete = () => {
-     let url=config.connectionManagement.baseURL+config.connectionManagement.deleteConnector;
-    const reqData={
-      "name":data.name,
-      "orgId":data.id.toString()
-    }
-    console.log(reqData);
-    const res = axios.post(url, reqData);
-    alert('Deleted ...');
+    openModel(DeleteAlert, {
+      "onDelete": async () => {
+          setLoader(true);
+          let url=config.connectionManagement.baseURL+config.connectionManagement.deleteConnector;
+          const reqData={
+            "name":data.name,
+            "orgId":data.id.toString()
+          }
+          console.log(reqData);
+          const result = await axios.post(url, reqData);
+          if (result.status == 200) {
+              //await fetchMyApi();
+              console.log('Delete Success');
+          }
+          else
+              console.log('Delete Failed');
+          setLoader(false);
+        }
+    });
   }
+
+  const openModel = (component: any, props?: any) => {
+    ModalService.open(component, props);
+};
 
   return (
     <div className='flex justify-between px-6 py-4 mt-2 items-center border border-gray-800	rounded hover:cursor-pointer'>
