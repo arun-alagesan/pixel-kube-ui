@@ -8,6 +8,8 @@ import ConnectorIcon from "../../../assets/icons/connectormanagement.svg";
 import { ListBox } from 'primereact/listbox';
 import axios from 'axios';
 import {config} from '../../../services/http-common';
+import SaveAlert from '../../common/saveAlert';
+import ModalService from '../../lib/modalPopup/services/ModalService';
 
 export default function Connector(props) {
     const calenders = [];
@@ -19,24 +21,61 @@ export default function Connector(props) {
     });
 
     const onSave = () => {
-        let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
-        const req={
-            "name": props.connectorName,
-             "source": "Google",
-             "accessMode": "Service Account",
-             "calendar": {
-               "sourceCalendarId": selectedCalendar.sourceCalendarId,
-               "timeZone": selectedCalendar.timeZone,
-               "title": selectedCalendar.title,
-               "description": selectedCalendar.description ? selectedCalendar.description: selectedCalendar.title,
-            "allowedAccess": "writer"
-             },
-             "orgId": "1"
-           }
-           const res = axios.post(url, req);
-        alert('Saved');
-        props.close();
+
+        openModel(SaveAlert, {
+            "onSave": async () => {
+                setLoader(true);
+                let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
+                const req={
+                    "name": props.connectorName,
+                     "source": "Google",
+                     "accessMode": "Service Account",
+                     "calendar": {
+                       "sourceCalendarId": selectedCalendar.sourceCalendarId,
+                       "timeZone": selectedCalendar.timeZone,
+                       "title": selectedCalendar.title,
+                       "description": selectedCalendar.description ? selectedCalendar.description: selectedCalendar.title,
+                    "allowedAccess": "writer"
+                     },
+                     "orgId": "1"
+                   }
+                console.log(req);
+                const result = await axios.post(url, req);
+                if (result.status == 200) {
+                    //await fetchMyApi();
+                    console.log('Save Success');
+                }
+                else
+                    console.log('Save Failed');
+                setLoader(false);
+                props.close();
+              }
+          });
+
+
+
+        // let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
+        // const req={
+        //     "name": props.connectorName,
+        //      "source": "Google",
+        //      "accessMode": "Service Account",
+        //      "calendar": {
+        //        "sourceCalendarId": selectedCalendar.sourceCalendarId,
+        //        "timeZone": selectedCalendar.timeZone,
+        //        "title": selectedCalendar.title,
+        //        "description": selectedCalendar.description ? selectedCalendar.description: selectedCalendar.title,
+        //     "allowedAccess": "writer"
+        //      },
+        //      "orgId": "1"
+        //    }
+        //    const res = axios.post(url, req);
+        // alert('Saved');
+        // props.close();
     }
+
+    const openModel = (component, props) => {
+        ModalService.open(component, props);
+    };
 
     return (
         <Modal>
