@@ -24,9 +24,9 @@ function App() {
     var resp = await ConnectorManagementService.getAuditAndLogs(connectorname);
 
     setSettings(resp);
-    setDaysBefore(resp.noOfDaysBefore);
-    setDaysAfter(resp.noOfDaysAfter);
-    setSecToSync(resp.noOfSecondsToSyncCalendar);
+    setDaysBefore(resp.noOfDaysBefore==0?10:resp.noOfDaysBefore);
+    setDaysAfter(resp.noOfDaysAfter==0?10:resp.noOfDaysAfter);
+    setSecToSync(resp.noOfSecondsToSyncCalendar==0?5:resp.noOfSecondsToSyncCalendar);
   }
   useEffect(() => {
     (async () => {
