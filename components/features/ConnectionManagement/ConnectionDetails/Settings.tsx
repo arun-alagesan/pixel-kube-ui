@@ -10,9 +10,9 @@ import { ConnectorContext } from '../../../../pages/connector';
 function App() {
 
   const [settings, setSettings] = React.useState<ConnectionDetails>()
-  const [daysBefore, setDaysBefore] = React.useState<number>(0)
-  const [daysAfter, setDaysAfter] = React.useState<number>(0)
-  const [secToSync, setSecToSync] = React.useState<number>(0)
+  const [daysBefore, setDaysBefore] = React.useState<number>(10)
+  const [daysAfter, setDaysAfter] = React.useState<number>(10)
+  const [secToSync, setSecToSync] = React.useState<number>(5)
   const contextData: any = useContext(ConnectorContext);
 
   useEffect(() => {
