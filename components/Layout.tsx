@@ -12,8 +12,9 @@ import SignIn from "./auth/SignIn";
 
 import { useSession, signOut } from "next-auth/react";
 import { useEffect } from "react";
+import UserInfoHeaderItem from "./auth/UserInfoHeaderItem";
 const Layout = ({ children }: any) => {
-const { data: session, status } = useSession(); 
+  const { data: session, status } = useSession(); 
 
   /* useEffect(() => {
     if (
@@ -24,12 +25,16 @@ const { data: session, status } = useSession();
       signOut({ callbackUrl: "/" });
     }
   }, [session, status]); */
+  const userInfo = () =>{
+    window.alert('userinfo');
+  }
   console.log (`status  ${status}`);
   if (status == "loading")
   {
     return <div> Loading ....</div>;
   } else if(session) {
-    console.log((session !=null)? "Active Session" : "No Session")
+    console.log((session !=null)?   "Active Session;"  : "No Session");
+    console.log (session);
     return (
         <UserContext.Provider value={initialvalue}>
           <div className="xl:container xl:mx-auto 2xl:container 2xl:mx-auto block flex fullHeight mx-auto px-0 sm:px-6 md:px-8" style={{maxWidth:"90rem"}}>
@@ -42,7 +47,9 @@ const { data: session, status } = useSession();
                       <div className="p-4">
                         <NotificationIcon />
                       </div>
-                      <div ><Image src={"/assets/images/userprofile.png"} alt="" width="50" height="50" /> </div>
+                      <div className="p-4">
+                        <UserInfoHeaderItem></UserInfoHeaderItem>
+                      </div>
                     </div>
                   </div>
                 </header>
