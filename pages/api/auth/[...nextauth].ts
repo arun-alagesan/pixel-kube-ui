@@ -34,11 +34,15 @@ export const authOptions = {
             issuer : `${process.env.AUTH_ISSUER}`,
         })
     ],
-    /* callbacks : {
+    callbacks : {
         async jwt ({token, account}) {
             const nowTimeStamp = Math.floor(Date.now() / 1000)
             if (account){
                 token.decoded = jwt_decode(account.access_token);
+                console.log("accpont");
+                console.log(account);
+                console.log("Decode access token: ---");
+                console.log (token.decoded);
                 token.access_token = account.access_token;
                 token.id_token = account.id_token;
                 token.expires_at = account.expires_at;
@@ -63,12 +67,18 @@ export const authOptions = {
         },
         async session ({session, token}) {
             //set whatever needed to be sent to browser session
-            session.access_token = encrypt(token.access_token);
-            session.id_token = encrypt(token.id_token);
-            session.roles = token.decoded.relm_access.roles;
+            session.access_token = encrypt(token.access_token as string);
+            session.id_token = encrypt(token.id_token as string);
+            session.user.realm_access_roles = token.decoded.realm_access.roles;
+            session.user.resource_access = token.decoded.resource_access;
+            console.log("Session : ---");
+            console.log(session);
             return session;
         } 
-    }*/
+    },
+    pages :{
+        signIn : "/signin"
+    }
 }
 
 
