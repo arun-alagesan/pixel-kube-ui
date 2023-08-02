@@ -1,8 +1,7 @@
 import Button from '@mui/material/Button';
-
+import {signIn} from "next-auth/react"
 const submit = () => {
-    //signIn("keycloak");
-    window.alert("SignIn clicked and hitched");
+    signIn("keycloak",{callbackUrl: "/"});
 }
 
 const signInform =()=>{
