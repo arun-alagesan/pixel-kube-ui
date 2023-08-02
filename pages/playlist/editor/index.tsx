@@ -127,7 +127,7 @@ export default function DataTable() {
         columns={columns}
         className={"m-6"}
         rowHeight={100}
-        disableSelectionOnClick
+        disableRowSelectionOnClick
         // initialState={{
         //   pagination: {
         //     paginationModel: { page: 0, pageSize: 5 },
