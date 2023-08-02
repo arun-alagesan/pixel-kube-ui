@@ -1,0 +1,8 @@
+version: '2'
+services:
+  ui-app :
+    build:
+      context: .
+      dockerfile : Dockerfile
+      tags :
+        - ${DOCKER_ID}pixel-kube-ui:latest

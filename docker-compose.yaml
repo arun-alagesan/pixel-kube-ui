@@ -1,0 +1,24 @@
+version: '2'
+
+networks:
+  sms-network:
+    driver: bridge
+
+services:
+  ui-app :
+    container_name: ui-app
+    image: ${DOCKER_ID}pixel-kube-ui:${VER}
+    build:
+      context: .
+      dockerfile : Dockerfile
+      tags :
+        - ${DOCKER_ID}pixel-kube-ui:latest
+    ports:
+      - 3000:80
+    environment:
+      - CLIENT_ID=pixel-ui
+      - AUTH_ISSUER=http://localhost:8181/realms/pixelkube
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=just-a-random-text
+    networks:
+      - sms-network
