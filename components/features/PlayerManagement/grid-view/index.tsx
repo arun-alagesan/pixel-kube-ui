@@ -124,8 +124,12 @@ const PlayerData = () => {
                         <DataGrid
                             rows={playerListData}
                             columns={playerListColumn}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
+                            initialState={{
+                              pagination: {
+                                paginationModel: { page: 0, pageSize: 5 },
+                              },
+                            }}
+                            pageSizeOptions={[5, 10]}
                             checkboxSelection
                             onRowClick={doSometing}
                             getRowId={(row) => row.serialNumber}

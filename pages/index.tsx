@@ -1,5 +1,7 @@
   import Layout from "../components/Layout";
-import Sidebar from "../components/Sidebar";
+  import SignIn from "../components/auth/SignIn";
+
+//import Sidebar from "../components/Sidebar";
 
 export default function Home() {
   // this component is not used
