@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import Image from "next/image";
-import SignInform from "../../components/auth/SignInForm";
+import SignInform from "../../../components/features/auth/SignInForm"
 const Carousal =() =>{
     return(
         <div className="w-2/5 bg-blue-500  py-28 px-12 text-white">
