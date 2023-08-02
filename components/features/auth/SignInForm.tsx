@@ -11,38 +11,16 @@ const signInform =()=>{
     return(
         <div className='p-20'>
             <PixleKubeLogo className=" inline-block p-20" style={{ width:"inherit", height:"inherit",transform:"scale(2.5)"}} />
-            <TextField
-                margin="normal"
-                id="username"
-                label="User Name"
-                type="text"
-                fullWidth
-                variant="outlined"
-                color="primary"
-            />
-            <TextField
-                margin="normal"
-                id="password"
-                label="Password"
-                type="password"
-                fullWidth
-                variant="outlined"
-            />
-            <div className='flex justify-between pt-2 mb-5'>
-                <label className="flex items-center ">
-                    <input type="checkbox" name="rememberme" className='mr-1  h-[1.125rem] w-[1.125rem]' />
-                    Remember me
-                </label>
-                <a href="/forgotme" className='text-blue-400'>
-                    Forgot Password?
-                </a>
-            </div>
+            <h1 className="text-3xl font-bold mb-10"> <span className='text-blue-400'>Welcome</span> user,</h1>
+            <p className="text-2xl mb-5 pb-10">
+                You will be redirected to organizational authentication portal on the click or touch of the login button.
+            </p>
             <Button sx={{ textTransform: 'none' }} 
-                className='p-4 mt-3 text-2xl'
+                className='px-20 mt-3 text-2xl'
                 onClick={submit}
                 size="medium"
                 variant="contained"
-                fullWidth>
+                >
                     Login
             </Button>
             
