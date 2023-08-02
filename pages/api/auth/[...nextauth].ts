@@ -3,7 +3,7 @@ import KeycloakProvider from "next-auth/providers/keycloak"
 import jwt_decode from "jwt-decode"
 import {encrypt} from "../../../services/crypto"
 
-/* async function refreshAccessToken(token) {
+async function refreshAccessToken(token) {
     const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
@@ -25,32 +25,7 @@ import {encrypt} from "../../../services/crypto"
       expires_at: Math.floor(Date.now() / 1000) + refreshToken.expires_in,
       refresh_token: refreshToken.refresh_token,
     };
-  } */
-
-  async function authorizeToken(user) {
-    const resp = await fetch(`${process.env.AUTH_TOKEN_URL}`, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({
-        client_id: `${process.env.DEMO_FRONTEND_CLIENT_ID}`,
-        client_secret: `${process.env.DEMO_FRONTEND_CLIENT_SECRET}`,
-        grant_type: "password",
-        credential: user,
-      }),
-      method: "POST",
-    });
-    const refreshToken = await resp.json();
-    
-    if (!resp.ok) throw refreshToken;
-    console.log(refreshToken)
-    return {
-      ...user,
-      access_token: refreshToken.access_token,
-      decoded: jwt_decode(refreshToken.access_token),
-      id_token: refreshToken.id_token,
-      expires_at: Math.floor(Date.now() / 1000) + refreshToken.expires_in,
-      refresh_token: refreshToken.refresh_token,
-    };
-  } 
+  }
 
 export const authOptions = {
     providers : [
@@ -60,6 +35,9 @@ export const authOptions = {
             issuer : `${process.env.AUTH_ISSUER}`,
         })
     ],
+    pages :{
+      signIn : "/auth/signin"
+    },
     callbacks : {
         async jwt ({token, account}) {
             const nowTimeStamp = Math.floor(Date.now() / 1000)
@@ -78,9 +56,9 @@ export const authOptions = {
             else {
                 console.log("Token expired. Will attempt to refresh");
                 try{
-                    // const refreshedToken = await refreshAccessToken(token);
+                    const refreshedToken = await refreshAccessToken(token);
                     console.log("Token is refreshed.")
-                    return "refreshedToken";
+                    return refreshedToken;
                 }
                 catch(error){
                     console.error("Error refreshing access token", error);
