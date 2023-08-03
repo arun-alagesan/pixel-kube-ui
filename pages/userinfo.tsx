@@ -17,16 +17,18 @@ async function keycloakSessionLogOut(session) {
          });
          const data =await response.json(); 
          console.log(data);
-        //This is to clear client cookies  
-        signOut({callbackUrl:"/auth/signin",redirect:true});
+        //This is to clear client cookies
+        return;  
     } catch (err) {
         console.error(err);
     }
 }
 const UserInfo =() =>{
     const {data : session} = useSession()
+    console.log(session);
     return (
         <Layout>
+            
             {session?.user ? (
                 <div className="p-20">
                     <p className="text-sky-600 mb-10"><span className="text-2xl font-bold mb-10">User Name :</span> {session.user.name}</p>
@@ -34,7 +36,7 @@ const UserInfo =() =>{
                     
                     <Button sx={{ textTransform: 'none' }} 
                         className='px-20 mt-3 text-2xl'
-                        onClick={() => keycloakSessionLogOut(session)}
+                        onClick={() => keycloakSessionLogOut(session).then(()=> signOut({callbackUrl:"/auth/signin"}))}
                         size="medium"
                         variant="contained"
                         >
