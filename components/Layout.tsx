@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import NotificationIcon from "../assets/icons/notification.svg"
 import UserContext, { initialvalue } from "../context/BookSpaceContext"
 import Image from 'next/image'
+import Link from "next/link";
 
 const Layout = ({ children }: any) => {
     return (
@@ -18,7 +19,7 @@ const Layout = ({ children }: any) => {
                       <div className="p-4">
                         <NotificationIcon />
                       </div>
-                      <div ><Image src={"/assets/images/userprofile.png"} alt="" width="50" height="50" /> </div>
+                      <div ><Link  href="/userinfo"><Image src={"/assets/images/userprofile.png"} alt="" width="50" height="50" /> </Link></div>
                     </div>
                   </div>
                 </header>
