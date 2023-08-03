@@ -17,7 +17,7 @@ async function keycloakSessionLogOut(session) {
          });
          const data =await response.json(); 
          console.log(data);
-         
+        //This is to clear client cookies  
         signOut({callbackUrl:"/auth/signin",redirect:true});
     } catch (err) {
         console.error(err);
@@ -25,8 +25,6 @@ async function keycloakSessionLogOut(session) {
 }
 const UserInfo =() =>{
     const {data : session} = useSession()
-
-    console.log(session);
     return (
         <Layout>
             {session?.user ? (
