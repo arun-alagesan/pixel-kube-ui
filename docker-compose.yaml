@@ -15,10 +15,6 @@ services:
         - ${DOCKER_ID}pixel-kube-ui:latest
     ports:
       - 3000:80
-    environment:
-      - CLIENT_ID=pixel-ui
-      - AUTH_ISSUER=http://localhost:8181/realms/pixelkube
-      - NEXTAUTH_URL=http://localhost:3000
-      - NEXTAUTH_SECRET=just-a-random-text
+    env_file: .env.test
     networks:
       - sms-network
