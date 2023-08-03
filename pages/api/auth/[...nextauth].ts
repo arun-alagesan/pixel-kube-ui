@@ -7,8 +7,8 @@ async function refreshAccessToken(token) {
     const resp = await fetch(`${process.env.REFRESH_TOKEN_URL}`, {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        client_id: `${process.env.DEMO_FRONTEND_CLIENT_ID}`,
-        client_secret: `${process.env.DEMO_FRONTEND_CLIENT_SECRET}`,
+        client_id: `${process.env.CLIENT_ID}`,
+        client_secret: `${process.env.CLIENT_SECRET}`,
         grant_type: "refresh_token",
         refresh_token: token.refresh_token,
       }),
@@ -42,7 +42,9 @@ export const authOptions = {
         async jwt ({token, account}) {
             const nowTimeStamp = Math.floor(Date.now() / 1000)
             if (account){
+                console.log("====Account ====")
                 console.log(account);
+                console.log("====Account ====")
                 token.decoded = jwt_decode(account.access_token);
                 token.access_token = account.access_token;
                 token.id_token = account.id_token;
@@ -71,6 +73,9 @@ export const authOptions = {
             session.access_token = encrypt(token.access_token);
             session.id_token = encrypt(token.id_token);
             session.roles = token.decoded.realm_access.roles;
+            console.log("=====Session=======");
+            console.log(session);
+            console.log("=====Session=====");
             return session;
         }
     }
