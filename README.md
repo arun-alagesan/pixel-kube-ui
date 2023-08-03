@@ -1,7 +1,27 @@
+command to run app in test mode to use the env.test and on diffrent port
+```
+export NODE_ENV=test && npm start -- --port 3002  
+
+```
+
+Make sure to update the port number of NEXTAUTH_URL with the same port
+
+
+
 Middlware implementation:
+
 https://github.com/vahid-nejad/next-auth-nextjs13/blob/main/middleware.ts
 
+next-auth requires a server runtime (API routes), meaning that it's not compatible with next export. 
 
+See https://nextjs.org/docs/advanced-features/static-html-export#unsupported-features
+
+[...nextauth].ts not exporting during Next Export #6604
+https://github.com/nextauthjs/next-auth/issues/6604
+
+https://github.com/nextauthjs/next-auth/issues/570
+
+Action Item to make this app as standalone image
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
