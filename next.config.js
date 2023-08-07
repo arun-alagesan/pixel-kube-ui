@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
   swcMinify: true,
 }
@@ -7,6 +8,7 @@ const nextConfig = {
 module.exports = nextConfig
 
 module.exports = {
+  output: 'standalone',
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,
