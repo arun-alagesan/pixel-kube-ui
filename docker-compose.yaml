@@ -7,7 +7,7 @@ networks:
 services:
   ui-app :
     container_name: ui-app
-    image: ${DOCKER_ID}pixel-kube-ui:${VER}
+    image: ${DOCKER_ID}{IMAGE_NAME}:${VER}
     build:
       context: .
       dockerfile : Dockerfile
