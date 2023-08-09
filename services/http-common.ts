@@ -15,8 +15,8 @@ export const config = { headers: { "Content-type": "application/json" },
 
 connectionManagement:{
     //baseURL: "https://roombookingappus-vftldv7jma-uc.a.run.app/",
-    //baseURL: "http://3.94.231.14:3002/",
-    baseURL: "https://localhost:7022/",
+    baseURL: "http://3.94.231.14:3002/",
+    //baseURL: "https://localhost:7022/",
     AddCalender:"api/pixconnectors/connector/addcalendar",
     CreateConnectionFromFile:"api/pixconnectors/connector/createconnectionfromfile",
     CreateConnector:"api/pixconnectors/connector/create",
