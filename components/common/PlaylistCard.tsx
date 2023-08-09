@@ -1,12 +1,20 @@
 import React from 'react'
+import Button from "@mui/material/Button";
+import Router from 'next/router';
 import Edit from "../../assets/icons/edit.svg";
-
+import DataTable from "../../pages/playlist/editor/index"
 type PlaylistProps = {
     name : string,
     image : string,
     id : number
 }
 
+function openPlayListEditor(name:any){
+    if(name){
+        //setEditUserData(editUser);
+        Router.push({pathname:'/playlist/editor', query: { name: name }})
+    }
+};
 
 function PlaylistCard({name, image, id} : PlaylistProps) {
     console.log(name)
@@ -19,7 +27,9 @@ function PlaylistCard({name, image, id} : PlaylistProps) {
             {/* <img className='bas is-6/12 object-contain ' src={image}/> */}
 
         <div>
-            <Edit/>
+                <Button  onClick={() => openPlayListEditor(name) }>
+                    <Edit></Edit>
+                </Button>
         </div>
     </div>
   )

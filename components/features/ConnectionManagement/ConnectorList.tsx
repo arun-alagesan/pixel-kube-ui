@@ -10,7 +10,7 @@ import { useState } from "react";
 import ModalService from '../../lib/modalPopup/services/ModalService';
 
 
-function ConnectorList({ data }: any) {
+function ConnectorList({ data,fetchConnectorList }: any) {
   const [loader, setLoader] = useState<boolean>(false);
   const contextData: any = useContext(ConnectorContext)
   const handleClick = () => {
@@ -35,6 +35,7 @@ function ConnectorList({ data }: any) {
           }
           else
               console.log('Delete Failed');
+          fetchConnectorList();
           setLoader(false);
         }
     });

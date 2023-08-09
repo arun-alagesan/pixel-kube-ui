@@ -15,6 +15,9 @@ import PlayerManagementService from "../../../../services/player.service";
 import PlayerList from "../../../../models/player/PlayerList";
 import styles from './AddPlayer.module.css';
 import { PlayerContext } from '../../../../pages/player';
+import {RecoilRoot, atom, useRecoilValue, useRecoilState, selector } from "recoil";
+import {playerDataAtom,EditPlayerAtom} from "../grid-view/index";
+import { PlayerCardInfoAtom } from '../PlayerDeviceInfo';
 
 const schema = yup.object().shape({
     serialNumber: yup.string().required('Serial Number is required'),
@@ -53,18 +56,30 @@ function TabPanel(props: TabPanelProps) {
             )}
         </div>
     );
-} 
+}
+
+// const playerDetailsSelector= selector({
+//     key: "playerDetailsSelector",
+//     get: ({get}) => {
+//         return {
+
+//         }
+//     }
+// });
 
 
 //type props = {playerList?: PlayerList};
 //const AddUpdatePlayer = (props: any) => {
-export default function  AddUpdatePlayer(){ 
+export default function  AddUpdatePlayer(props: any){ 
     const router = useRouter()
-    const {id} = router.query
-    const  isAddUser = id ? false : true ;
+    //const {id} = router.query
+    //const  isAddUser = id ? false : true ;
     const [loader, setLoader] = useState<boolean>(false);
     const [playerList, setPlayerList] = useState<PlayerList>();
-
+    const [playerData, setPlayerData] = useRecoilState(playerDataAtom);
+    const EditPlayerId = useRecoilValue(EditPlayerAtom);
+    const [playerCardInfo, setPlayerCardInfo] = useRecoilState(PlayerCardInfoAtom);
+    const  isAddPlayer = EditPlayerId ? false : true ;
     const { register, handleSubmit, setValue, formState: { errors, defaultValues } } = useForm({
         resolver: yupResolver(schema),
         defaultValues: useMemo(() => {
@@ -72,7 +87,36 @@ export default function  AddUpdatePlayer(){
         }, [playerList])
       });
 
-      const handleChange = (event: SelectChangeEvent) => {
+    useEffect(()=> {
+        console.log("EditPlayerId :" + EditPlayerId)
+        if(!isAddPlayer && EditPlayerId){ 
+            fetchPlayerData(EditPlayerId);
+        } 
+        },[]);
+
+    async function fetchPlayerData(EditPlayerId: string){
+            setLoader(true);
+            var response = await PlayerManagementService.getPlayerDetails(EditPlayerId);
+            console.log("PlayerManagementService getPlayerDetails", response);
+            if (response.status == true) {
+                setValue("serialNumber", response.data.serialNumber);
+                setValue("deviceName", response.data.deviceName);
+                setValue("ipAddress", response.data.ipAddress);
+                setValue("department", response.data.department);
+                setValue("locationName", response.data.locationName);
+                setValue("contactPerson", response.data.contactPerson);
+                setValue("resolution", response.data.resolution);
+                setValue("spaceName", response.data.spaceName);
+                setValue("theme", response.data.theme);
+                setValue("orientation", response.data.orientation);
+                setPlayerList(response.data);
+            }
+            setLoader(false);
+            console.log("PlayerManagementService-getPlayerDetails", response);
+            console.log("resolution", response.data.resolution);
+        }      
+
+    const handleChange = (event: SelectChangeEvent) => {
         // debugger;
         // let roleId = event.target.value ? parseInt(event.target.value) : 0;
         // setRoleId(roleId);
@@ -87,32 +131,52 @@ export default function  AddUpdatePlayer(){
         }
 
         let response: ApiResponse;
-        //if(isAddUser){
+        if(isAddPlayer){
             response = await PlayerManagementService.addPlayer(formData);
-        //}
-        // else{
-        //     response = await UsermanagementService.updateUser(formData);
-        // }
+        }
+        else{
+            response = await PlayerManagementService.updatePlayer(formData);
+        }
 
         if(response.status == true){
             setOpenAddPlayerTab(false);
+            fetchMyApi();
         }
 
         console.log("PlayerManagementService addUser", response);
-    }    
+    }
+    
+    async function fetchMyApi() {
+        setLoader(true);
+        var response = await PlayerManagementService.getPlayerList();
+        console.log("PlayerManagementService getPlayerList", response);
+        if (response.status == true) {
+          setPlayerData(response.data);
+          if(response.data){
+            const cardInfo = {
+              total : response.data.length,
+              active : response.data.length,
+              critical : response.data.length,
+              incidents : response.data.length,
+            }
+            setPlayerCardInfo(cardInfo);
+          }
+        }
+        setLoader(false);
+    }
 
     const { setOpenAddPlayerTab}: any = useContext(PlayerContext)
     //let breadcrumbPaths = [{ 'name': 'Home', 'path': '/' }, { 'name': 'User Management', 'path': '/user' }, { 'name': 'User Management', 'path': '/user/UserManagement' }];  
     return(
             // <Layout>
-            // <h2 className="text-xl font-bold"> {isAddUser ?  'Add Player' : 'Edit Player'}</h2>
-            // <Breadcrumbs currentPage={isAddUser ?  'Add Player' : 'Edit Player'} routes={breadcrumbPaths}/>
+            // <h2 className="text-xl font-bold"> {isAddPlayer ?  'Add Player' : 'Edit Player'}</h2>
+            // <Breadcrumbs currentPage={isAddPlayer ?  'Add Player' : 'Edit Player'} routes={breadcrumbPaths}/>
             // {
                 <Box sx={{ width: '100%' }} className={styles.playerdetails}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <button className="opacity-30 ml-auto absolute right-2.5 top-2.5" onClick={() => setOpenAddPlayerTab(false)}>✖</button>
                         <Tabs value={0} aria-label="basic tabs example">
-                            <Tab label="Add Player" />
+                            <Tab label={isAddPlayer ?  'Add Player' : 'Edit Player'} />
                         </Tabs>
                     </Box>
                     <TabPanel value={0} index={0}>
@@ -124,7 +188,7 @@ export default function  AddUpdatePlayer(){
                                     <div className="col-12 col-md-4 mt-3">
                                         <TextField {...register('serialNumber')} fullWidth label="Serial Number" variant="outlined" className="pk-input"
                                         error={!!errors.serialNumber}
-                                        helperText={errors.serialNumber?.message?.toString()}
+                                        helperText={errors.serialNumber?.message?.toString()} disabled={isAddPlayer ?  false : true}
                                         />
                                     </div>
                                     <div className="col-12 col-md-4 mt-3">
@@ -167,7 +231,7 @@ export default function  AddUpdatePlayer(){
                                         <FormControl fullWidth className="pk-dropdown" error={!!errors.resolution} >
                                             <InputLabel id="demo-simple-select-label">Resolution</InputLabel>
                                             <Select {...register('resolution')}  labelId="demo-simple-select-label"  onChange={handleChange}
-                                            id="demo-simple-select" label='resolution' >
+                                            id="demo-simple-select" label='resolution' defaultValue={playerList?.resolution ?? "" }>
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
@@ -182,7 +246,7 @@ export default function  AddUpdatePlayer(){
                                         <FormControl fullWidth className="pk-dropdown" error={!!errors.spaceName} >
                                             <InputLabel id="demo-simple-select-label">Space</InputLabel>
                                             <Select {...register('spaceName')}  labelId="demo-simple-select-label"  onChange={handleChange}
-                                            id="demo-simple-select" label='Space Name'>
+                                            id="demo-simple-select" label='Space Name' defaultValue={playerList?.spaceName ?? "" }>
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
@@ -199,7 +263,7 @@ export default function  AddUpdatePlayer(){
                                     <FormControl fullWidth className="pk-dropdown" error={!!errors.theme} >
                                         <InputLabel id="demo-simple-select-label">Theme</InputLabel>
                                         <Select {...register('theme')}  labelId="demo-simple-select-label"  onChange={handleChange}
-                                        id="demo-simple-select" label='Theme'>
+                                        id="demo-simple-select" label='Theme' defaultValue={playerList?.theme ?? "" }>
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
@@ -214,7 +278,7 @@ export default function  AddUpdatePlayer(){
                                     <FormControl fullWidth className="pk-dropdown" error={!!errors.orientation} >
                                         <InputLabel id="demo-simple-select-label">Orientation</InputLabel>
                                         <Select {...register('orientation')}  labelId="demo-simple-select-label"  onChange={handleChange}
-                                        id="demo-simple-select" label='Orientation'>
+                                        id="demo-simple-select" label='Orientation' defaultValue={playerList?.orientation ?? "" }>
                                             <MenuItem value="">
                                                 <em>None</em>
                                             </MenuItem>
@@ -227,7 +291,7 @@ export default function  AddUpdatePlayer(){
                                 </div>
                                 <div className="row">
                                     <div className="col-12 text-center mt-4">
-                                        <Button variant="contained" type="submit">{isAddUser ?  'Add Player' : 'Update Player'}</Button>
+                                        <Button variant="contained" type="submit">{isAddPlayer ?  'Add Player' : 'Update Player'}</Button>
                                     </div>
                                 </div>
                             </form>

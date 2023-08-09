@@ -9,11 +9,12 @@ import {
 import Layout from "../../../components/Layout";
 import Button from "../../../components/common/Button";
 import Breadcrumbs from "../../../components/common/Breadcrumbs";
-import { playlistService } from "../../../services/playlist.service";
+import PlayListService from "../../../services/playlist.service";
+import PlayList from "../../../models/PlayList/PlayList";
 import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Slider, Stack } from "@mui/material";
 import { VolumeDown, VolumeUp } from "@mui/icons-material";
-let breadcrumbPaths = [{ name: "Home", path: "/" }];
-
+let breadcrumbPaths = [{ name: "Home", path: "/" },{ name: "Playlist Management", path: "/playlist" }];
+import Router, {useRouter} from 'next/router';
 
 const columns: GridColDef[] = [
   {
@@ -47,7 +48,7 @@ const columns: GridColDef[] = [
           <RadioGroup
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="controlled-radio-buttons-group"
-            value={params.row.duration.part ? "part" : "full"}
+            defaultValue={params.row.duration.part ? "part" : "full"}
           >
             <FormControlLabel value="full" control={<Radio />} label={`Play to End ${params.row.duration.full}`} />
             <FormControlLabel value="part" control={<Radio />} label="Play Duration" />
@@ -83,32 +84,53 @@ const columns: GridColDef[] = [
 const generateRows = (params: any) => {
   return params.map((data) => {
     return {
-      image: data.image,
+      image: data.thumbnail,
       type: data.type,
       id: data.id,
       mediaName: data.mediaName,
       duration: data.duration,
+      volume: data.volume
     };
   });
 };
 export default function DataTable() {
-  const [playlist, setPlaylist] = React.useState<any>([]);
+
+  const router = useRouter()
+  const {name} = router.query
+  const [loader, setLoader] = React.useState<boolean>(false);
+  const [playlist, setPlaylist] = React.useState<PlayList[]>([]);
   React.useEffect(() => {
-    setPlaylist(playlistService.getAllPlaylist());
+    let nameQuery = '';
+    if(name){
+      nameQuery = name.toString();
+    }
+    fetchMyApi(nameQuery);
   }, []);
+
+
+  async function fetchMyApi(name: string) {
+    setLoader(true);
+
+    var response = await PlayListService.getPlayListItems(name);
+    console.log("playlistService getAllPlayLists", response);
+    if (response.status == true) {
+        setPlaylist(response.data);
+    }
+    setLoader(false);
+}
  
   const rows = generateRows(playlist);
   return (
     <Layout>
       <div className="flex justify-between items-center m-6">
         <div>
-          <h2 className="text-xl font-bold">Playlist Management</h2>
+          <h2 className="text-xl font-bold">{name}</h2>
           <Breadcrumbs
-            currentPage={"Playlist Management"}
+            currentPage={"Playlist Editor"}
             routes={breadcrumbPaths}
           />
         </div>
-        <Button>Add Playlist</Button>
+        <Button>Add Media</Button>
       </div>
       <DataGrid
         sx={{

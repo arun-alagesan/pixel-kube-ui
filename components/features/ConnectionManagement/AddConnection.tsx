@@ -52,7 +52,7 @@ export default function AddConnection(props: any) {
   const fnSuccess = (response:any) => {
     if(response!=null)
     {
-      const data={'connectorName':props.connectorName,'connectorResponse':response.data};
+      const data={'connectorName':props.connectorName,'connectorResponse':response.data,fetchConnectorList:props.fetchConnectorList};
       console.log(data);
       setResponseData(data);
     }
@@ -95,8 +95,7 @@ export default function AddConnection(props: any) {
           <MenuItem value={20}>Office 365 (Basic Authentication) </MenuItem>
           <MenuItem value={30}>Office 365 (Modern Authentication) </MenuItem>
         </Select>
-        <div style={{display:'flex',color:'rgb(148 163 184)',justifyContent:'center',
-         alignItems:'center',paddingTop:'20px',paddingBottom:'20px'}}>OR</div>
+       
         <div className="py-3">
           <label className="w-full" htmlFor="delegatedUserId">
           <TextField inputRef={delegatedUserId}  fullWidth id="outlined-basic" label="ServiceAccount User" variant="outlined" required/> 
@@ -108,6 +107,8 @@ export default function AddConnection(props: any) {
           <input  ref={hiddenFileInput} id="files" hidden type="file" onChange={handleFileChange} accept=".json"/>
           <label id="lblSelectedFile" htmlFor="files">&nbsp;&nbsp;{selectedFile}</label>
           </div>
+          <div style={{display:'flex',color:'rgb(148 163 184)',justifyContent:'center',
+         alignItems:'center',paddingTop:'20px',paddingBottom:'10px'}}>OR</div>
         </FormControl>
         </div>
       </ModalBody>

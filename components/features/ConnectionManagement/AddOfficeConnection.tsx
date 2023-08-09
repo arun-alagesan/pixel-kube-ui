@@ -42,6 +42,7 @@ export default function AddOfficeConnection(props: any) {
     const res = axios.post(url, req).then((response) => {
       console.log(response);
       alert('Saved');
+      props.fetchConnectorList();
       props.close();
     }).catch((error) => {
       console.log(error);

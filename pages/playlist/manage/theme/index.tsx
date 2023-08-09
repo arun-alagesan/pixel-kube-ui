@@ -9,7 +9,7 @@ import {
 import Layout from "../../../../components/Layout";
 import Button from "../../../../components/common/Button";
 import Breadcrumbs from "../../../../components/common/Breadcrumbs";
-import { playlistService } from "../../../../services/playlist.service";
+import PlaylistService from "../../../../services/playlist.service";
 import { Box, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Slider, Stack } from "@mui/material";
 import { CopyAll, Delete, Edit, VolumeDown, VolumeUp } from "@mui/icons-material";
 import { themeService } from "../../../../services/theme.service";

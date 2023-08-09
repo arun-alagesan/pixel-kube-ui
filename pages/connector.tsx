@@ -37,18 +37,24 @@ const Connector = () => {
     });
  }
 
-  useEffect(() => {
-    let url = config.connectionManagement.baseURL + config.connectionManagement.GetAllConnectors;
+ const fetchConnectorList=()=>{
+  let url = config.connectionManagement.baseURL + config.connectionManagement.GetAllConnectors;
     const temp: any = getConnectorList();
     axios.get(url).then(res => {
       setConnectorList(res.data);
     })
 
     setConnectorList(temp);
+ }
+
+  useEffect(() => {
+    fetchConnectorList();
   }, []);
 
+ 
+
   const addModal = () => {
-    ModalService.open(ChooseConnector);
+    ModalService.open(ChooseConnector,{fetchConnectorList});
   };
 
   return (
@@ -84,7 +90,7 @@ const Connector = () => {
                 </div>
                 <div className="py-4 overflow-auto" style={{ maxHeight: '68vh' }}>
                   {connectorList.map((data, index) => (
-                    <ConnectorList key={index} data={data} />
+                    <ConnectorList key={index} data={data} fetchConnectorList={fetchConnectorList}/>
                   ))}
                 </div>
               </div>

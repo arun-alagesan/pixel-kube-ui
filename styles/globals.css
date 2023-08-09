@@ -320,3 +320,7 @@ input:checked+.slider:before {
   background-color: #1976d2;
 
 }
+
+.MuiBox-root {
+  padding: 0!important;
+}

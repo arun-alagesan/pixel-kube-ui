@@ -16,8 +16,21 @@ import PlayerList from "../../../../models/player/PlayerList";
 import Router from 'next/router';
 import AddUpdatePlayer from '../grid-view/AddUpdatePlayer';
 import CreateBuilding from "../../SpaceManagement/Building/CreateBuilding";
+import {RecoilRoot, atom, useRecoilValue, useRecoilState } from "recoil";
+import {playerSearchTextAtom} from "../search-field/index";
+import { PlayerCardInfoAtom } from '../PlayerDeviceInfo';
 
-const PlayerData = () => {
+export const playerDataAtom = atom<PlayerList[]>({
+  key: "playerData",
+  default: [],
+});
+
+export const EditPlayerAtom = atom({
+  key: "EditPlayerId",
+  default: '',
+});
+
+const PlayerData = (props: any) => {
 
   const playerListColumn = [
     { field: 'status', headerName: '', width: 130 , hide: true },
@@ -37,7 +50,7 @@ const PlayerData = () => {
         return (
           <div className="flex">
             <Button>
-              <EditIcon></EditIcon>
+              <EditIcon  onClick={(e) => editPlayer(e, params.row)} ></EditIcon>
             </Button>
             <Button onClick={(e) => deletePlayer(e, params.row)} color="error" >
               <DeleteIcon></DeleteIcon>
@@ -49,7 +62,13 @@ const PlayerData = () => {
   ];
 
   const [playerListData, setPlayer] = useState<PlayerList[]>([]);
+  const [playerData, setPlayerData] = useRecoilState(playerDataAtom);
+  const [editPlayerId, setEditPlayerId] = useRecoilState(EditPlayerAtom);
+  const [playerCardInfo, setPlayerCardInfo] = useRecoilState(PlayerCardInfoAtom);
   const [loader, setLoader] = useState<boolean>(false);
+  const searchTxt = useRecoilValue(playerSearchTextAtom).toLowerCase();
+  const playerDataFilter = (playerData || [])
+        .filter(row => searchTxt ? (row.deviceName.toLowerCase().includes(searchTxt) || row.serialNumber.toLowerCase().includes(searchTxt)  || row.locationName.toLowerCase().includes(searchTxt)) : row);
   useEffect(() => {
       fetchMyApi();
       const urlParams = new URLSearchParams(window.location.search).get('openModal');;
@@ -62,7 +81,17 @@ const PlayerData = () => {
       var response = await PlayerManagementService.getPlayerList();
       console.log("PlayerManagementService getPlayerList", response);
       if (response.status == true) {
-        setPlayer(response.data);
+        //setPlayer(response.data);
+        setPlayerData(response.data);
+        if(response.data){
+          const cardInfo = {
+            total : response.data.length,
+            active : response.data.length,
+            critical : response.data.length,
+            incidents : response.data.length,
+          }
+          setPlayerCardInfo(cardInfo);
+        }
       }
       setLoader(false);
   }
@@ -74,12 +103,20 @@ const PlayerData = () => {
 
   const openAddPlayerModel = () => {
     contextData.setOpenAddPlayerTab(true);
+    //openModel(AddUpdatePlayer, { "submittedCallback": fetchMyApi })
   }
 
   const openModel = (component: any, props?: any) => {
     console.log("open clicked");
     ModalService.open(component, props);
   };
+
+  function editPlayer (e :any, row: PlayerList) {
+    e.stopPropagation();
+    debugger;
+    setEditPlayerId(row.serialNumber);
+    contextData.setOpenAddPlayerTab(true);
+  }
 
   async function deletePlayer (e :any, row: PlayerList) {
     e.stopPropagation();
@@ -122,7 +159,7 @@ const PlayerData = () => {
                     <div className="row">
                         <div className="col-12" style={{ height: 400, width: '100%' }}>
                         <DataGrid
-                            rows={playerListData}
+                            rows={playerDataFilter}
                             columns={playerListColumn}
                             pageSize={5}
                             rowsPerPageOptions={[5]}

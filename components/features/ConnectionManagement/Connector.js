@@ -20,11 +20,9 @@ export default function Connector(props) {
         return <li key={x.sourceCalendarId}>{x.title}</li>;
     });
 
-    const onSave = () => {
+    const onSave = async () => {
 
-        openModel(SaveAlert, {
-            "onSave": async () => {
-                setLoader(true);
+                //setLoader(true);
                 let url=config.connectionManagement.baseURL+config.connectionManagement.AddCalender;
                 const req={
                     "name": props.connectorName,
@@ -42,15 +40,15 @@ export default function Connector(props) {
                 console.log(req);
                 const result = await axios.post(url, req);
                 if (result.status == 200) {
-                    //await fetchMyApi();
+                    openModel(SaveAlert,{});
                     console.log('Save Success');
+                    props.fetchConnectorList();
                 }
                 else
                     console.log('Save Failed');
-                setLoader(false);
-                props.close();
-              }
-          });
+                //setLoader(false);
+                //props.close();
+             
 
 
 

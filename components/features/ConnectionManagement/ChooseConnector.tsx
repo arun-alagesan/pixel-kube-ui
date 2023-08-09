@@ -26,7 +26,8 @@ export default function ChooseConnector(props: any) {
     console.log(connectorName);
     const connectorDetails={
       connectorName:connectorName.current.value,
-      SelectedCalenderId:calenderValue
+      SelectedCalenderId:calenderValue,
+      fetchConnectorList:props.fetchConnectorList
     }
     if(calenderValue=="30")
       ModalService.open(AddOfficeConnection,connectorDetails);

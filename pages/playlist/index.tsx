@@ -2,17 +2,35 @@ import React, { useEffect, useState } from "react";
 import Breadcrumbs from "../../components/common/Breadcrumbs";
 import Button from "../../components/common/Button";
 import PlaylistCard from "../../components/common/PlaylistCard";
+import PlayList from "../../models/PlayList/PlayList";
 import Layout from "../../components/Layout";
-import { playlistService } from "../../services/playlist.service";
-
+import PlaylistService from "../../services/playlist.service";
+import Router from 'next/router';
 
 function Index() {
+
   let breadcrumbPaths = [{ name: "Home", path: "/" }];
-  const [ playlist , SetPlaylist] = useState<any>([])
+
+  const [loader, setLoader] = useState<boolean>(false);
+  const [ playlist , setPlaylist] = useState<PlayList[]>([])
+
   useEffect(() => {
-    SetPlaylist(playlistService.getAllPlaylist())
+    fetchMyApi()
   }, [])
-  console.log(playlist)
+
+  async function fetchMyApi() {
+        setLoader(true);
+        var response = await PlaylistService.getAllPlayLists();
+        console.log("playlistService getAllPlayLists", response);
+        if (response.status == true) {
+            setPlaylist(response.data);
+        }
+        setLoader(false);
+    }
+
+
+
+
   return (
     <>
       <Layout>
@@ -24,10 +42,10 @@ function Index() {
             routes={breadcrumbPaths}
           />
           </div>
-          <Button>Add Playlist</Button>
+          <Button variant="contained" type="submit" onClick={() => Router.push('/playlist/Add')}>Add Playlist</Button>
         </div>
         <div className="m-6 flex gap-4 flex-wrap ">
-            {playlist.map(data => <PlaylistCard key={data.id} name={data.name} id={data.id} image={data.image}/>) }
+            {playlist.map(data => <PlaylistCard key={data.id} name={data.playListName} id={data.id} image={data.thumbnail}/>) }
         </div>
       </Layout>
     </>

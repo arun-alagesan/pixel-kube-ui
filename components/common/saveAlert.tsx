@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 
 
-type props = { onDelete: () => void, close?: any };
+type props = { onSave: () => void, close?: any };
 
-const SaveAlert = ({ onDelete, close }: props) => {
+const SaveAlert = ({ onSave, close }: props) => {
     return (
         <div className="bg-white p-5">
             <div className="row">
@@ -13,7 +13,7 @@ const SaveAlert = ({ onDelete, close }: props) => {
             </div>
             <div className="row mt-5">
                 <div className="col-6 text-center">
-                    <Button variant="contained" onClick={close} >
+                    <Button variant="contained" onClick={() => { close(); }} >
                         <div>Ok</div>
                     </Button>
                 </div>
